@@ -1,3 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;400;700&display=swap');
+
 body {
-  background: #fff;
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px; /* stylelint-disable-line */
+}
+
+header {
+  display: flex;
+  margin: 0 1rem;
+
+  img {
+    width: 100px;
+  }
+
+  ol {
+    list-style: none;
+    display: flex;
+
+    li {
+      margin: 0 1rem;
+    }
+  }
+}
+
+p {
+  max-width: 80ch;
+}
+
+// https://gist.github.com/ffoodd/000b59f431e3e64e4ce1a24d5bb36034
+.sr-only {
+  border: 0 !important; /* stylelint-disable-line */
+  clip: rect(1px, 1px, 1px, 1px) !important; /* stylelint-disable-line */
+  clip-path: inset(50%) !important; /* stylelint-disable-line */
+  height: 1px !important; /* stylelint-disable-line */
+  margin: -1px !important; /* stylelint-disable-line */
+  overflow: hidden !important; /* stylelint-disable-line */
+  padding: 0 !important; /* stylelint-disable-line */
+  position: absolute !important; /* stylelint-disable-line */
+  width: 1px !important; /* stylelint-disable-line */
+  white-space: nowrap !important; /* stylelint-disable-line */
+
 }

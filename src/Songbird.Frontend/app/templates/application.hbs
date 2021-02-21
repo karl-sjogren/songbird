@@ -1,7 +1,15 @@
 {{page-title "Songbird"}}
 
-{{!-- The following component displays Ember's default welcome message. --}}
-<WelcomePage />
-{{!-- Feel free to remove this! --}}
+<header>
+  <LinkTo @route="index">
+    <span class="sr-only">Gå till startsidan</span>
+    <img src="/images/logo.svg" alt="" role="presentation">
+  </LinkTo>
+  <nav>
+    <ol>
+      <li><LinkTo @route="fika-buddies">Fika-kompisar</LinkTo></li>
+    </ol>
+  </nav>
+</header>
 
 {{outlet}}

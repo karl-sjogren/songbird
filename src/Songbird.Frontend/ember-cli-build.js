@@ -11,7 +11,7 @@ module.exports = function(defaults) {
       preferNative: true
     },
     babel: {
-      sourceMaps: isProduction ? 'inline' : undefined,
+      sourceMaps: isProduction ? undefined : 'inline',
       plugins: [
         '@babel/plugin-proposal-numeric-separator',
         '@babel/plugin-transform-literals',
@@ -33,8 +33,6 @@ module.exports = function(defaults) {
       { transformation: 'amd', as: 'qs' }
     ]
   });
-
-  app.import('node_modules/clndr/clndr.min.js');
 
   return app.toTree();
 };

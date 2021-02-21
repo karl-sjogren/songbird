@@ -1,0 +1,12 @@
+{{page-title "Fika-kompis-schema"}}
+
+<h1>Fika-kompisar</h1>
+
+<p>
+  Fika-kompisar för veckan som börjar {{format-date this.model.startDate}}.
+</p>
+
+
+{{#each this.model.matches as |group|}}
+  <FikaBuddyGroup @model={{group}} />
+{{/each}}

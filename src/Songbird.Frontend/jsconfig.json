@@ -6,7 +6,7 @@
         "baseUrl": "./",
         "checkJs": false,
         "paths": {
-            "am/*": ["./app/*"]
+            "songbird/*": ["./app/*"]
         }
     },
     "exclude": [

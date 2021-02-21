@@ -31,6 +31,7 @@ namespace Songbird.Web.Services {
                 .FikaSchedules
                 .AsNoTracking()
                 .Include(x => x.Matches).ThenInclude(x => x.Users)
+                .AsSplitQuery()
                 .FirstOrDefaultAsync(x => x.StartDate == startDate, cancellationToken);
 
             if(schedule != null) {
@@ -97,14 +98,15 @@ namespace Songbird.Web.Services {
             var startDate = _dateTimeProvider.Now.Date;
 
             if(startDate.DayOfWeek != DayOfWeek.Monday) {
-                _logger.LogWarning($"Can't generate a new fika schedule for date {startDate:yyyy-MM-dd} because a schedule has to start on a monday.");
-                return null;
+                var diff = DayOfWeek.Monday - startDate.DayOfWeek;
+                startDate = startDate.AddDays(diff - 7).Date;
             }
 
             return await _songbirdContext
                 .FikaSchedules
                 .AsNoTracking()
                 .Include(x => x.Matches).ThenInclude(x => x.Users)
+                .AsSplitQuery()
                 .FirstOrDefaultAsync(x => x.StartDate == startDate, cancellationToken);
         }
     }
