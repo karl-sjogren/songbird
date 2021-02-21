@@ -1,0 +1,13 @@
+{
+    "recommendations": [
+        "formulahendry.dotnet-test-explorer",
+        "ms-dotnettools.csharp",
+        "dbaeumer.vscode-eslint",
+        "mrmlnc.vscode-less",
+        "eamodio.gitlens",
+        "lifeart.vscode-ember-unstable",
+        "stylelint.vscode-stylelint",
+        "josefpihrt-vscode.roslynator",
+        "editorconfig.editorconfig"
+    ]
+}

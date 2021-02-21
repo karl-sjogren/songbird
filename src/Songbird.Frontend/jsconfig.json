@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": "./",
+        "checkJs": false,
+        "paths": {
+            "am/*": ["./app/*"]
+        }
+    },
+    "exclude": [
+        "/**/node_modules",
+        "/**/bower_components",
+        "/**/tmp",
+        "/**/vendor",
+        ".git",
+        "/**/dist",
+        "src/Songbird.Web/",
+        "test"
+    ]
+}
