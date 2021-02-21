@@ -4,7 +4,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
-<PropertyGroup>
-  <DefaultItemExcludes>$(DefaultItemExcludes);**\*</DefaultItemExcludes>
-</PropertyGroup>
+  <PropertyGroup>
+    <DefaultItemExcludes>$(DefaultItemExcludes);**\*</DefaultItemExcludes>
+  </PropertyGroup>
 </Project>

@@ -11,6 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="ClientApp/**" />
+    <Content Include="ClientApp/**">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="appsettings.Local.json" />
   </ItemGroup>
 
