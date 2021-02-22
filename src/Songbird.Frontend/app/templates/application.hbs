@@ -1,15 +1,19 @@
 {{page-title "Songbird"}}
 
-<header>
-  <LinkTo @route="index">
-    <span class="sr-only">Gå till startsidan</span>
-    <img src="/images/logo.svg" alt="" role="presentation">
-  </LinkTo>
-  <nav>
-    <ol>
-      <li><LinkTo @route="fika-buddies">Fika-kompisar</LinkTo></li>
-    </ol>
-  </nav>
-</header>
+<section class="main-wrapper">
+  <header>
+    <LinkTo @route="index">
+      <span class="sr-only">Gå till startsidan</span>
+      <img src="/images/logo.svg" alt="Songbird, två blå fåglar varav den ena kvittrar.">
+    </LinkTo>
+    <nav>
+      <ol>
+        <li><LinkTo @route="fika-buddies">Fika-kompisar</LinkTo></li>
+      </ol>
+    </nav>
+  </header>
 
-{{outlet}}
+  <main>
+    {{outlet}}
+  </main>
+</section>

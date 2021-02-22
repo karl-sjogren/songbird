@@ -14,11 +14,13 @@ namespace Songbird.Web {
         public virtual DbSet<FikaMatch> FikaMatches { get; set; }
         public virtual DbSet<FikaSchedule> FikaSchedules { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserPhoto> UserPhotos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
             modelBuilder.AddFikaMatch();
             modelBuilder.AddFikaSchedule();
             modelBuilder.AddUser();
+            modelBuilder.AddUserPhoto();
 
             OnModelCreatingPartial(modelBuilder);
         }

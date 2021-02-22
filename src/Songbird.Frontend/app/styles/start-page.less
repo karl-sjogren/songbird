@@ -1,0 +1,58 @@
+.start-page {
+  display: flex;
+  flex-direction: column;
+
+  > div {
+    order: 2;
+  }
+
+  aside {
+    display: flex;
+    order: 1;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 2rem;
+    background-color: #f0f8ff;
+
+    > img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background-image: url('/images/default-profile-image.png');
+      background-size: cover;
+      object-fit: cover;
+    }
+
+    span {
+      margin-top: 1rem;
+    }
+
+    .fika-buddies {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      img {
+        width: 70px;
+        height: 70px;
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-tablet-min) {
+  .start-page {
+    flex-direction: row;
+    justify-content: space-between;
+
+    > div {
+      order: 1;
+    }
+
+    aside {
+      display: flex;
+      order: 2;
+    }
+  }
+}

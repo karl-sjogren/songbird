@@ -28,7 +28,7 @@ namespace Songbird.Web.Services {
         }
 
         public async Task<User> GetUserAsync(ClaimsIdentity identity, CancellationToken cancellationToken) {
-            var externalId = identity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Sid)?.Value;
+            var externalId = identity.Claims.FirstOrDefault(c => c.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
 
             return await _songbirdContext
                 .Users

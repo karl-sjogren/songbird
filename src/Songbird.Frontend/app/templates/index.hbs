@@ -1,5 +1,23 @@
 {{page-title "Startsida"}}
 
-<h1>Songbird (aka Vulture Light)</h1>
+<section class="start-page">
+  <div>
+    <h1>Songbird (aka Vulture Light)</h1>
 
-<p>Detta är en liten app för att hantera fika-kompisar och kanske något annat som vi i framtiden bygger i Vulture 2 men aldrig kommer till skott med.</p>
+    <p>Detta är en liten app för att hantera fika-kompisar och kanske något annat som vi i framtiden bygger i Vulture 2 men aldrig kommer till skott med.</p>
+  </div>
+  <aside>
+    <h2>Välkommen!</h2>
+    <img src="/api/profile-image/{{this.me.userId}}/{{this.me.name}}" alt="" role="presentation" />
+    <span>{{this.me.name}}</span>
+
+    <h2>Fika-kompisar</h2>
+    <ul class="fika-buddies">
+      {{#each this.currentFikaBuddies as |buddy|}}
+        <li>
+          <img src="/api/profile-image/{{buddy.id}}/{{buddy.name}}" alt={{buddy.name}} title={{buddy.name}} />
+        </li>
+      {{/each}}
+    </ul>
+  </aside>
+</section>

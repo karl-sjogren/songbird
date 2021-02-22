@@ -1,26 +1,79 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;400;700&display=swap');
 
+@import 'variables.less';
+@import 'loader.less';
+@import 'start-page.less';
+@import 'fika-buddies.less';
+
 body {
-  font-family: 'Raleway', sans-serif;
+  font-family: @primary-font;
   font-size: 16px; /* stylelint-disable-line */
+  margin: 0;
+  background-color: #f0f8ff;
+}
+
+.main-wrapper {
+  background-color: #fff;
+  max-width: 1440px;
+  min-height: 100vh;
+  width: 100%;
+  margin: auto;
 }
 
 header {
   display: flex;
   margin: 0 1rem;
+  padding-top: 1rem;
 
   img {
-    width: 100px;
+    width: 150px;
   }
 
   ol {
     list-style: none;
     display: flex;
+    align-items: center;
+    height: 100%;
+    margin: 0;
 
     li {
+      display: flex;
       margin: 0 1rem;
+      height: 100%;
+
+      a {
+        display: flex;
+        align-items: center;
+      }
     }
   }
+}
+
+main {
+  margin: @body-margins;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font: @header-font;
+  display: flex;
+  word-break: break-all;
+  hyphens: auto;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
 }
 
 p {
@@ -39,5 +92,18 @@ p {
   position: absolute !important; /* stylelint-disable-line */
   width: 1px !important; /* stylelint-disable-line */
   white-space: nowrap !important; /* stylelint-disable-line */
+}
 
+@media (min-width: @screen-tablet-min) {
+  h1 {
+    font-size: 1.875rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+  }
 }
