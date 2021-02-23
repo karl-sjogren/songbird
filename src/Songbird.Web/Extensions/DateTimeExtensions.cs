@@ -23,8 +23,10 @@ namespace Songbird.Web.Extensions {
             return calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
         }
 
-        public static DateTime StartOfWeek(this DateTime date) {
-            var diff = date.DayOfWeek - CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
+        public static DateTime StartOfWeek(this DateTime date, DayOfWeek? firstDayOfWeek = null) {
+            firstDayOfWeek ??= CultureInfo.CurrentCulture.DateTimeFormat.FirstDayOfWeek;
+
+            var diff = date.DayOfWeek - firstDayOfWeek.Value;
             if(diff < 0) {
                 diff += 7;
             }
