@@ -22,9 +22,9 @@ namespace Songbird.Web.HostedServices {
             using var scope = _serviceScopeFactory.CreateScope();
 
             var date = _dateTimeProvider.Now.Date;
-            if(date.DayOfWeek != DayOfWeek.Monday) {
-                return;
-            }
+            //if(date.DayOfWeek != DayOfWeek.Monday) {
+            //    return;
+            //}
 
             _logger.LogInformation("Reminding people of fika schedule.");
             var fikaService = scope.ServiceProvider.GetRequiredService<IFikaScheduleService>();
