@@ -12,7 +12,7 @@
     <span>{{this.me.name}}</span>
 
     <h2>Fika-kompisar</h2>
-    <ul class="fika-buddies">
+    <ul>
       {{#each this.currentFikaBuddies as |buddy|}}
         <li>
           <img src="/api/profile-image/{{buddy.id}}/{{buddy.name}}" alt={{buddy.name}} title={{buddy.name}} />

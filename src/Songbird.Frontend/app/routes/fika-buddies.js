@@ -7,7 +7,7 @@ export default class FikaBuddiesRoute extends Route {
 
   model() {
     return hash({
-      model: this.fikaBuddyService.getCurrentBuddies()
+      model: this.fikaBuddyService.getLatestSchedules(5)
     });
   }
 

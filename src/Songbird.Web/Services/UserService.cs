@@ -73,6 +73,7 @@ namespace Songbird.Web.Services {
             user.Name = name;
             user.Email = email;
             user.ExternalId = externalId;
+            user.IsEligibleForFikaScheduling = false;
             user.UpdatedAt = _dateTimeProvider.Now;
 
             if(user.Id == Guid.Empty) {

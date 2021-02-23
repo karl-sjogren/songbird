@@ -10,6 +10,7 @@ namespace Songbird.Web.Models {
         public string ExternalId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+        public bool IsEligibleForFikaScheduling { get; set; }
         public DateTime? LastLogin { get; set; }
         public ICollection<FikaMatch> FikaMatches { get; set; }
     }

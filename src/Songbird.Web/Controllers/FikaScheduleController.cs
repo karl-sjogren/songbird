@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,16 @@ namespace Songbird.Web.Controllers {
                 return NotFound();
 
             return schedule;
+        }
+
+        [HttpGet("notify-slack")]
+        public async Task NotifySlackAboutLatestScheduleAsync(CancellationToken cancellationToken) {
+            await _fikaScheduleService.NotifySlackAboutLatestScheduleAsync(cancellationToken);
+        }
+
+        [HttpGet("list/{numberOfSchedules:int}")]
+        public async Task<ICollection<FikaSchedule>> GetLatestFikaSchedulesAsync(Int32 numberOfSchedules, CancellationToken cancellationToken) {
+            return await _fikaScheduleService.GetLatestFikaSchedulesAsync(numberOfSchedules, cancellationToken);
         }
 
         [HttpGet("{startDate:datetime}")]

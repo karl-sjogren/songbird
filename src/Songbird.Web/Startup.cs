@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Songbird.Web.Services;
 using Songbird.Web.Contracts;
 using Songbird.Web.HostedServices;
+using Songbird.Web.Options;
 
 namespace Songbird.Web {
     public class Startup {
@@ -38,14 +39,20 @@ namespace Songbird.Web {
             services.AddHttpClient();
             services.AddAutoMapper(configuration => configuration.AddCollectionMappers(), typeof(Startup).Assembly);
 
+            // Options
+            services.Configure<AzureAdOptions>(Configuration.GetSection("AzureAd"));
+            services.Configure<GraphApiOptions>(Configuration.GetSection("GraphApi"));
+            services.Configure<FikaBuddiesOptions>(Configuration.GetSection("FikaBuddies"));
+
             // Services
-            services.AddScoped<IDateTimeProvider, DateTimeProvider>();
+            services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             services.AddScoped<IFikaScheduleService, FikaScheduleService>();
             services.AddScoped<IUserService, UserService>();
 
             // Hosted services
             if(!DisableHostedServices) {
                 services.AddHostedService<CalculateFikaBuddiesHostedService>();
+                services.AddHostedService<NotifyFikaBuddiesOnSlackService>();
             }
         }
 

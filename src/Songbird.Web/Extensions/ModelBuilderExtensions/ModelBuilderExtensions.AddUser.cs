@@ -16,6 +16,10 @@ namespace Songbird.Web.Extensions {
                 entity.Property(e => e.Email)
                     .IsRequired();
 
+                entity.Property(e => e.IsEligibleForFikaScheduling)
+                    .HasDefaultValue(false)
+                    .IsRequired();
+
                 entity.Property(e => e.LastLogin);
 
                 entity.HasIndex(e => e.ExternalId);

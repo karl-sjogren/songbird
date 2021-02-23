@@ -2,12 +2,13 @@
 
 <h1>Fika-kompisar</h1>
 
-<p>
-  Fika-kompisar för veckan som börjar {{format-date this.model.startDate}}.
-</p>
-
 <section class="fika-buddies">
-  {{#each this.model.matches as |group|}}
-    <FikaBuddyGroup @model={{group}} />
+  {{#each this.model as |schedule|}}
+    <div>
+      <h2>Vecka {{luxon-format schedule.startDate 'W'}}</h2>
+      {{#each schedule.matches as |group|}}
+        <FikaBuddyGroup @model={{group}} />
+      {{/each}}
+    </div>
   {{/each}}
 </section>

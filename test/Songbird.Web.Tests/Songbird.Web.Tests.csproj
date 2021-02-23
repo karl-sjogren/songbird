@@ -19,4 +19,9 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Songbird.Web\Songbird.Web.csproj" />
+  </ItemGroup>
+
 </Project>
