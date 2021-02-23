@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -57,10 +58,12 @@ namespace Songbird.Web.PostConfigurationOptions {
 
         private static async Task UpdateUserPhotoAsync(IServiceScope serviceScope, Guid userId, ClaimsPrincipal claimsPrincipal) {
             var songbirdContext = serviceScope.ServiceProvider.GetRequiredService<SongbirdContext>();
+            var configuration = serviceScope.ServiceProvider.GetRequiredService<IConfiguration>();
             var dateTimeProvider = serviceScope.ServiceProvider.GetRequiredService<IDateTimeProvider>();
             var tokenAcquisition = serviceScope.ServiceProvider.GetRequiredService<ITokenAcquisition>();
 
-            var token = await tokenAcquisition.GetAccessTokenForUserAsync(new[] { "user.read" }, user: claimsPrincipal);
+            var scopes = configuration.GetValue<string>("GraphApi:Scopes")?.Split(' ', StringSplitOptions.TrimEntries);
+            var token = await tokenAcquisition.GetAccessTokenForUserAsync(scopes, user: claimsPrincipal);
 
             var graphService = new GraphServiceClient(new DelegateAuthenticationProvider(
                     requestMessage => {

@@ -34,6 +34,7 @@ namespace Songbird.Web {
             services.AddSinglePageApplication();
 
             // Misc
+            services.AddSingleton(Configuration); // Refactor into options
             services.AddHttpClient();
             services.AddAutoMapper(configuration => configuration.AddCollectionMappers(), typeof(Startup).Assembly);
 
