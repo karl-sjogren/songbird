@@ -1,19 +1,22 @@
-using Songbird.Web.Extensions;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
 using AutoMapper.EquivalencyExpression;
 using LetterAvatars.AspNetCore.Extensions;
-using System;
-using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.Net.Http.Headers;
 using Microsoft.AspNetCore.Authentication;
-using Serilog;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Songbird.Web.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Net.Http.Headers;
+using Serilog;
 using Songbird.Web.Contracts;
+using Songbird.Web.Extensions;
 using Songbird.Web.HostedServices;
 using Songbird.Web.Options;
+using Songbird.Web.Services;
 
 namespace Songbird.Web {
     public class Startup {
@@ -73,6 +76,17 @@ namespace Songbird.Web {
                 builder
                     .DenyAll()
             );
+
+            var cultureInfo = new CultureInfo("sv-SE");
+            app.UseRequestLocalization(new RequestLocalizationOptions {
+                DefaultRequestCulture = new RequestCulture(cultureInfo),
+                SupportedCultures = new List<CultureInfo> {
+                    cultureInfo
+                },
+                SupportedUICultures = new List<CultureInfo> {
+                    cultureInfo
+                }
+            });
 
             app.UseRouting();
 

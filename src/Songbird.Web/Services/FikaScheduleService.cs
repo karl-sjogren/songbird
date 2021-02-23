@@ -31,7 +31,7 @@ namespace Songbird.Web.Services {
         }
 
         public async Task<FikaSchedule> GenerateFikaScheduleForDateAsync(DateTime startDate, CancellationToken cancellationToken) {
-            startDate = startDate.StartOfWeek(DayOfWeek.Monday);
+            startDate = startDate.StartOfWeek();
 
             var schedule = await _songbirdContext
                 .FikaSchedules
@@ -101,7 +101,7 @@ namespace Songbird.Web.Services {
         }
 
         public async Task<FikaSchedule> GetCurrentFikaScheduleAsync(CancellationToken cancellationToken) {
-            var startDate = _dateTimeProvider.Now.Date.StartOfWeek(DayOfWeek.Monday);
+            var startDate = _dateTimeProvider.Now.Date.StartOfWeek();
 
             return await _songbirdContext
                 .FikaSchedules
@@ -127,7 +127,7 @@ namespace Songbird.Web.Services {
                 return;
             }
 
-            var startDate = _dateTimeProvider.Now.Date.StartOfWeek(DayOfWeek.Monday);
+            var startDate = _dateTimeProvider.Now.Date.StartOfWeek();
 
             var schedule = await _songbirdContext
                 .FikaSchedules
