@@ -2,7 +2,7 @@
 
 ## Requirements
 
-Följande behöver finnas installerat på utvecklingsmaskinen.
+The following things needs to be installed on the development machine.
 
 * Node JS >= 12 (https://nodejs.org/)
     * Ember CLI (https://www.npmjs.com/package/ember-cli)
@@ -12,12 +12,12 @@ Följande behöver finnas installerat på utvecklingsmaskinen.
 
 ## Running the project
 
-To run this project two terminal windows is needed (or preferably a split terminal window)
+To run this project two terminal windows is needed (or preferably a split terminal window).
 
 ### Window 1
 
-Window 1 should be started as Administrator since Ember wants to use symlinks. This speeds up
-the build process **a lot**.
+Window 1 should be started as Administrator (assuming this is run on Windows since Ember
+wants to use symlinks. This speeds up the build process **a lot**.
 
 ```
 cd src/Songbird.Frontend/
