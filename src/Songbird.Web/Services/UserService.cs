@@ -65,7 +65,8 @@ namespace Songbird.Web.Services {
 
             if(user == null) {
                 user = new User {
-                    CreatedAt = _dateTimeProvider.Now
+                    CreatedAt = _dateTimeProvider.Now,
+                    IsEligibleForFikaScheduling = false
                 };
                 _logger.LogInformation($"Creating new user for externalId {externalId} with externalId {externalId}.");
             }
@@ -73,11 +74,13 @@ namespace Songbird.Web.Services {
             user.Name = name;
             user.Email = email;
             user.ExternalId = externalId;
-            user.IsEligibleForFikaScheduling = false;
-            user.UpdatedAt = _dateTimeProvider.Now;
 
             if(user.Id == Guid.Empty) {
                 await _songbirdContext.Users.AddAsync(user, cancellationToken);
+            }
+
+            if(_songbirdContext.Entry(user).State == EntityState.Modified) {
+                user.UpdatedAt = _dateTimeProvider.Now;
             }
 
             await _songbirdContext.SaveChangesAsync(cancellationToken);
