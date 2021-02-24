@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 
 [assembly: InternalsVisibleTo("Songbird.Web.Tests")]
 
@@ -49,13 +50,13 @@ namespace Songbird.Web {
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder => {
                     webBuilder
                 .ConfigureKestrel((_, config) => {
                     // Handle requests up to 50 MB
                     config.Limits.MaxRequestBodySize = 52_428_800;
                 })
-                .UseSerilog()
                 .ConfigureAppConfiguration((_, config) => config.AddConfiguration(Configuration))
                     .UseStartup<Startup>();
                 });

@@ -47,6 +47,9 @@ namespace Songbird.Web {
             services.Configure<GraphApiOptions>(Configuration.GetSection("GraphApi"));
             services.Configure<FikaBuddiesOptions>(Configuration.GetSection("FikaBuddies"));
 
+            // HttpClients
+            services.AddHttpClient<ISlackMessagingService, SlackMessagingService>();
+
             // Services
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             services.AddScoped<IFikaScheduleService, FikaScheduleService>();

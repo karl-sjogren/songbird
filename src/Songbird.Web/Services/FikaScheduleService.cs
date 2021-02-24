@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using Songbird.Web.Contracts;
 using Songbird.Web.Extensions;
 using Songbird.Web.Models;
@@ -17,14 +14,14 @@ using Songbird.Web.Options;
 namespace Songbird.Web.Services {
     public class FikaScheduleService : IFikaScheduleService {
         private readonly SongbirdContext _songbirdContext;
-        private readonly HttpClient _httpClient;
+        private readonly ISlackMessagingService _slackMessagingService;
         private readonly FikaBuddiesOptions _options;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly ILogger<FikaScheduleService> _logger;
 
-        public FikaScheduleService(SongbirdContext songbirdContext, HttpClient httpClient, IOptionsSnapshot<FikaBuddiesOptions> optionsSnapshot, IDateTimeProvider dateTimeProvider, ILogger<FikaScheduleService> logger) {
+        public FikaScheduleService(SongbirdContext songbirdContext, ISlackMessagingService slackMessagingService, IOptionsSnapshot<FikaBuddiesOptions> optionsSnapshot, IDateTimeProvider dateTimeProvider, ILogger<FikaScheduleService> logger) {
             _songbirdContext = songbirdContext;
-            _httpClient = httpClient;
+            _slackMessagingService = slackMessagingService;
             _options = optionsSnapshot.Value;
             _dateTimeProvider = dateTimeProvider;
             _logger = logger;
@@ -136,62 +133,14 @@ namespace Songbird.Web.Services {
                 .AsSplitQuery()
                 .FirstOrDefaultAsync(x => x.StartDate == startDate, cancellationToken);
 
-            var slackMessage = new {
-                blocks = new[] {
-                    new {
-                        type = "section",
-                        text = new {
-                            type = "mrkdwn",
-                            text = _options.SlackMessage
-                        },
-                        accessory = new {
-                            type = "button",
-                            text = new {
-                                type = "plain_text",
-                                text = _options.SlackButtonText,
-                                emoji = true
-                            },
-                            value = "button_value",
-                            url = _options.SlackButtonUrl,
-                            action_id = "button-action"
-                        }
-                    }
-                }
+            var slackMessage = new SlackMessageWithLinkButton {
+                Webhook = _options.SlackWebhook,
+                Message = _options.SlackMessage,
+                ButtonText = _options.SlackButtonText,
+                ButtonUrl = _options.SlackButtonUrl
             };
 
-            var request = new HttpRequestMessage(HttpMethod.Post, _options.SlackWebhook) {
-                Content = new StringContent(JsonConvert.SerializeObject(slackMessage), Encoding.UTF8, "text/json")
-            };
-
-            var response = await _httpClient.SendAsync(request, cancellationToken);
-
-            response.EnsureSuccessStatusCode();
+            await _slackMessagingService.SendMessageAsync(slackMessage, cancellationToken);
         }
     }
 }
-
-/*
-
-{
-	"blocks": [
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "Nytt fikaschema finns ute nu!"
-			},
-			"accessory": {
-				"type": "button",
-				"text": {
-					"type": "plain_text",
-					"text": "Visa schema",
-					"emoji": true
-				},
-				"value": "click_me_123",
-				"url": "https://google.com",
-				"action_id": "button-action"
-			}
-		}
-	]
-}
-*/
