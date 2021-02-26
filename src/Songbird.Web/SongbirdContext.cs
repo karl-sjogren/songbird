@@ -3,7 +3,7 @@ using Songbird.Web.Extensions;
 using Songbird.Web.Models;
 
 namespace Songbird.Web {
-    public partial class SongbirdContext : DbContext {
+    public class SongbirdContext : DbContext {
         public SongbirdContext() : this(null) {
         }
 
@@ -11,20 +11,20 @@ namespace Songbird.Web {
             : base(options) {
         }
 
+        public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<FikaMatch> FikaMatches { get; set; }
         public virtual DbSet<FikaSchedule> FikaSchedules { get; set; }
+        public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserPhoto> UserPhotos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.AddCustomer();
             modelBuilder.AddFikaMatch();
             modelBuilder.AddFikaSchedule();
+            modelBuilder.AddProject();
             modelBuilder.AddUser();
             modelBuilder.AddUserPhoto();
-
-            OnModelCreatingPartial(modelBuilder);
         }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

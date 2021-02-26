@@ -59,7 +59,6 @@ jobs:
     inputs:
       script: node_modules/.bin/ember build --environment=production --out ../Songbird.Web/ClientApp
       workingDirectory: src/Songbird.Frontend
-      failOnStderr: false # There is a naughty module that writes a warning to stderr which breaks everything if this is enabled. A failing build shouldn't pass tests though so this should be fine.
   - task: UseDotNet@2
     displayName: 'Install .NET Core'
     inputs:

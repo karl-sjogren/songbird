@@ -24,6 +24,8 @@ namespace Songbird.Web.Extensions {
                 .HasDefaultValueSql("0")
                 .IsRequired();
 
+            builder.Property(e => e.DeletedAt);
+
             return builder;
         }
     }

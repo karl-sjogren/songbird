@@ -39,8 +39,8 @@ namespace Songbird.Web {
 
             // Misc
             services.AddSingleton(Configuration); // Refactor into options
-            services.AddHttpClient();
             services.AddAutoMapper(configuration => configuration.AddCollectionMappers(), typeof(Startup).Assembly);
+            services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
             // Options
             services.Configure<AzureAdOptions>(Configuration.GetSection("AzureAd"));
@@ -48,17 +48,18 @@ namespace Songbird.Web {
             services.Configure<FikaBuddiesOptions>(Configuration.GetSection("FikaBuddies"));
 
             // HttpClients
+            services.AddHttpClient();
             services.AddHttpClient<ISlackMessagingService, SlackMessagingService>();
 
             // Services
-            services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+            services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IFikaScheduleService, FikaScheduleService>();
             services.AddScoped<IUserService, UserService>();
 
             // Hosted services
             if(!DisableHostedServices) {
                 services.AddHostedService<CalculateFikaBuddiesHostedService>();
-                services.AddHostedService<NotifyFikaBuddiesOnSlackService>();
+                services.AddHostedService<NotifyFikaBuddiesOnSlackHostedService>();
             }
         }
 

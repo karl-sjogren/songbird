@@ -6,12 +6,12 @@ using Microsoft.Extensions.Logging;
 using Songbird.Web.Contracts;
 
 namespace Songbird.Web.HostedServices {
-    public class NotifyFikaBuddiesOnSlackService : DailyHostedService {
+    public class NotifyFikaBuddiesOnSlackHostedService : DailyHostedService {
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly ILogger<CalculateFikaBuddiesHostedService> _logger;
 
-        public NotifyFikaBuddiesOnSlackService(IServiceScopeFactory serviceScopeFactory, IDateTimeProvider dateTimeProvider, ILogger<CalculateFikaBuddiesHostedService> logger)
+        public NotifyFikaBuddiesOnSlackHostedService(IServiceScopeFactory serviceScopeFactory, IDateTimeProvider dateTimeProvider, ILogger<CalculateFikaBuddiesHostedService> logger)
             : base(TimeSpan.Parse("08:00:00"), dateTimeProvider, logger) {
             _serviceScopeFactory = serviceScopeFactory;
             _dateTimeProvider = dateTimeProvider;
