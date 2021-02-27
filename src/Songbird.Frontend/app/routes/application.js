@@ -16,7 +16,16 @@ export default class ApplicationRoute extends Route {
 
   model() {
     return hash({
-      me: this.meService.initialize()
-    });
+      me: this.meService.initialize(),
+      //slowdown: new Promise(resolve => {
+      //  window.setTimeout(() => resolve(), 5000);
+      //})
+    })
+      .then(models => {
+        const warmupLoader = document.querySelector('.warmup-loader');
+        warmupLoader?.remove();
+
+        return models;
+      });
   }
 }
