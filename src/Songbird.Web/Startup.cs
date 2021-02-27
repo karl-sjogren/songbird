@@ -54,6 +54,7 @@ namespace Songbird.Web {
             // Services
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IFikaScheduleService, FikaScheduleService>();
+            services.AddScoped<ILunchGamingDateService, LunchGamingDateService>();
             services.AddScoped<IUserService, UserService>();
 
             // Hosted services

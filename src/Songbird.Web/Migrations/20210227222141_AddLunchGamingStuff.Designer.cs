@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Songbird.Web;
 
 namespace Songbird.Web.Migrations
 {
     [DbContext(typeof(SongbirdContext))]
-    partial class SongbirdContextModelSnapshot : ModelSnapshot
+    [Migration("20210227222141_AddLunchGamingStuff")]
+    partial class AddLunchGamingStuff
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

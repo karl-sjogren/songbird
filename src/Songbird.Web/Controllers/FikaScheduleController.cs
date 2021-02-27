@@ -11,17 +11,17 @@ namespace Songbird.Web.Controllers {
     [ApiController]
     [Route("api/fika-schedule")]
     public class FikaScheduleController : Controller {
-        private readonly IFikaScheduleService _fikaScheduleService;
+        private readonly IFikaScheduleService _service;
         private readonly ILogger<FikaScheduleController> _logger;
 
-        public FikaScheduleController(IFikaScheduleService fikaScheduleService, ILogger<FikaScheduleController> logger) {
-            _fikaScheduleService = fikaScheduleService;
+        public FikaScheduleController(IFikaScheduleService service, ILogger<FikaScheduleController> logger) {
+            _service = service;
             _logger = logger;
         }
 
         [HttpGet]
         public async Task<ActionResult<FikaSchedule>> GetCurrentFikaScheduleAsync(CancellationToken cancellationToken) {
-            var schedule = await _fikaScheduleService.GetCurrentFikaScheduleAsync(cancellationToken);
+            var schedule = await _service.GetCurrentFikaScheduleAsync(cancellationToken);
             if(schedule == null)
                 return NotFound();
 
@@ -30,17 +30,17 @@ namespace Songbird.Web.Controllers {
 
         [HttpGet("notify-slack")]
         public async Task NotifySlackAboutLatestScheduleAsync(CancellationToken cancellationToken) {
-            await _fikaScheduleService.NotifySlackAboutLatestScheduleAsync(cancellationToken);
+            await _service.NotifySlackAboutLatestScheduleAsync(cancellationToken);
         }
 
         [HttpGet("list/{numberOfSchedules:int}")]
         public async Task<ICollection<FikaSchedule>> GetLatestFikaSchedulesAsync(Int32 numberOfSchedules, CancellationToken cancellationToken) {
-            return await _fikaScheduleService.GetLatestFikaSchedulesAsync(numberOfSchedules, cancellationToken);
+            return await _service.GetLatestFikaSchedulesAsync(numberOfSchedules, cancellationToken);
         }
 
         [HttpGet("{startDate:datetime}")]
         public async Task<ActionResult<FikaSchedule>> GenerateFikaScheduleForDateAsync(DateTime startDate, CancellationToken cancellationToken) {
-            var schedule = await _fikaScheduleService.GenerateFikaScheduleForDateAsync(startDate, cancellationToken);
+            var schedule = await _service.GenerateFikaScheduleForDateAsync(startDate, cancellationToken);
             if(schedule == null)
                 return NotFound();
 

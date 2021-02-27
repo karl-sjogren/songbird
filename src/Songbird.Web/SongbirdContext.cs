@@ -14,6 +14,8 @@ namespace Songbird.Web {
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<FikaMatch> FikaMatches { get; set; }
         public virtual DbSet<FikaSchedule> FikaSchedules { get; set; }
+        public virtual DbSet<LunchGamingAttendance> LunchGamingAttendance { get; set; }
+        public virtual DbSet<LunchGamingDate> LunchGamingDates { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserPhoto> UserPhotos { get; set; }
@@ -22,6 +24,8 @@ namespace Songbird.Web {
             modelBuilder.AddCustomer();
             modelBuilder.AddFikaMatch();
             modelBuilder.AddFikaSchedule();
+            modelBuilder.AddLunchGamingAttendance();
+            modelBuilder.AddLunchGamingDate();
             modelBuilder.AddProject();
             modelBuilder.AddUser();
             modelBuilder.AddUserPhoto();

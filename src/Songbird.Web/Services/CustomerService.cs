@@ -50,10 +50,9 @@ namespace Songbird.Web.Services {
                 existingItem.UpdatedAt = _dateTimeProvider.Now;
             }
 
-            _songbirdContext.Add(model);
             await _songbirdContext.SaveChangesAsync(cancellationToken);
 
-            return model;
+            return existingItem;
         }
     }
 }
