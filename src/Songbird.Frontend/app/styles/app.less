@@ -49,6 +49,18 @@ header {
   }
 }
 
+.rough-borders {
+  --rough-fill: @body-background-color;
+  --rough-stroke: #bcb9e2;
+  --rough-stroke-width: 5px;
+  --rough-roughness: 7.8;
+
+  border-image-source: paint(rough-boxes);
+  border-image-slice: 0 fill;
+  border-image-outset: 10px;
+  background: none;
+}
+
 main {
   margin: @body-margins;
 }
