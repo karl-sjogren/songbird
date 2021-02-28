@@ -17,9 +17,9 @@ export default class ApplicationRoute extends Route {
   model() {
     return hash({
       me: this.meService.initialize(),
-      slowdown: new Promise(resolve => {
-        window.setTimeout(() => resolve(), 2000);
-      })
+      //slowdown: new Promise(resolve => {
+      //  window.setTimeout(() => resolve(), 2000);
+      //})
     })
       .then(models => {
         const warmupLoader = document.querySelector('.warmup-loader');
