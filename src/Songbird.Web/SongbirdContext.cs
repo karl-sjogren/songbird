@@ -11,9 +11,11 @@ namespace Songbird.Web {
             : base(options) {
         }
 
+        public virtual DbSet<BinaryFile> BinaryFiles { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<FikaMatch> FikaMatches { get; set; }
         public virtual DbSet<FikaSchedule> FikaSchedules { get; set; }
+        public virtual DbSet<LunchGame> LunchGames { get; set; }
         public virtual DbSet<LunchGamingAttendance> LunchGamingAttendance { get; set; }
         public virtual DbSet<LunchGamingDate> LunchGamingDates { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
@@ -21,9 +23,11 @@ namespace Songbird.Web {
         public virtual DbSet<UserPhoto> UserPhotos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.AddBinaryFile();
             modelBuilder.AddCustomer();
             modelBuilder.AddFikaMatch();
             modelBuilder.AddFikaSchedule();
+            modelBuilder.AddLunchGame();
             modelBuilder.AddLunchGamingAttendance();
             modelBuilder.AddLunchGamingDate();
             modelBuilder.AddProject();

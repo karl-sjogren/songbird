@@ -14,7 +14,7 @@ namespace Songbird.Web.Extensions {
                 .AddHttpContextAccessor()
                 .AddControllers(options => {
                     options.ModelBinderProviders.RemoveType<DateTimeModelBinderProvider>();
-                    options.CacheProfiles.Add("ProfileImage",
+                    options.CacheProfiles.Add("Image",
                         new CacheProfile() {
                             Duration = (Int32)TimeSpan.FromDays(1).TotalSeconds,
                             Location = ResponseCacheLocation.Any

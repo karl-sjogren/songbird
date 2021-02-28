@@ -1,16 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text;
 using AutoMapper.EquivalencyExpression;
 using LetterAvatars.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
+using Newtonsoft.Json;
 using Serilog;
 using Songbird.Web.Contracts;
 using Songbird.Web.Extensions;
@@ -41,6 +44,7 @@ namespace Songbird.Web {
             services.AddSingleton(Configuration); // Refactor into options
             services.AddAutoMapper(configuration => configuration.AddCollectionMappers(), typeof(Startup).Assembly);
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+            services.AddSingleton<IContentTypeProvider, FileExtensionContentTypeProvider>();
 
             // Options
             services.Configure<AzureAdOptions>(Configuration.GetSection("AzureAd"));
@@ -52,8 +56,10 @@ namespace Songbird.Web {
             services.AddHttpClient<ISlackMessagingService, SlackMessagingService>();
 
             // Services
+            services.AddScoped<IBinaryFileService, BinaryFileService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IFikaScheduleService, FikaScheduleService>();
+            services.AddScoped<ILunchGameService, LunchGameService>();
             services.AddScoped<ILunchGamingDateService, LunchGamingDateService>();
             services.AddScoped<IUserService, UserService>();
 
@@ -102,8 +108,14 @@ namespace Songbird.Web {
             app.Use(async (context, next) => {
                 if(!context.User.Identity.IsAuthenticated) {
                     if(context.Request.Path.StartsWithSegments("/api")) {
-                        // No challenges should be emitted for API calls
+                        var problemDetailsFactory = context.RequestServices?.GetRequiredService<ProblemDetailsFactory>();
+                        var problemDetails = problemDetailsFactory.CreateProblemDetails(context, statusCode: 401, detail: "API access requires authentication by OpenID or API key.");
+
+                        var json = JsonConvert.SerializeObject(problemDetails);
+                        var buffer = Encoding.UTF8.GetBytes(json);
+
                         context.Response.StatusCode = 401;
+                        await context.Response.BodyWriter.WriteAsync(buffer);
                         return;
                     }
 

@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Net.Http.Headers;
 
 namespace Songbird.Web.Controllers {
     [ApiController]
@@ -20,8 +22,8 @@ namespace Songbird.Web.Controllers {
         }
 
         [HttpGet("{userId:guid}/{name}")]
-        [ResponseCache(CacheProfileName = "ProfileImage")]
-        public async Task<IActionResult> GetProfileAsync(Guid userId, string name, CancellationToken cancellationToken) {
+        [ResponseCache(CacheProfileName = "Image")]
+        public async Task<IActionResult> GetProfileAsync(Guid userId, CancellationToken cancellationToken) {
             var userPhoto = await _songbirdContext
                 .UserPhotos
                 .FirstOrDefaultAsync(x => x.UserId == userId, cancellationToken);
@@ -29,6 +31,11 @@ namespace Songbird.Web.Controllers {
             if(userPhoto == null)
                 return File(_defaultImageBytes, "image/gif");
 
+            if(Request.Headers.TryGetValue(HeaderNames.IfNoneMatch, out var etag) && userPhoto.ETag?.Equals(etag) == true) {
+                return new StatusCodeResult((Int32)HttpStatusCode.NotModified);
+            }
+
+            Response.Headers[HeaderNames.ETag] = userPhoto.ETag;
             return File(userPhoto.Content, userPhoto.ContentType);
         }
     }

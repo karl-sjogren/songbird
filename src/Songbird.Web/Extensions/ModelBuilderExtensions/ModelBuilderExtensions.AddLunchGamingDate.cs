@@ -16,6 +16,12 @@ namespace Songbird.Web.Extensions {
                     .WithOne()
                     .HasForeignKey(e => e.DateId)
                     .HasPrincipalKey(e => e.Id);
+
+                entity
+                    .HasOne(e => e.Game)
+                    .WithMany()
+                    .HasForeignKey(e => e.GameId)
+                    .HasPrincipalKey(e => e.Id);
             });
         }
     }
