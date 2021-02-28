@@ -1,4 +1,4 @@
-<ul class="rough-borders">
+<ul class="rough-borders {{if this.highlight "highlighted"}}">
   {{#each @model.users as |user|}}
     <li>
       <img src="/api/profile-image/{{user.id}}/{{user.name}}" alt="" role="presentation" />
