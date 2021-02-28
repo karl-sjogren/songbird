@@ -12,7 +12,7 @@ namespace Songbird.Web.HostedServices {
         private readonly ILogger<CalculateFikaBuddiesHostedService> _logger;
 
         public NotifyFikaBuddiesOnSlackHostedService(IServiceScopeFactory serviceScopeFactory, IDateTimeProvider dateTimeProvider, ILogger<CalculateFikaBuddiesHostedService> logger)
-            : base(TimeSpan.Parse("08:00:00"), dateTimeProvider, logger) {
+            : base(TimeSpan.Parse("09:00:00"), dateTimeProvider, logger) {
             _serviceScopeFactory = serviceScopeFactory;
             _dateTimeProvider = dateTimeProvider;
             _logger = logger;
