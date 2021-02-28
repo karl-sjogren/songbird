@@ -3,11 +3,11 @@ import { inject } from '@ember/service';
 import { hash } from 'rsvp';
 
 export default class FikaBuddiesRoute extends Route {
-  @inject fikaBuddyService;
+  @inject fikaScheduleService;
 
   model() {
     return hash({
-      model: this.fikaBuddyService.getLatestSchedules(5)
+      model: this.fikaScheduleService.getLatestSchedules(5)
     });
   }
 

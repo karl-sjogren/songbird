@@ -4,12 +4,12 @@ import { hash } from 'rsvp';
 
 export default class IndexRoute extends Route {
   @inject meService;
-  @inject fikaBuddyService;
+  @inject fikaScheduleService;
 
   model() {
     return hash({
       me: this.meService.me,
-      fikaBuddies: this.fikaBuddyService.getCurrentBuddies()
+      fikaBuddies: this.fikaScheduleService.getCurrentBuddies()
     });
   }
 

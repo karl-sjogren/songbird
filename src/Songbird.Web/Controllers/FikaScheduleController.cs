@@ -33,7 +33,7 @@ namespace Songbird.Web.Controllers {
             await _service.NotifySlackAboutLatestScheduleAsync(cancellationToken);
         }
 
-        [HttpGet("list/{numberOfSchedules:int}")]
+        [HttpGet("latest/{numberOfSchedules:int}")]
         public async Task<ICollection<FikaSchedule>> GetLatestFikaSchedulesAsync(Int32 numberOfSchedules, CancellationToken cancellationToken) {
             return await _service.GetLatestFikaSchedulesAsync(numberOfSchedules, cancellationToken);
         }
