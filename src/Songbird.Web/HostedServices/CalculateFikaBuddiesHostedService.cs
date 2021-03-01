@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,11 @@ namespace Songbird.Web.HostedServices {
 
         protected override async Task ExecuteAsync(CancellationToken cancellationToken) {
             using var scope = _serviceScopeFactory.CreateScope();
+
+            // We use the RequestLocalizationMiddleware for this for requests but
+            // since this is triggered on a background thread we need to set it here
+            // as well.
+            CultureInfo.CurrentCulture = CultureInfo.CurrentUICulture = new("sv-SE");
 
             var date = _dateTimeProvider.Now.Date;
             if(date.DayOfWeek != DayOfWeek.Monday) {
