@@ -10,10 +10,11 @@ body {
   font-size: 16px; /* stylelint-disable-line */
   margin: 0;
   background-color: @body-background-color;
+  background-position: -75px -75px;
+  background-attachment: fixed;
 }
 
 .main-wrapper {
-  background-color: @main-background-color;
   max-width: 1440px;
   min-height: 100vh;
   width: 100%;
@@ -24,6 +25,7 @@ header {
   display: flex;
   margin: 0 1rem;
   padding-top: 1rem;
+  background: @main-background-color;
 
   img {
     width: 150px;
@@ -62,7 +64,10 @@ header {
 }
 
 main {
-  margin: @body-margins;
+  margin: @body-margins / 2;
+  margin-top: 0;
+  padding: @body-margins / 2;
+  background: @main-background-color;
 }
 
 h1, h2, h3, h4, h5, h6 {

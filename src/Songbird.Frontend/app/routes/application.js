@@ -18,7 +18,7 @@ export default class ApplicationRoute extends Route {
     return hash({
       me: this.meService.initialize(),
       //slowdown: new Promise(resolve => {
-      //  window.setTimeout(() => resolve(), 2000);
+      //  window.setTimeout(() => resolve(), 2000000);
       //})
     })
       .then(models => {

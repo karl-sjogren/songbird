@@ -36,6 +36,7 @@
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
     "clndr": "^1.5.1",
+    "delaunator": "^4.0.1",
     "els-intl-addon": "^1.0.5",
     "ember-auto-import": "^1.10.1",
     "ember-cli": "~3.24.0",
