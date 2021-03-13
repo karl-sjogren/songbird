@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using Serilog.Events;
 
 [assembly: InternalsVisibleTo("Songbird.Web.Tests")]
 
@@ -24,6 +25,7 @@ namespace Songbird.Web {
             var loggerConfiguration = new LoggerConfiguration()
                 .ReadFrom.Configuration(Configuration)
                 .Enrich.FromLogContext()
+                .Filter.ByExcluding(ExcludeEFCoreBasedOnQuery)
                 .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] [{RequestId}] {Message:lj}{NewLine}{Exception}")
                 .WriteTo.File(
                     @"D:\home\LogFiles\Application\songbird.txt",
@@ -59,5 +61,18 @@ namespace Songbird.Web {
                 .ConfigureAppConfiguration((_, config) => config.AddConfiguration(Configuration))
                     .UseStartup<Startup>();
                 });
+
+        private static bool ExcludeEFCoreBasedOnQuery(LogEvent logEvent) {
+            if(!logEvent.Properties.ContainsKey("commandText"))
+                return false;
+
+            var commandText = logEvent.Properties["commandText"];
+            if(commandText != null) {
+                if(commandText.ToString().Contains("[DISABLE_EF_LOGGING]"))
+                    return true;
+            }
+
+            return false;
+        }
     }
 }

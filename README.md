@@ -1,5 +1,7 @@
 # Songbird
 
+Small intranet stand-in to use at work until we get around to developing something for real.
+
 ## Requirements
 
 The following things needs to be installed on the development machine.

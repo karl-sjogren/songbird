@@ -44,6 +44,7 @@ namespace Songbird.Web {
             services.AddSingleton(Configuration); // Refactor into options
             services.AddAutoMapper(configuration => configuration.AddCollectionMappers(), typeof(Startup).Assembly);
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+            services.AddSingleton<IRandomNumberGenerator, RandomNumberGenerator>();
             services.AddSingleton<IContentTypeProvider, FileExtensionContentTypeProvider>();
 
             // Options

@@ -15,13 +15,15 @@ namespace Songbird.Web.Services {
     public class FikaScheduleService : IFikaScheduleService {
         private readonly SongbirdContext _songbirdContext;
         private readonly ISlackMessagingService _slackMessagingService;
+        private readonly IRandomNumberGenerator _randomNumberGenerator;
         private readonly FikaBuddiesOptions _options;
         private readonly IDateTimeProvider _dateTimeProvider;
         private readonly ILogger<FikaScheduleService> _logger;
 
-        public FikaScheduleService(SongbirdContext songbirdContext, ISlackMessagingService slackMessagingService, IOptionsSnapshot<FikaBuddiesOptions> optionsSnapshot, IDateTimeProvider dateTimeProvider, ILogger<FikaScheduleService> logger) {
+        public FikaScheduleService(SongbirdContext songbirdContext, ISlackMessagingService slackMessagingService, IOptionsSnapshot<FikaBuddiesOptions> optionsSnapshot, IRandomNumberGenerator randomNumberGenerator, IDateTimeProvider dateTimeProvider, ILogger<FikaScheduleService> logger) {
             _songbirdContext = songbirdContext;
             _slackMessagingService = slackMessagingService;
+            _randomNumberGenerator = randomNumberGenerator;
             _options = optionsSnapshot.Value;
             _dateTimeProvider = dateTimeProvider;
             _logger = logger;
@@ -57,6 +59,45 @@ namespace Songbird.Web.Services {
                 return null;
             }
 
+            var lastWeekDate = startDate.AddDays(-7);
+            var lastWeekSchedule = await _songbirdContext
+                .FikaSchedules
+                .AsNoTracking()
+                .Include(x => x.Matches).ThenInclude(x => x.Users)
+                .AsSplitQuery()
+                .FirstOrDefaultAsync(x => x.StartDate == lastWeekDate, cancellationToken);
+
+            do {
+                schedule.Matches = GenerateMatches(users);
+            } while(CheckIfTooSimilar(schedule, lastWeekSchedule));
+
+            await _songbirdContext.FikaSchedules.AddAsync(schedule, cancellationToken);
+            await _songbirdContext.SaveChangesAsync(cancellationToken);
+
+            return schedule;
+        }
+
+        private static bool CheckIfTooSimilar(FikaSchedule schedule, FikaSchedule lastWeekSchedule) {
+            if(lastWeekSchedule == null)
+                return false;
+
+            foreach(var match in schedule.Matches) {
+                var users = match.Users;
+                foreach(var user in users) {
+                    var lastWeekMatch = lastWeekSchedule.Matches.FirstOrDefault(m => m.Users.Any(u => u.Id == user.Id));
+                    if(lastWeekMatch == null)
+                        continue;
+
+                    var lastWeekUserIds = lastWeekMatch.Users.Where(x => x.Id != user.Id).Select(x => x.Id);
+                    if(lastWeekMatch.Users.Any(u => users.Any(x => x.Id == u.Id)))
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        private List<FikaMatch> GenerateMatches(List<User> users) {
             Shuffle(users);
 
             var matches = users
@@ -77,20 +118,15 @@ namespace Songbird.Web.Services {
                 matches.Last().Users.Add(lastMatch.Users.First());
             }
 
-            schedule.Matches = matches;
-            await _songbirdContext.FikaSchedules.AddAsync(schedule, cancellationToken);
-            await _songbirdContext.SaveChangesAsync(cancellationToken);
-
-            return schedule;
+            return matches;
         }
 
-        private static void Shuffle<T>(IList<T> list) {
+        private void Shuffle<T>(IList<T> list) {
             var count = list.Count;
-            var random = new Random();
 
             while(count > 1) {
                 count--;
-                var randomIndex = random.Next(count + 1);
+                var randomIndex = _randomNumberGenerator.Next(count + 1);
                 var value = list[randomIndex];
                 list[randomIndex] = list[count];
                 list[count] = value;

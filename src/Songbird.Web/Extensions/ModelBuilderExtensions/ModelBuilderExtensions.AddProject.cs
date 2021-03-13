@@ -13,7 +13,7 @@ namespace Songbird.Web.Extensions {
                 entity.Property(e => e.MontlyHours)
                     .IsRequired();
 
-                entity.Property(e => e.HexColor)
+                entity.Property(e => e.AccentColor)
                     .IsRequired();
 
                 entity.Property(e => e.Timestamp)
