@@ -9,7 +9,7 @@ module('Integration | Helper | luxon-format', function(hooks) {
   test('it renders', async function(assert) {
     this.set('inputValue', '2021-02-23');
 
-    await render(hbs`{{luxon-format @inputValue "W"}}`);
+    await render(hbs`{{luxon-format this.inputValue "W"}}`);
 
     assert.equal(this.element.textContent.trim(), '8');
   });
