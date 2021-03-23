@@ -77,7 +77,7 @@ jobs:
     inputs:
       command: 'test'
       projects: '**/*.Tests.csproj'
-      arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
+      arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:excludebyfile="**/Migrations/*.cs"'
       publishTestResults: true
   - task: PublishCodeCoverageResults@1
     displayName: 'Publish Code Coverage Report'
