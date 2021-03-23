@@ -7,7 +7,8 @@ module('Integration | Component | fika-buddy-group', function(hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function(assert) {
-    await render(hbs`<FikaBuddyGroup />`);
+    this.set('match', new { users: [] });
+    await render(hbs`<FikaBuddyGroup @model={{this.match}}/>`);
 
     assert.ok(true);
   });
