@@ -89,7 +89,7 @@ namespace Songbird.Web.Services {
                         continue;
 
                     var lastWeekUserIds = lastWeekMatch.Users.Where(x => x.Id != user.Id).Select(x => x.Id);
-                    if(lastWeekMatch.Users.Any(u => users.Any(x => x.Id == u.Id)))
+                    if(lastWeekUserIds.Any(userId => users.Any(x => x.Id == userId)))
                         return true;
                 }
             }
@@ -122,14 +122,12 @@ namespace Songbird.Web.Services {
         }
 
         private void Shuffle<T>(IList<T> list) {
-            var count = list.Count;
-
-            while(count > 1) {
-                count--;
-                var randomIndex = _randomNumberGenerator.Next(count + 1);
-                var value = list[randomIndex];
-                list[randomIndex] = list[count];
-                list[count] = value;
+            var listLength = list.Count;
+            for(var current = 0; current < (listLength - 1); current++) {
+                var randomINdex = current + _randomNumberGenerator.Next(listLength - current);
+                var item = list[randomINdex];
+                list[randomINdex] = list[current];
+                list[current] = item;
             }
         }
 
