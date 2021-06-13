@@ -37,6 +37,7 @@ namespace Songbird.Web {
             services.AddAvatars();
             services.AddControllersWithSerialization();
             services.AddCompression();
+            services.AddElasticsearch();
             services.AddEntityFramework(Configuration);
             services.AddSinglePageApplication();
 
@@ -49,6 +50,7 @@ namespace Songbird.Web {
 
             // Options
             services.Configure<AzureAdOptions>(Configuration.GetSection("AzureAd"));
+            services.Configure<ElasticsearchOptions>(Configuration.GetSection("Elasticsearch"));
             services.Configure<GraphApiOptions>(Configuration.GetSection("GraphApi"));
             services.Configure<FikaBuddiesOptions>(Configuration.GetSection("FikaBuddies"));
 
