@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Songbird.Web.DataObjects;
 using Songbird.Web.Models;
 
 namespace Songbird.Web.Contracts {

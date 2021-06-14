@@ -5,7 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Songbird.Web.Extensions {
     public static partial class StartupExtensions {
         public static void AddHealthChecks(this IServiceCollection services, IConfiguration configuration) {
-            services.AddHealthChecks()
+            services
+                .AddHealthChecks()
                 .AddDbContextCheck<SongbirdContext>(name: "SQL Database", customTestQuery: async (context, cancellationToken) => {
                     var connection = context.Database.GetDbConnection();
                     try {

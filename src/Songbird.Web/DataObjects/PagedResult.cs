@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace Songbird.Web.Models {
+namespace Songbird.Web.DataObjects {
     public class PagedResult<T> where T : class {
         public PagedResult() {
             Items = new ReadOnlyCollection<T>(Array.Empty<T>());

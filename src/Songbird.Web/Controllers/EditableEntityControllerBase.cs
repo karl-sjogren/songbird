@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Songbird.Web.Contracts;
+using Songbird.Web.DataObjects;
 using Songbird.Web.Models;
 
 namespace Songbird.Web.Controllers {
