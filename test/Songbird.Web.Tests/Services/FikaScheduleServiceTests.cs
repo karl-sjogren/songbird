@@ -46,19 +46,27 @@ namespace Songbird.Web.Tests.Services {
             _songbirdContext.Users.AddRange(new User[] {
                 new() {
                     Name = "Sven",
-                    IsEligibleForFikaScheduling = true
+                    IsEligibleForFikaScheduling = true,
+                    Email = "Sven@songbird.internal",
+                    ExternalId = "Sven"
                 },
                 new() {
                     Name = "Arne",
-                    IsEligibleForFikaScheduling = true
+                    IsEligibleForFikaScheduling = true,
+                    Email = "Arne@songbird.internal",
+                    ExternalId = "Arne"
                 },
                 new() {
                     Name = "Nisse",
-                    IsEligibleForFikaScheduling = true
+                    IsEligibleForFikaScheduling = true,
+                    Email = "Nisse@songbird.internal",
+                    ExternalId = "Nisse"
                 },
                 new() {
                     Name = "Pelle",
-                    IsEligibleForFikaScheduling = true
+                    IsEligibleForFikaScheduling = true,
+                    Email = "Pelle@songbird.internal",
+                    ExternalId = "Pelle"
                 }
             });
 
@@ -87,19 +95,27 @@ namespace Songbird.Web.Tests.Services {
             _songbirdContext.Users.AddRange(new User[] {
                 new() {
                     Name = "Sven",
-                    IsEligibleForFikaScheduling = true
+                    IsEligibleForFikaScheduling = true,
+                    Email = "Sven@songbird.internal",
+                    ExternalId = "Sven"
                 },
                 new() {
                     Name = "Arne",
-                    IsEligibleForFikaScheduling = true
+                    IsEligibleForFikaScheduling = true,
+                    Email = "Arne@songbird.internal",
+                    ExternalId = "Arne"
                 },
                 new() {
                     Name = "Nisse",
-                    IsEligibleForFikaScheduling = true
+                    IsEligibleForFikaScheduling = true,
+                    Email = "Nisse@songbird.internal",
+                    ExternalId = "Nisse"
                 },
                 new() {
                     Name = "Pelle",
-                    IsEligibleForFikaScheduling = true
+                    IsEligibleForFikaScheduling = true,
+                    Email = "Pelle@songbird.internal",
+                    ExternalId = "Pelle"
                 }
             });
 
