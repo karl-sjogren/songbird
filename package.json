@@ -1,0 +1,14 @@
+{
+  "name": "songbird-scripts",
+  "version": "0.0.0",
+  "description": "Small intranet stand-in to use at work until we get around to developing something for real.",
+  "scripts": {
+    "generate-ef-models": "dotnet ef dbcontext optimize --project ./src/Songbird.Web/Songbird.Web.csproj --output-dir ./CompiledModels --namespace Songbird.Web.CompiledModels"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karl-sjogren/songbird.git"
+  },
+  "author": "Karl-Johan Sjögren",
+  "license": "MIT"
+}

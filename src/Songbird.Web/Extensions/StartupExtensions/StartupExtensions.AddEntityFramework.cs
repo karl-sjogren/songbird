@@ -7,7 +7,9 @@ namespace Songbird.Web.Extensions {
     public static partial class StartupExtensions {
         public static void AddEntityFramework(this IServiceCollection services, IConfiguration configuration) {
             services.AddDbContext<SongbirdContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("Songbird"),
+                options
+                    .UseModel(CompiledModels.SongbirdContextModel.Instance)
+                    .UseSqlServer(configuration.GetConnectionString("Songbird"),
                     sqlServerOptions =>
                         sqlServerOptions
                             .CommandTimeout(120)
