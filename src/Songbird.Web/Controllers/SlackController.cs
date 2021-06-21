@@ -4,17 +4,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Songbird.Web.Contracts;
 
 namespace Songbird.Web.Controllers {
     [ApiController]
     [Route("api/slack")]
     public class SlackController : Controller {
-        private readonly IUserService _userService;
         private readonly ILogger<MeController> _logger;
 
-        public SlackController(IUserService userService, ILogger<MeController> logger) {
-            _userService = userService;
+        public SlackController(ILogger<MeController> logger) {
             _logger = logger;
         }
 

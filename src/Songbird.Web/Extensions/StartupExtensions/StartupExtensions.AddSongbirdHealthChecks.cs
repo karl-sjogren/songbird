@@ -1,10 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Songbird.Web.Extensions {
     public static partial class StartupExtensions {
-        public static void AddHealthChecks(this IServiceCollection services, IConfiguration configuration) {
+        public static void AddSongbirdHealthChecks(this IServiceCollection services) {
             services
                 .AddHealthChecks()
                 .AddDbContextCheck<SongbirdContext>(name: "SQL Database", customTestQuery: async (context, cancellationToken) => {
