@@ -2,7 +2,6 @@
   <PropertyGroup>
     <Version>0.0.0</Version>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
 
   <ItemGroup>
