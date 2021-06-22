@@ -95,5 +95,5 @@ jobs:
   - task: PublishBuildArtifacts@1
     displayName: 'Publish artifacts'
     inputs:
-      pathtoPublish: 'artifacts/Songbird.Web'
+      pathtoPublish: 'artifacts/**/*.zip'
       artifactName: build-artifacts
