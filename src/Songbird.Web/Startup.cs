@@ -131,10 +131,10 @@ namespace Songbird.Web {
 
             app.UseAvatars("/avatars");
 
-            Action<StaticFileResponseContext> onPrepareResponse = ctx => {
+            static void onPrepareResponse(StaticFileResponseContext ctx) {
                 var cacheDuration = TimeSpan.FromDays(365).TotalSeconds;
                 ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=" + cacheDuration + ",immutable";
-            };
+            }
 
             app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = onPrepareResponse });
             app.UseSpaStaticFiles(new StaticFileOptions { OnPrepareResponse = onPrepareResponse });

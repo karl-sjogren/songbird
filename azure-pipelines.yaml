@@ -2,6 +2,8 @@ variables:
   AZP_CACHING_TAR: true
   DOTNET_CLI_TELEMETRY_OPTOUT: 1
   DOTNET_NOLOGO: 1
+  YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn
+  NUGET_PACKAGES: $(Pipeline.Workspace)/.nuget/packages
 
 trigger:
   branches:
@@ -26,6 +28,13 @@ jobs:
     displayName: 'Set Node.js version to 14.x'
     inputs:
       versionSpec: '14.x'
+  - task: Cache@2
+    inputs:
+      key: '"yarn" | "$(Agent.OS)" | yarn.lock'
+      restoreKeys: |
+          yarn | "$(Agent.OS)"
+      path: $(YARN_CACHE_FOLDER)
+    displayName: Cache Yarn packages
   - task: CmdLine@2
     displayName: 'Run yarn'
     inputs:
@@ -64,11 +73,19 @@ jobs:
     inputs:
       packageType: 'sdk'
       version: '6.0.100-preview.5.21302.13'
+  - task: Cache@2
+    inputs:
+      key: 'nuget | "$(Agent.OS)" | $(Build.SourcesDirectory)/**/packages.lock.json'
+      restoreKeys: |
+          nuget | "$(Agent.OS)"
+      path: $(NUGET_PACKAGES)
+    displayName: Cache NuGet packages
   - task: DotNetCoreCLI@2
     displayName: 'Restore NuGet packages'
     inputs:
       command: 'restore'
       projects: '$(Build.SourcesDirectory)/Songbird.sln'
+      arguments: '--locked-mode'
       feedsToUse: 'config'
       nugetConfigPath: '$(Build.SourcesDirectory)/nuget.config'
       verbosityRestore: 'Minimal'
@@ -90,7 +107,7 @@ jobs:
       command: 'publish'
       projects: '$(Build.SourcesDirectory)/src/Songbird.Web/Songbird.Web.csproj'
       configuration: 'Release'
-      arguments: '-o artifacts --runtime win10-x86'
+      arguments: '--runtime win10-x86'
       zipAfterPublish: true
   - task: PublishBuildArtifacts@1
     displayName: 'Publish artifacts'
