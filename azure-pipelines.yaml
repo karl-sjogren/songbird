@@ -103,5 +103,5 @@ jobs:
   - task: PublishBuildArtifacts@1
     displayName: 'Publish artifacts'
     inputs:
-      pathtoPublish: '$(Build.SourcesDirectory)/src/Songbird.Web/**/publish.zip'
+      pathtoPublish: '$(Build.SourcesDirectory)/**/publish.zip'
       artifactName: build-artifacts
