@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Nest;
 using Songbird.Web.DataObjects;
@@ -68,7 +69,7 @@ namespace Songbird.Web.QueryTranslators {
             if(filter.Application?.Any() == true) {
                 var subContainer = new QueryContainer();
                 foreach(var value in filter.Application)
-                    subContainer |= builder.Term("log4net:UserName", value);
+                    subContainer |= builder.Term("log4net:UserName.keyword", value);
                 container &= subContainer;
             }
 
@@ -82,7 +83,7 @@ namespace Songbird.Web.QueryTranslators {
             if(filter.Level?.Any() == true) {
                 var subContainer = new QueryContainer();
                 foreach(var value in filter.Level)
-                    subContainer |= builder.Term("Level", value);
+                    subContainer |= builder.Term("Level.keyword", value);
                 container &= subContainer;
             }
 
@@ -94,19 +95,24 @@ namespace Songbird.Web.QueryTranslators {
                 .Skip(settings.PageIndex * settings.PageSize)
                 .Take(settings.PageSize > 10_000 ? 10_000 : settings.PageSize);
 
-            if(!string.IsNullOrWhiteSpace(settings.SortField)) {
-                if(settings.SortAscending)
-                    descriptor = descriptor.Sort(s => s.Ascending(settings.SortField));
-                else
-                    descriptor = descriptor.Sort(s => s.Descending(settings.SortField));
+            var sortField = settings.SortField;
+            if(string.IsNullOrWhiteSpace(sortField)) {
+                sortField = "@timestamp";
             }
+
+            if(settings.SortAscending)
+                descriptor = descriptor.Sort(s => s.Ascending(sortField));
+            else
+                descriptor = descriptor.Sort(s => s.Descending(sortField));
         }
 
         private static void AddAggregations(SearchDescriptor<Log4StashEntry> descriptor) {
+#pragma warning disable CS0618 // Needed to use the "Obsolete" method .Interval since this is to be used against an older version of Elastiscsearch
             descriptor.Aggregations(aggregation => aggregation
-                .Terms("Application", f => f.Field("log4net:UserName").Size(100))
-                .Terms("Level", f => f.Field("Level").Size(100))
-                .DateHistogram("Timestamp", f => f.Field("@timestamp").CalendarInterval(DateInterval.Day)));
+                .Terms("Application", f => f.Field("log4net:UserName.keyword").Size(100))
+                .Terms("Level", f => f.Field("Level.keyword").Size(100))
+                .DateHistogram("Timestamp", f => f.Field("@timestamp").Interval(new Time(TimeSpan.FromDays(1)))));
+#pragma warning restore CS0618
         }
     }
 }

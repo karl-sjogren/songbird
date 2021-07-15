@@ -1,0 +1,101 @@
+<div
+  {{did-insert this.enableFullWidth}}
+  {{will-destroy this.disableFullWidth}}
+  ></div>
+
+<div class="query-container">
+  <div class="form-group with-button">
+    <label for="text-input">Sökfråga</label>
+    <Input type="text" id="text-input" autocomplete="off" {{on "enter" this.fetchFromStart}} @value={{this.query.query}} />
+    <button type="button" class="primary" disabled={{this.loading}} {{on "click" this.fetchFromStart}}>Sök</button>
+  </div>
+</div>
+
+<LogSearchFacets
+  @loading={{this.loading}}
+  @facets={{this.facets}}
+  @filter={{this.filter}}
+  @setFilter={{this.setFilter}}
+  @removeFilter={{this.removeFilter}} />
+
+<h2 class="results-header">
+  Resultat
+  {{#if this.totalCount}}
+    ({{format-number this.totalCount}} rader)
+  {{/if}}
+</h2>
+
+<div class="table-container {{if this.loading "loading"}}">
+  {{#if this.loading}}
+    <Loader />
+  {{/if}}
+  <table class="log-results">
+    <thead>
+      <tr>
+        <th>
+          <SortableHeaderButton
+            @field="@timestamp"
+            @sortField={{this.settings.sortField}}
+            @sortAscending={{this.settings.sortAscending}}
+            @sort={{this.sort}}
+            @title="Datum/tid" />
+        </th>
+        <th>
+          <SortableHeaderButton
+            @field="Level.keyword"
+            @sortField={{this.settings.sortField}}
+            @sortAscending={{this.settings.sortAscending}}
+            @sort={{this.sort}}
+            @title="Nivå" />
+        </th>
+        <th>
+          <SortableHeaderButton
+            @field="Message.keyword"
+            @sortField={{this.settings.sortField}}
+            @sortAscending={{this.settings.sortAscending}}
+            @sort={{this.sort}}
+            @title="Meddelande" />
+        </th>
+        <th>
+          <SortableHeaderButton
+            @field="log4net:UserName.keyword"
+            @sortField={{this.settings.sortField}}
+            @sortAscending={{this.settings.sortAscending}}
+            @sort={{this.sort}}
+            @title="Applikation" />
+        </th>
+        <th>
+          <SortableHeaderButton
+            @field="LoggerName.keyword"
+            @sortField={{this.settings.sortField}}
+            @sortAscending={{this.settings.sortAscending}}
+            @sort={{this.sort}}
+            @title="Kontext" />
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each this.results as |row|}}
+        <tr>
+          <td class="timestamp">{{luxon-format row.timestamp "yyyy-MM-dd HH:mm:ss"}}</td>
+          <td class="level">{{row.level}}</td>
+          <td class="message">{{row.message}}</td>
+          <td class="application">{{row.application}}</td>
+          <td class="context">{{row.context}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+<div class="table-footer">
+  <ListSizer
+      @model={{this.settings.pageSize}}
+      @changePageSize={{this.changePageSize}}
+      />
+  <ListPager
+    @pageIndex={{this.settings.pageIndex}}
+    @pageSize={{this.settings.pageSize}}
+    @totalCount={{this.totalCount}}
+    @gotoPageIndex={{this.gotoPageIndex}} />
+</div>

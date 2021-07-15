@@ -1,9 +1,12 @@
 @import 'raleway.less';
+@import 'fontello.less';
 
 @import 'variables.less';
+@import 'mixins.less';
 @import 'loader.less';
 @import 'start-page.less';
 @import 'fika-buddies.less';
+@import 'log-search.less';
 
 body {
   font-family: @primary-font;
@@ -19,6 +22,11 @@ body {
   min-height: 100vh;
   width: 100%;
   margin: auto;
+  transition: max-width 0.5s ease;
+
+  &.full-width {
+    max-width: 100vw;
+  }
 }
 
 header {
@@ -95,6 +103,33 @@ h3 {
 
 p {
   max-width: 80ch;
+}
+
+button {
+  #mixins.default-button();
+  cursor: pointer;
+
+  &.primary {
+    #mixins.primary-button();
+  }
+
+  &[disabled] {
+    #mixins.disabled-button();
+  }
+}
+
+select {
+  background-color: @input-background-color;
+  border: 1px solid @input-border-color;
+  font-size: @input-font-size;
+  color: @input-font-color;
+  line-height: @input-font-size * 2;
+  padding: 1px 24px 1px 4px;
+  box-sizing: border-box;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20version=%221.2%22%20baseProfile=%22tiny%22%20width=%2224%22%20height=%2224%22%20viewBox=%220%200%2024%2024%22%3E%3Cg%20transform=%22rotate(90%2012%2011)%22%3E%3Cpath%20d=%22M8.586%205.586c-.781.781-.781%202.047%200%202.828l3.585%203.586-3.585%203.586c-.781.781-.781%202.047%200%202.828.39.391.902.586%201.414.586s1.024-.195%201.414-.586l6.415-6.414-6.415-6.414c-.78-.781-2.048-.781-2.828%200z%22/%3E%3C/g%3E%3C/svg%3E');
+  background-repeat: no-repeat;
+  background-position: right center;
 }
 
 // https://gist.github.com/ffoodd/000b59f431e3e64e4ce1a24d5bb36034

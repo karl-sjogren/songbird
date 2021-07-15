@@ -1,0 +1,166 @@
+@import url('https://cdn.jsdelivr.net/gh/tonsky/FiraCode@5.2/distr/fira_code.css');
+
+.log-results {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8rem;
+
+  thead tr {
+    th {
+      line-height: 1.1rem;
+      font-size: 0.9rem;
+      padding-left: 6px;
+      padding-right: 6px;
+      text-align: left;
+      white-space: nowrap;
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      .sort-button {
+        #mixins.unset-button();
+        border: 0;
+        background-color: transparent;
+        padding-left: 0;
+        padding-right: 0;
+        white-space: nowrap;
+        font-weight: 700;
+
+        &:after {
+          #icons.sort();
+          transition: transform 0.5s;
+        }
+
+        &.currently-sorted {
+          &:after {
+            #icons.sort-up();
+          }
+
+          &.ascending {
+            &:after {
+              #icons.sort-up();
+              transform: rotate(180deg);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  tr {
+    &:nth-child(even) {
+      background-color: @primary-color;
+    }
+  }
+
+  .timestamp,
+  .application,
+  .context {
+    white-space: nowrap;
+  }
+
+  .timestamp,
+  .level,
+  .message,
+  .application,
+  .context {
+    padding: 0.1rem 0.5rem;
+  }
+
+  .message {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@supports (font-variation-settings: normal) {
+  .log-results {
+    font-family: 'Fira Code VF', monospace;
+  }
+}
+
+
+.table-footer {
+  max-width: 100vw;
+  display: flex;
+  justify-content: space-between;
+
+  > .list-sizer,
+  > .list-pager {
+    label,
+    .label {
+      display: inline-block;
+
+      &:after {
+        content: ':';
+      }
+    }
+  }
+
+  > .list-pager {
+    display: flex;
+    align-items: baseline;
+
+    .label {
+      padding-right: 4px;
+    }
+  }
+
+  select {
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  button {
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    color: @primary-color;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    min-width: auto;
+
+    &.goto-page {
+      border-left: 0;
+      border-right: 1px solid #ddd;
+    }
+
+    &.disabled {
+      color: #ccc;
+      cursor: default;
+    }
+
+    &.current-page {
+      background-color: @primary-color;
+      color: #fff;
+    }
+
+    &.next-page,
+    &.previous-page {
+      .button-text {
+        display: none;
+      }
+    }
+
+    &.next-page {
+      border-top-right-radius: @button-border-radius;
+      border-bottom-right-radius: @button-border-radius;
+      border-left: 0;
+
+      &:after {
+        #icons.arrow-right;
+      }
+    }
+
+    &.previous-page {
+      border-top-left-radius: @button-border-radius;
+      border-bottom-left-radius: @button-border-radius;
+
+      &:after {
+        #icons.arrow-left;
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<div class="list-pager">
+  <span class="label sr-only">Välj sida</span>
+  <button type="button" class="previous-page icon {{unless this.canGoBack "disabled"}}" title={{if this.canGoBack "Gå till föregående sida"}} {{on "click" this.previousPage}}>
+    <span class="button-text">Föregående sida</span>
+  </button>
+
+  {{#each this.limitedPages as |page|}}
+    <button type="button" class="goto-page icon {{if page.current "current-page"}}" title={{if page.current "Nuvarande sida" (concat "Gå till sida " page.pageNumber)}} {{on "click" (fn this.gotoPageIndex page.pageIndex)}}>
+      <span class="button-text">{{page.pageNumber}}</span>
+    </button>
+  {{/each}}
+
+  <button type="button" class="next-page icon {{unless this.canGoNext "disabled"}}" title={{if this.canGoNext "Gå till nästa sida"}} {{on "click" this.nextPage}}>
+    <span class="button-text">Nästa sida</span>
+  </button>
+</div>

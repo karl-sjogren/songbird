@@ -1,0 +1,6 @@
+<button
+  type="button"
+  class="sort-button icon {{if (eq @sortField @field) "currently-sorted"}} {{if @sortAscending "ascending" "descending" }}"
+  {{on "click" (fn @sort @field)}}>
+  {{@title}}
+</button>

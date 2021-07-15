@@ -52,7 +52,7 @@ namespace Songbird.Web.CompiledModels
             UserEntityType.CreateAnnotations(user);
             UserPhotoEntityType.CreateAnnotations(userPhoto);
 
-            AddAnnotation("ProductVersion", "6.0.0-preview.5.21301.9");
+            AddAnnotation("ProductVersion", "6.0.0-preview.6.21352.1");
             AddAnnotation("Relational:MaxIdentifierLength", 128);
             AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
         }

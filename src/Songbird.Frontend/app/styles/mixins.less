@@ -1,0 +1,104 @@
+#mixins {
+  .overlay(@z-index) {
+    opacity: 0;
+    pointer-events: none;
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: @overlay-color;
+    transition: opacity 0.2s;
+    z-index: @z-index;
+  }
+
+  .overlay-open() {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .default-button() {
+    font-size: @button-text-size;
+    border: 1px solid @button-default-border-color;
+    background-color: @button-default-background-color;
+    color: @button-default-foreground-color;
+    min-height: 2.5rem;
+    min-width: 5rem;
+    border-radius: @button-border-radius;
+    margin-bottom: 0.5rem;
+  }
+
+  .primary-button() {
+    border: 1px solid @button-primary-border-color;
+    background-color: @button-primary-background-color;
+    color: @button-primary-foreground-color;
+  }
+
+  .disabled-button() {
+    opacity: 0.6;
+    cursor: default;
+  }
+
+  .unset-button() {
+    font-size: inherit;
+    border: none;
+    background-color: transparent;
+    color: inherit;
+    min-height: auto;
+    min-width: auto;
+    border-radius: 0;
+    margin-bottom: 0;
+  }
+
+  .throw-away() {
+    /* stylelint-disable */
+    border: 0 !important;
+    clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
+    -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important;  /* 2 */
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    white-space: nowrap !important;
+    /* stylelint-enable */
+  }
+
+  .icon-setup() {
+    /* stylelint-disable */
+    font-family: "songbird-icons";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
+    /* opacity: .8; */
+
+    /* For safety - reset parent styles, that can break glyph codes*/
+    font-variant: normal;
+    text-transform: none;
+
+    /* fix buttons height, for twitter bootstrap */
+    line-height: 1em;
+
+    /* Animation center compensation - margins should be symmetric */
+    /* remove if not needed */
+    margin-left: .2em;
+
+    /* you can be more comfortable with increased icons size */
+    /* font-size: 120%; */
+
+    /* Font smoothing. That was taken from TWBS */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    /* stylelint-enable */
+  }
+}

@@ -1,0 +1,15 @@
+/* stylelint-disable */
+@font-face {
+  font-family: 'songbird-icons';
+  src: url('/fonts/fontello/songbird-icons.woff2?74791943') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+/* stylelint-enable */
+
+.icon:before,
+.icon:after {
+  #mixins.icon-setup();
+}
+
+@import 'fontello-icon-definitions.less';

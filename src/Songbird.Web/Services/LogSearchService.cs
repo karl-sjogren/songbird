@@ -17,7 +17,7 @@ namespace Songbird.Web.Services {
         private readonly IElasticClient _elasticClient;
         private readonly ILogger<LogSearchService> _logger;
 
-        private static string _indexName => "logentries";
+        private static string _indexName => "logevents";
 
         public LogSearchService(IElasticClient elasticClient, ILogger<LogSearchService> logger) {
             _elasticClient = elasticClient;
@@ -45,7 +45,7 @@ namespace Songbird.Web.Services {
                 _logger.LogInformation("Large search request detected, falling back to Scroll API for search.");
 
                 // We are requesting a ton of rows so we should use the Scroll API to get everything
-                searchDescriptor = searchDescriptor.Scroll("10s");
+                searchDescriptor = searchDescriptor.Scroll("30s");
 
                 var result = await _elasticClient.SearchAsync<Log4StashEntry>(searchDescriptor, cancellationToken);
 
@@ -56,7 +56,9 @@ namespace Songbird.Web.Services {
                 var scrollId = result.ScrollId;
                 totalHits = result.Total;
 
+                var scrollCounter = 1;
                 do {
+                    _logger.LogInformation($"Got page number {scrollCounter++} for scrollId {scrollId}.");
                     var scrollResults = await _elasticClient.ScrollAsync<Log4StashEntry>("10s", scrollId, ct: cancellationToken);
                     if(!scrollResults.IsValid)
                         throw new ElasticsearchException(scrollResults?.DebugInformation);
@@ -66,6 +68,11 @@ namespace Songbird.Web.Services {
 
                     if(scrollResults.Documents.None())
                         scrollId = null;
+
+                    if(items.Count >= settings.PageSize) {
+                        scrollId = null;
+                        items.RemoveRange(settings.PageSize, items.Count - settings.PageSize);
+                    }
 
                 } while(!string.IsNullOrEmpty(scrollId));
             }

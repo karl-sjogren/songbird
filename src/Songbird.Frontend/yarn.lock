@@ -893,6 +893,18 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@bigtest/convergence@^1.1.1":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@bigtest/convergence/-/convergence-1.1.2.tgz#1028f28378aae6876b3c07e577a2d4a320ad0acf"
+  integrity sha512-f/tpOfdd5p40Omejmc+jwrNL0nZ0RDV2LEQQdIWYHtMdKfQQRQpdAhyfNVPLuLeKHw5D9dUX8v9WOrwGsMBTAw==
+
+"@bigtest/interactor@^0.9.0":
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/@bigtest/interactor/-/interactor-0.9.3.tgz#f83fa868fc5742a482114af15d22f50677d3a81f"
+  integrity sha512-MKbhp/j1TtlSp1kIM1btvPrMbxn1eW2Notd5oUChBtEpnm8FDAiZIg6LED1aTsUxyRWf2qb5RlJyoy9HZjRgzQ==
+  dependencies:
+    "@bigtest/convergence" "^1.1.1"
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
@@ -4764,6 +4776,41 @@ ember-auto-import@^1.10.1, ember-auto-import@^1.5.3:
     walk-sync "^0.3.3"
     webpack "^4.43.0"
 
+ember-auto-import@^1.2.15:
+  version "1.11.3"
+  resolved "https://registry.yarnpkg.com/ember-auto-import/-/ember-auto-import-1.11.3.tgz#6e3384a7fbb163384a34546f2e902cd297b0e683"
+  integrity sha512-ekq/XCvsonESobFU30zjZ0I4XMy2E/2ZILCYWuQ1JdhcCSTYhnXDZcqRW8itUG7kbsPqAHT/XZ1LEZYm3seVwQ==
+  dependencies:
+    "@babel/core" "^7.1.6"
+    "@babel/preset-env" "^7.10.2"
+    "@babel/traverse" "^7.1.6"
+    "@babel/types" "^7.1.6"
+    "@embroider/core" "^0.33.0"
+    babel-core "^6.26.3"
+    babel-loader "^8.0.6"
+    babel-plugin-syntax-dynamic-import "^6.18.0"
+    babylon "^6.18.0"
+    broccoli-debug "^0.6.4"
+    broccoli-node-api "^1.7.0"
+    broccoli-plugin "^4.0.0"
+    broccoli-source "^3.0.0"
+    debug "^3.1.0"
+    ember-cli-babel "^7.0.0"
+    enhanced-resolve "^4.0.0"
+    fs-extra "^6.0.1"
+    fs-tree-diff "^2.0.0"
+    handlebars "^4.3.1"
+    js-string-escape "^1.0.1"
+    lodash "^4.17.19"
+    mkdirp "^0.5.1"
+    resolve-package-path "^3.1.0"
+    rimraf "^2.6.2"
+    semver "^7.3.4"
+    symlink-or-copy "^1.2.0"
+    typescript-memoize "^1.0.0-alpha.3"
+    walk-sync "^0.3.3"
+    webpack "^4.43.0"
+
 ember-cli-app-version@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/ember-cli-app-version/-/ember-cli-app-version-4.0.0.tgz#033057ec5fe4d3ecdf5ac5380d442e2dc9f7526a"
@@ -4785,7 +4832,7 @@ ember-cli-babel-plugin-helpers@^1.0.0, ember-cli-babel-plugin-helpers@^1.1.0, em
   resolved "https://registry.yarnpkg.com/ember-cli-babel-plugin-helpers/-/ember-cli-babel-plugin-helpers-1.1.1.tgz#5016b80cdef37036c4282eef2d863e1d73576879"
   integrity sha512-sKvOiPNHr5F/60NLd7SFzMpYPte/nnGkq/tMIfXejfKHIhaiIkYFqX8Z9UFTKWLLn+V7NOaby6niNPZUdvKCRw==
 
-ember-cli-babel@^6.0.0-beta.4:
+ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.16.0:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-6.18.0.tgz#3f6435fd275172edeff2b634ee7b29ce74318957"
   integrity sha512-7ceC8joNYxY2wES16iIBlbPSxwKDBhYwC8drU3ZEvuPDMwVv1KzxCNu1fvxyFEBWhwaRNTUxSCsEVoTd9nosGA==
@@ -4851,6 +4898,16 @@ ember-cli-get-component-path-option@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/ember-cli-get-component-path-option/-/ember-cli-get-component-path-option-1.0.0.tgz#0d7b595559e2f9050abed804f1d8eff1b08bc771"
   integrity sha1-DXtZVVni+QUKvtgE8djv8bCLx3E=
+
+ember-cli-htmlbars@^3.0.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-htmlbars/-/ember-cli-htmlbars-3.1.0.tgz#87806c2a0bca2ab52d4fb8af8e2215c1ca718a99"
+  integrity sha512-cgvRJM73IT0aePUG7oQ/afB7vSRBV3N0wu9BrWhHX2zkR7A7cUBI7KC9VPk6tbctCXoM7BRGsCC4aIjF7yrfXA==
+  dependencies:
+    broccoli-persistent-filter "^2.3.1"
+    hash-for-dep "^1.5.1"
+    json-stable-stringify "^1.0.1"
+    strip-bom "^3.0.0"
 
 ember-cli-htmlbars@^4.2.3:
   version "4.4.1"
@@ -5395,6 +5452,23 @@ ember-template-recast@^5.0.1:
     slash "^3.0.0"
     tmp "^0.2.1"
     workerpool "^6.0.3"
+
+ember-truth-helpers@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ember-truth-helpers/-/ember-truth-helpers-3.0.0.tgz#86766bdca4ac9b86bce3d262dff2aabc4a0ea384"
+  integrity sha512-hPKG9QqruAELh0li5xaiLZtr88ioWYxWCXisAWHWE0qCP4a2hgtuMzKUPpiTCkltvKjuqpzTZCU4VhQ+IlRmew==
+  dependencies:
+    ember-cli-babel "^7.22.1"
+
+emberx-select@4.0.0-beta.2:
+  version "4.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/emberx-select/-/emberx-select-4.0.0-beta.2.tgz#91eb01ac72edb14fd508c8dcdc8821d0b43a3415"
+  integrity sha512-9JuODvRVPG62H6k0ucxbHabqoNxSs0qEMfErpu0ueeoaiCWi5O8KqCwOU3+Mb/bnmgbgJURQ3pwpSsEktjzKJg==
+  dependencies:
+    "@bigtest/interactor" "^0.9.0"
+    ember-auto-import "^1.2.15"
+    ember-cli-babel "^6.16.0"
+    ember-cli-htmlbars "^3.0.0"
 
 emoji-regex@^7.0.1:
   version "7.0.3"
