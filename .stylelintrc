@@ -24,7 +24,7 @@
     "declaration-colon-space-after": "always",
     "declaration-colon-space-before": "never",
     "declaration-no-important": true,
-    "declaration-property-unit-whitelist": {
+    "declaration-property-unit-allowed-list": {
       "font-size": ["rem"]
     },
     "font-family-no-duplicate-names": true,
@@ -84,7 +84,7 @@
     "selector-type-no-unknown": true,
     "string-no-newline": true,
     "string-quotes": "single",
-    "unit-blacklist": ["em", "cm"],
+    "unit-disallowed-list": ["em", "cm"],
     "unit-case": "lower",
     "unit-no-unknown": true,
     "value-keyword-case": "lower",

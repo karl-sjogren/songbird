@@ -11,12 +11,19 @@
   </div>
 </div>
 
-<LogSearchFacets
-  @loading={{this.loading}}
-  @facets={{this.facets}}
-  @filter={{this.filter}}
-  @setFilter={{this.setFilter}}
-  @removeFilter={{this.removeFilter}} />
+<section class="facet-container {{if this.loading "loading"}} {{if this.facetContainerOpen "open"}}">
+  <h2>Välj filter</h2>
+  <ul class="facets">
+    <li>
+      <FacetLevel
+        @loading={{this.loading}}
+        @facets={{this.facets}}
+        @filter={{this.filter}}
+        @setFilter={{this.setFilter}}
+        @removeFilter={{this.removeFilter}} />
+    </li>
+  </ul>
+</section>
 
 <h2 class="results-header">
   Resultat

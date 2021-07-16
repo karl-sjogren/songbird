@@ -12,29 +12,21 @@ export default class LogSearchComponent extends Component {
   @inject('logSearchService') service;
 
   @tracked loading = false;
-  @tracked results = null;
-  @tracked facets = null;
+  @tracked results = []
+  @tracked facets = [];
   @tracked totalCount = 0;
   @tracked showAllColumns = false;
   @tracked excludedColumns = false;
 
-  query = null;
-  filter = null;
-  settings = null;
+  @tracked query = {};
+  @tracked filter = {};
+  @tracked settings = {
+    pageIndex: 0,
+    pageSize: 100
+  };
 
   constructor() {
     super(...arguments);
-
-    this.results = [];
-    this.facets = [];
-    this.settings = {};
-
-    this.query = {};
-    this.filter = {};
-    this.settings = {
-      pageIndex: 0,
-      pageSize: 100
-    };
 
     this.parseQueryString();
 
@@ -147,11 +139,22 @@ export default class LogSearchComponent extends Component {
       this.filter[filter] = [];
     }
 
-    if(this.filter[filter].indexOf(value) >= 0) {
-      return;
+    if(Array.isArray(value)) {
+      value.forEach(x => {
+        if(this.filter[filter].indexOf(x) >= 0) {
+          return;
+        }
+
+        this.filter[filter].pushObject(x);
+      });
+    } else {
+      if(this.filter[filter].indexOf(value) >= 0) {
+        return;
+      }
+
+      this.filter[filter].pushObject(value);
     }
 
-    this.filter[filter].pushObject(value);
     set(this, 'settings.pageIndex', 0);
     this.fetch();
   }
@@ -162,11 +165,21 @@ export default class LogSearchComponent extends Component {
       this.filter[filter] = [];
     }
 
-    if(this.filter[filter].indexOf(value) === -1) {
-      return;
+    if(Array.isArray(value)) {
+      [...value].forEach(x => {
+        const index = this.filter[filter].indexOf(x);
+        if(index >= 0) {
+          this.filter[filter].removeAt(index);
+        }
+      });
+    } else {
+      if(this.filter[filter].indexOf(value) === -1) {
+        return;
+      }
+
+      this.filter[filter].removeAt(this.filter[filter].indexOf(value));
     }
 
-    this.filter[filter].removeAt(this.filter[filter].indexOf(value));
     set(this, 'settings.pageIndex', 0);
     this.fetch();
   }

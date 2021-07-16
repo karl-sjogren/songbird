@@ -71,7 +71,7 @@
     "qs": "^6.9.6",
     "qunit": "^2.14.0",
     "qunit-dom": "^1.6.0",
-    "stylelint": "^12.0.0",
+    "stylelint": "^13.13.1",
     "testem-gitlab-reporter": "1.0.0",
     "testem-multi-reporter": "1.2.0"
   },
