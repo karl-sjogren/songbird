@@ -1,7 +1,8 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
-const fontelloToLess = require('./tasks/fontello-to-less');
+const fontelloPlugin = require('./tasks/fontello-plugin');
+const merge = require('broccoli-merge-trees');
 
 const isProduction = process.env.EMBER_ENV === 'production';
 const disableFingerprinting = process.argv.indexOf('--disable-fingerprinting') !== -1;
@@ -29,13 +30,14 @@ module.exports = function(defaults) {
     }
   });
 
-  fontelloToLess('./app/styles/fontello-icon-definitions.less');
-
   app.import('node_modules/qs/dist/qs.js', {
     using: [
       { transformation: 'amd', as: 'qs' }
     ]
   });
 
-  return app.toTree();
+  //fontelloToLess('./app/styles/fontello-icon-definitions.less');
+  const fontello = fontelloPlugin('./public/fonts/fontello/', { outputFilePath: './app/styles/fontello-icon-definitions.less' });
+
+  return merge([fontello, app.toTree()]);
 };
