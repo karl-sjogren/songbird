@@ -37,7 +37,7 @@ jobs:
   - task: CmdLine@2
     displayName: 'Run yarn'
     inputs:
-      script: yarn --frozen-lockfile
+      script: yarn --frozen-lockfile --prefer-offline
       workingDirectory: src/Songbird.Frontend
   - task: CmdLine@2
     displayName: 'Run frontend linting'
