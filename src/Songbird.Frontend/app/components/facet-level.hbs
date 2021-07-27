@@ -1,14 +1,6 @@
 <h3>Nivå</h3>
-<ol>
-  {{#if this.fatalCount}}
-    <li><button type="button" class="level-fatal {{if this.fatalSelected "selected"}}" {{on "click" (fn this.filter "fatal")}}>Fatal ({{format-number this.fatalCount}})</button></li>
-  {{/if}}
-
-  {{#if this.errorCount}}
-    <li><button type="button" class="level-error {{if this.errorSelected "selected"}}" {{on "click" (fn this.filter "error")}}>Error ({{format-number this.errorCount}})</button></li>
-  {{/if}}
-
-  {{#if this.warningCount}}
-    <li><button type="button" class="level-warning {{if this.warningSelected "selected"}}" {{on "click" (fn this.filter "warn")}}>Warning ({{format-number this.warningCount}})</button></li>
-  {{/if}}
+<ol class="facet levels">
+  <li><button type="button" class="level-fatal {{if this.fatalSelected "selected"}}" {{on "click" (fn this.filter "fatal")}} disabled={{@loading}}>Kritisk ({{format-number this.fatalCount}})</button></li>
+  <li><button type="button" class="level-error {{if this.errorSelected "selected"}}" {{on "click" (fn this.filter "error")}} disabled={{@loading}}>Fel ({{format-number this.errorCount}})</button></li>
+  <li><button type="button" class="level-warning {{if this.warningSelected "selected"}}" {{on "click" (fn this.filter "warn")}} disabled={{@loading}}>Varning ({{format-number this.warningCount}})</button></li>
 </ol>

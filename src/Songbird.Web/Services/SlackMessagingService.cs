@@ -1,23 +1,23 @@
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using Songbird.Web.Contracts;
 using Songbird.Web.Models;
 
 namespace Songbird.Web.Services {
     public class SlackMessagingService : ISlackMessagingService {
         private readonly HttpClient _httpClient;
-        private readonly MvcNewtonsoftJsonOptions _mvcJsonOptions;
+        private readonly JsonOptions _jsonOptions;
         private readonly ILogger<FikaScheduleService> _logger;
 
-        public SlackMessagingService(HttpClient httpClient, IOptions<MvcNewtonsoftJsonOptions> mvcJsonOptions, ILogger<FikaScheduleService> logger) {
+        public SlackMessagingService(HttpClient httpClient, IOptions<JsonOptions> mvcJsonOptions, ILogger<FikaScheduleService> logger) {
             _httpClient = httpClient;
-            _mvcJsonOptions = mvcJsonOptions.Value;
+            _jsonOptions = mvcJsonOptions.Value;
             _logger = logger;
         }
 
@@ -32,7 +32,7 @@ namespace Songbird.Web.Services {
                 }
             };
 
-            var messageJson = JsonConvert.SerializeObject(slackMessage, _mvcJsonOptions.SerializerSettings);
+            var messageJson = JsonSerializer.Serialize(slackMessage, _jsonOptions.JsonSerializerOptions);
 
             var request = new HttpRequestMessage(HttpMethod.Post, message.Webhook) {
                 Content = new StringContent(messageJson, Encoding.UTF8, "application/json")

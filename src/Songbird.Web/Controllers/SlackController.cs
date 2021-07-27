@@ -1,9 +1,9 @@
 using System.IO;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 namespace Songbird.Web.Controllers {
     [ApiController]
@@ -20,7 +20,7 @@ namespace Songbird.Web.Controllers {
             using var reader = new StreamReader(Request.Body, Encoding.UTF8, true, 1024, true);
             var json = await reader.ReadToEndAsync();
 
-            var urlVerificationEvent = JsonConvert.DeserializeObject<SlackUrlVerificationEvent>(json);
+            var urlVerificationEvent = JsonSerializer.Deserialize<SlackUrlVerificationEvent>(json);
 
             return new {
                 challenge = urlVerificationEvent.Challenge

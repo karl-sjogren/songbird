@@ -1,11 +1,10 @@
 using System;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
 
 namespace Songbird.Web.Extensions {
     public static partial class StartupExtensions {
@@ -20,14 +19,12 @@ namespace Songbird.Web.Extensions {
                             Location = ResponseCacheLocation.Any
                         });
                 })
-                .AddNewtonsoftJson(o => {
-                    o.SerializerSettings.ContractResolver = new DefaultContractResolver {
-                        NamingStrategy = new CamelCaseNamingStrategy {
-                            ProcessDictionaryKeys = false
-                        }
-                    };
-                    o.SerializerSettings.Converters.Add(new StringEnumConverter());
-                    o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                .AddJsonOptions(options => {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+                    options.JsonSerializerOptions.DictionaryKeyPolicy = JsonNamingPolicy.CamelCase;
+                    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                    options.JsonSerializerOptions.WriteIndented = true;
+                    //options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
                 });
         }
     }

@@ -4,8 +4,11 @@ import { set, action } from '@ember/object';
 import { next } from '@ember/runloop';
 import { inject } from '@ember/service';
 import queryHelper from 'qs';
+import FilterObject from 'songbird/models/filter-object';
 import tidyShallowObject from 'songbird/utils/tidy-shallow-object';
 import { getCurrentQueryString } from 'songbird/utils/query-string';
+
+const VK_RETURN = 13;
 
 export default class LogSearchComponent extends Component {
   @inject intl;
@@ -19,10 +22,11 @@ export default class LogSearchComponent extends Component {
   @tracked excludedColumns = false;
 
   @tracked query = {};
-  @tracked filter = {};
+  @tracked filter = new FilterObject();
   @tracked settings = {
     pageIndex: 0,
-    pageSize: 100
+    pageSize: 100,
+    sortField: '@timestamp'
   };
 
   constructor() {
@@ -76,9 +80,16 @@ export default class LogSearchComponent extends Component {
   updateQueryString() {
     let query = {
       ...this.query,
-      ...this.filter,
       ...this.settings
     };
+
+    // Can't use spred operator on classes so we do this manually
+    for(let key of Object.getOwnPropertyNames(FilterObject.prototype)) {
+      const value = this.filter[key];
+      if(Array.isArray(value)) {
+        query[key] = value;
+      }
+    }
 
     tidyShallowObject(query);
 
@@ -128,6 +139,13 @@ export default class LogSearchComponent extends Component {
   }
 
   @action
+  onQueryKeyDown(e) {
+    if(e.keyCode === VK_RETURN) {
+      this.fetchFromStart();
+    }
+  }
+
+  @action
   fetchFromStart() {
     set(this, 'settings.pageIndex', 0);
     this.fetch();
@@ -156,13 +174,14 @@ export default class LogSearchComponent extends Component {
     }
 
     set(this, 'settings.pageIndex', 0);
+    //this.filter = this.filter;
     this.fetch();
   }
 
   @action
   removeFilter(filter, value) {
     if(!this.filter[filter]) {
-      this.filter[filter] = [];
+      throw new Error(`Filter ${filter} does not exist on FilterObject.`);
     }
 
     if(Array.isArray(value)) {

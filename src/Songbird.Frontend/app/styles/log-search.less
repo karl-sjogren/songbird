@@ -1,8 +1,71 @@
 @import url('https://cdn.jsdelivr.net/gh/tonsky/FiraCode@5.2/distr/fira_code.css');
 
+.facets {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+
+  > li {
+    margin-right: 1rem;;
+  }
+
+  .facet {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+
+    button {
+      &.selected {
+        background-color: @primary-color;
+      }
+    }
+
+    &.levels {
+      button {
+        &:before {
+          #mixins.icon-setup();
+          font-size: 1.3rem;
+        }
+
+        &.level-fatal {
+          &:before {
+            #icons.log-critical();
+            color: rgb(177 0 0);
+          }
+        }
+
+        &.level-error {
+          &:before {
+            #icons.log-error();
+            color: rgb(255 0 0);
+          }
+        }
+
+        &.level-warning {
+          &:before {
+            #icons.log-warning();
+            color: rgb(255 255 0);
+            text-shadow: 1px 1px 1px #000000;
+          }
+        }
+
+        &.level-information {
+          &:before {
+            #icons.log-info();
+            color: rgb(0 0 255);
+          }
+        }
+      }
+    }
+  }
+}
+
 .log-results {
   font-family: 'Fira Code', monospace;
   font-size: 0.8rem;
+  min-width: 100%;
 
   thead tr {
     th {

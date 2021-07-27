@@ -1,0 +1,6 @@
+<h3>Kund</h3>
+<ol class="facet customers">
+  {{#each this.customerFilters as |filter|}}
+    <li><button type="button" class={{if (facet-customer-selected filter this.applicationFilter) "selected"}} {{on "click" (fn this.filter filter)}} disabled={{@loading}}>{{filter.name}} ({{format-number (facet-customer-count filter this.applicationFacet)}})</button></li>
+  {{/each}}
+</ol>

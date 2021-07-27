@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using System.Text.Json;
 using AutoMapper.EquivalencyExpression;
 using LetterAvatars.AspNetCore.Extensions;
 using Microsoft.AspNetCore.Authentication;
@@ -13,7 +14,6 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
-using Newtonsoft.Json;
 using Serilog;
 using Songbird.Web.Contracts;
 using Songbird.Web.Extensions;
@@ -115,7 +115,7 @@ namespace Songbird.Web {
                         var problemDetailsFactory = context.RequestServices?.GetRequiredService<ProblemDetailsFactory>();
                         var problemDetails = problemDetailsFactory.CreateProblemDetails(context, statusCode: 401, detail: "API access requires authentication by OpenID or API key.");
 
-                        var json = JsonConvert.SerializeObject(problemDetails);
+                        var json = JsonSerializer.Serialize(problemDetails);
                         var buffer = Encoding.UTF8.GetBytes(json);
 
                         context.Response.StatusCode = 401;

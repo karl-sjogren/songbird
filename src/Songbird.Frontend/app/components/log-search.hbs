@@ -6,7 +6,7 @@
 <div class="query-container">
   <div class="form-group with-button">
     <label for="text-input">Sökfråga</label>
-    <Input type="text" id="text-input" autocomplete="off" {{on "enter" this.fetchFromStart}} @value={{this.query.query}} />
+    <Input type="text" id="text-input" autocomplete="off" {{on "keydown" this.onQueryKeyDown}} @value={{this.query.query}} />
     <button type="button" class="primary" disabled={{this.loading}} {{on "click" this.fetchFromStart}}>Sök</button>
   </div>
 </div>
@@ -16,6 +16,14 @@
   <ul class="facets">
     <li>
       <FacetLevel
+        @loading={{this.loading}}
+        @facets={{this.facets}}
+        @filter={{this.filter}}
+        @setFilter={{this.setFilter}}
+        @removeFilter={{this.removeFilter}} />
+    </li>
+    <li>
+      <FacetCustomer
         @loading={{this.loading}}
         @facets={{this.facets}}
         @filter={{this.filter}}
