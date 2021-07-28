@@ -1,47 +1,41 @@
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
-import CustomerFilter from 'songbird/models/customer-filter';
 
 export default class FacetCustomerComponent extends Component {
-  customerFilters = [
-    // TODO Move this to the database instead of hardcoding it
-    new CustomerFilter('AcadeMedia', [
-      'IIS APPPOOL\\Vam',
-      'ACA-IT-Prod-VUX-VAM2-PROD',
-      'ACA-IT-Prod-VUX-VAM2-STAGE',
-      'ACA-IT-Prod-VUX-VAM2-DEV',
-      'ACA-IT-Prod-VUX-PRODRAPP-PROD',
-      'ACA-IT-Prod-VUX-PRODRAPP-STAGE',
-      'ACA-IT-Prod-VUX-PRODRAPP-DEV',
-      'ACA-IT-Prod-VUX-KURSSLUSSEN-PROD',
-      'ACA-IT-Prod-VUX-KURSSLUSSEN-DEV'
-    ]),
-    new CustomerFilter('SkandiaMäklarna', [
-      'IIS APPPOOL\\6676ee60-a120-4083-a7d9-0d07ca397da5',
-      'IIS APPPOOL\\4315a266-5a20-4081-b718-273d91c4f5a4',
-      'IIS APPPOOL\\87b17b45-1ced-4bd3-9121-27fffd309adc',
-      'skandiaip-prod-api',
-      'skandiaip-stage-api',
-      'skandiaip-dev-api',
-      'skandiaip-prod-functions',
-      'skandiaip-stage-functions',
-      'skandiaip-dev-functions'
-    ]),
-    new CustomerFilter('IKSU', [
-      'IIS APPPOOL\\iksu-production-public-web',
-      'IIS APPPOOL\\iksu-test-public-web',
-      'IIS APPPOOL\\iksu_imagevault',
-    ]),
-    new CustomerFilter('Erik Olsson', [
-      'ErikOlsson CDN V2 - Production',
-      'ErikOlsson CDN V2 - Development',
-      'IIS APPPOOL\\www.erikolsson.se',
-      'NT AUTHORITY\\NETWORK SERVICE',
-      'IIS APPPOOL\\test.eofastighet.se',
-      'IIS APPPOOL\\restapi.eofastighet.se',
-      'IIS APPPOOL\\test-restapi.eofastighet.se',
-    ])
-  ];
+  @tracked productionSelected = false;
+  @tracked stagingSelected = false;
+  @tracked developmentSelected = false;
+
+  get hasEnvironmentFilter() {
+    return this.productionSelected || this.stagingSelected || this.developmentSelected;
+  }
+
+  get selectedEnvironments() {
+    const environments = [];
+
+    if(this.productionSelected) {
+      environments.push('Production');
+    }
+
+    if(this.stagingSelected) {
+      environments.push('Staging');
+    }
+
+    if(this.developmentSelected) {
+      environments.push('Development');
+    }
+
+    return environments;
+  }
+
+  get customerFilters() {
+    return this.args.applicationFacets || [];
+  }
+
+  get applicationFilters() {
+    return this.customerFilters.map(x => x.applications).flat();
+  }
 
   get applicationFacet() {
     const facets = this.args.facets || [];
@@ -52,20 +46,81 @@ export default class FacetCustomerComponent extends Component {
     return this.args.filter?.application || [];
   }
 
-  @action
-  filter(customerFilter) {
-    const filter = this.applicationFilter;
+  get productionCount() {
+    return this.getCountByEnvironment('Production');
+  }
 
+  get stagingCount() {
+    return this.getCountByEnvironment('Staging');
+  }
+
+  get developmentCount() {
+    return this.getCountByEnvironment('Development');
+  }
+
+  getCountByEnvironment(type) {
+    const applicationFacet = this.applicationFacet;
+    const applicationFilters = this.applicationFilters;
+    const filteredValues = applicationFilters.filter(x => x.environment === type).map(x => x.filterValue);
+
+    return applicationFacet
+      .items
+      .filter(x => filteredValues.some(value => value === x.value))
+      .reduce((acc, current) => acc + current.count, 0);
+  }
+
+  get currentCustomerFilter() {
+    const customerFilters = this.customerFilters;
+    const applicationFilter = this.applicationFilter;
+
+    return customerFilters
+      .find(customerFilter => customerFilter.applications
+        .some(filter => applicationFilter
+          .some(application => application.toLowerCase() === filter.filterValue.toLowerCase())));
+  }
+
+  @action
+  selectEnvironment(environment) {
+    switch (environment) {
+      case 'Production':
+        this.productionSelected = !this.productionSelected;
+        break;
+      case 'Staging':
+        this.stagingSelected = !this.stagingSelected;
+        break;
+      case 'Development':
+        this.developmentSelected = !this.developmentSelected;
+        break;
+      default:
+        throw new Error(`Unsupported environment: ${environment}`);
+    }
+
+    this.filter(this.currentCustomerFilter, true);
+  }
+
+  @action
+  filter(customerFilter, forceAdd = false) {
+    const filter = this.applicationFilter;
+    console.log(forceAdd);
     if(filter.length > 0) {
-      const currentFilter = filter.some(filter => customerFilter.applications.some(application => filter.toLowerCase() === application.toLowerCase()));
+      const currentFilter = this.currentCustomerFilter;
 
       this.args.removeFilter('application', filter);
 
-      if(currentFilter) {
+      if(currentFilter && !forceAdd) {
         return;
       }
     }
 
-    this.args.setFilter('application', customerFilter.applications);
+    if(!customerFilter) {
+      return;
+    }
+
+    let applicationFilters = customerFilter.applications;
+    if(this.hasEnvironmentFilter) {
+      applicationFilters = applicationFilters.filter(x => this.selectedEnvironments.some(environment => x.environment === environment));
+    }
+
+    this.args.setFilter('application', applicationFilters.map(x => x.filterValue));
   }
 }

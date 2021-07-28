@@ -13,6 +13,8 @@ namespace Songbird.Web.CompiledModels
         partial void Initialize()
         {
             var fikaMatchUser = FikaMatchUserEntityType.Create(this);
+            var application = ApplicationEntityType.Create(this);
+            var applicationLogFilter = ApplicationLogFilterEntityType.Create(this);
             var binaryFile = BinaryFileEntityType.Create(this);
             var customer = CustomerEntityType.Create(this);
             var fikaMatch = FikaMatchEntityType.Create(this);
@@ -26,6 +28,8 @@ namespace Songbird.Web.CompiledModels
 
             FikaMatchUserEntityType.CreateForeignKey1(fikaMatchUser, fikaMatch);
             FikaMatchUserEntityType.CreateForeignKey2(fikaMatchUser, user);
+            ApplicationEntityType.CreateForeignKey1(application, project);
+            ApplicationLogFilterEntityType.CreateForeignKey1(applicationLogFilter, application);
             CustomerEntityType.CreateForeignKey1(customer, binaryFile);
             FikaMatchEntityType.CreateForeignKey1(fikaMatch, fikaSchedule);
             LunchGameEntityType.CreateForeignKey1(lunchGame, binaryFile);
@@ -34,13 +38,14 @@ namespace Songbird.Web.CompiledModels
             LunchGamingAttendanceEntityType.CreateForeignKey3(lunchGamingAttendance, user);
             LunchGamingDateEntityType.CreateForeignKey1(lunchGamingDate, lunchGame);
             ProjectEntityType.CreateForeignKey1(project, customer);
-            ProjectEntityType.CreateForeignKey2(project, customer);
-            ProjectEntityType.CreateForeignKey3(project, binaryFile);
+            ProjectEntityType.CreateForeignKey2(project, binaryFile);
 
             FikaMatchEntityType.CreateSkipNavigation1(fikaMatch, user, fikaMatchUser);
             UserEntityType.CreateSkipNavigation1(user, fikaMatch, fikaMatchUser);
 
             FikaMatchUserEntityType.CreateAnnotations(fikaMatchUser);
+            ApplicationEntityType.CreateAnnotations(application);
+            ApplicationLogFilterEntityType.CreateAnnotations(applicationLogFilter);
             BinaryFileEntityType.CreateAnnotations(binaryFile);
             CustomerEntityType.CreateAnnotations(customer);
             FikaMatchEntityType.CreateAnnotations(fikaMatch);

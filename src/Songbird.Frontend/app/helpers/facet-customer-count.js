@@ -7,6 +7,6 @@ export default helper(function facetCustomerCount([filter, facets]) {
 
   return facets
     .items
-    .filter(facet => filter.applications.some(application => facet.value.toLowerCase() === application.toLowerCase()))
+    .filter(facet => filter.applications.some(application => facet.value.toLowerCase() === application.filterValue.toLowerCase()))
     .reduce((acc, current) => acc + current.count, 0);
 });

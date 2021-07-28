@@ -21,8 +21,14 @@ namespace Songbird.Web.Extensions {
 
                 entity
                     .HasOne(e => e.Customer)
-                    .WithMany()
+                    .WithMany(e => e.Projects)
                     .HasForeignKey(e => e.CustomerId)
+                    .HasPrincipalKey(e => e.Id);
+
+                entity
+                    .HasMany(e => e.Applications)
+                    .WithOne(e => e.Project)
+                    .HasForeignKey(e => e.ProjectId)
                     .HasPrincipalKey(e => e.Id);
             });
         }

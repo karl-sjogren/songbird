@@ -6,5 +6,5 @@ export default helper(function facetCustomerSelected([customerFilter, currentFil
   }
 
   return currentFilters
-    .some(filter => customerFilter.applications.some(application => filter.toLowerCase() === application.toLowerCase()));
+    .some(filter => customerFilter.applications.some(application => filter.toLowerCase() === application.filterValue.toLowerCase()));
 });

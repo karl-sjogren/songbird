@@ -1,7 +1,12 @@
 using System;
+using System.Collections.Generic;
 
 namespace Songbird.Web.Models {
     public class Project : ModelBase {
+        public Project() {
+            Applications = new List<Application>();
+        }
+
         public string Name { get; set; }
         public decimal MontlyHours { get; set; }
         public string AccentColor { get; set; }
@@ -12,5 +17,6 @@ namespace Songbird.Web.Models {
 
         public Guid CustomerId { get; set; }
         public Customer Customer { get; set; }
+        public ICollection<Application> Applications { get; set; }
     }
 }

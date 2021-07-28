@@ -1,6 +1,14 @@
-<h3>Kund</h3>
+<h3>Kundmiljöer</h3>
 <ol class="facet customers">
   {{#each this.customerFilters as |filter|}}
-    <li><button type="button" class={{if (facet-customer-selected filter this.applicationFilter) "selected"}} {{on "click" (fn this.filter filter)}} disabled={{@loading}}>{{filter.name}} ({{format-number (facet-customer-count filter this.applicationFacet)}})</button></li>
+    <li><button type="button" class={{if (facet-customer-selected filter this.applicationFilter) "selected"}} {{on "click" (fn this.filter filter false)}} disabled={{@loading}}>{{filter.name}} ({{format-number (facet-customer-count filter this.applicationFacet)}})</button></li>
   {{/each}}
 </ol>
+
+{{#if this.currentCustomerFilter}}
+  <ol class="facet customers-environment">
+    <li><button type="button" class={{if this.productionSelected "selected"}} {{on "click" (fn this.selectEnvironment "Production")}} disabled={{@loading}}>Produktion ({{format-number this.productionCount}})</button></li>
+    <li><button type="button" class={{if this.stagingSelected "selected"}} {{on "click" (fn this.selectEnvironment "Staging")}} disabled={{@loading}}>Staging ({{format-number this.stagingCount}})</button></li>
+    <li><button type="button" class={{if this.developmentSelected "selected"}} {{on "click" (fn this.selectEnvironment "Development")}} disabled={{@loading}}>Utveckling ({{format-number this.developmentCount}})</button></li>
+  </ol>
+{{/if}}

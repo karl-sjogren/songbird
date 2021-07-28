@@ -59,6 +59,7 @@ namespace Songbird.Web {
             services.AddHttpClient<ISlackMessagingService, SlackMessagingService>();
 
             // Services
+            services.AddScoped<IApplicationService, ApplicationService>();
             services.AddScoped<IBinaryFileService, BinaryFileService>();
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IFikaScheduleService, FikaScheduleService>();

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Songbird.Web;
 
 namespace Songbird.Web.Migrations
 {
     [DbContext(typeof(SongbirdContext))]
-    partial class SongbirdContextModelSnapshot : ModelSnapshot
+    [Migration("20210728073809_AddApplicationsAndStuff")]
+    partial class AddApplicationsAndStuff
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,6 +62,9 @@ namespace Songbird.Web.Migrations
                     b.Property<Guid>("ProjectId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("ProjectId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<byte[]>("Timestamp")
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate()
@@ -74,6 +79,8 @@ namespace Songbird.Web.Migrations
 
                     b.HasIndex("ProjectId");
 
+                    b.HasIndex("ProjectId1");
+
                     b.ToTable("Applications");
                 });
 
@@ -86,6 +93,9 @@ namespace Songbird.Web.Migrations
                     b.Property<Guid>("ApplicationId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("ApplicationId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
@@ -93,10 +103,6 @@ namespace Songbird.Web.Migrations
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Environment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FilterValue")
                         .IsRequired()
@@ -106,6 +112,10 @@ namespace Songbird.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValueSql("0");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Timestamp")
                         .IsConcurrencyToken()
@@ -120,6 +130,8 @@ namespace Songbird.Web.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationId");
+
+                    b.HasIndex("ApplicationId1");
 
                     b.ToTable("ApplicationLogFilters");
                 });
@@ -417,6 +429,9 @@ namespace Songbird.Web.Migrations
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CustomerId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
@@ -448,6 +463,8 @@ namespace Songbird.Web.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("CustomerId1");
 
                     b.HasIndex("IconId");
 
@@ -566,11 +583,15 @@ namespace Songbird.Web.Migrations
 
             modelBuilder.Entity("Songbird.Web.Models.Application", b =>
                 {
-                    b.HasOne("Songbird.Web.Models.Project", "Project")
+                    b.HasOne("Songbird.Web.Models.Project", null)
                         .WithMany("Applications")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Songbird.Web.Models.Project", "Project")
+                        .WithMany()
+                        .HasForeignKey("ProjectId1");
 
                     b.Navigation("Project");
                 });
@@ -578,10 +599,14 @@ namespace Songbird.Web.Migrations
             modelBuilder.Entity("Songbird.Web.Models.ApplicationLogFilter", b =>
                 {
                     b.HasOne("Songbird.Web.Models.Application", "Application")
-                        .WithMany("LogFilters")
+                        .WithMany()
                         .HasForeignKey("ApplicationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Songbird.Web.Models.Application", null)
+                        .WithMany("LogFilters")
+                        .HasForeignKey("ApplicationId1");
 
                     b.Navigation("Application");
                 });
@@ -648,10 +673,14 @@ namespace Songbird.Web.Migrations
             modelBuilder.Entity("Songbird.Web.Models.Project", b =>
                 {
                     b.HasOne("Songbird.Web.Models.Customer", "Customer")
-                        .WithMany("Projects")
+                        .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Songbird.Web.Models.Customer", null)
+                        .WithMany("Projects")
+                        .HasForeignKey("CustomerId1");
 
                     b.HasOne("Songbird.Web.Models.BinaryFile", "Icon")
                         .WithMany()

@@ -11,13 +11,13 @@ using Songbird.Web.Models;
 
 namespace Songbird.Web.CompiledModels
 {
-    partial class ProjectEntityType
+    partial class ApplicationLogFilterEntityType
     {
         public static RuntimeEntityType Create(RuntimeModel model, RuntimeEntityType baseEntityType = null)
         {
             var runtimeEntityType = model.AddEntityType(
-                "Songbird.Web.Models.Project",
-                typeof(Project),
+                "Songbird.Web.Models.ApplicationLogFilter",
+                typeof(ApplicationLogFilter),
                 baseEntityType);
 
             var id = runtimeEntityType.AddProperty(
@@ -29,12 +29,12 @@ namespace Songbird.Web.CompiledModels
                 afterSaveBehavior: PropertySaveBehavior.Throw);
             id.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
-            var accentColor = runtimeEntityType.AddProperty(
-                "AccentColor",
-                typeof(string),
-                propertyInfo: typeof(Project).GetProperty("AccentColor", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Project).GetField("<AccentColor>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-            accentColor.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+            var applicationId = runtimeEntityType.AddProperty(
+                "ApplicationId",
+                typeof(Guid),
+                propertyInfo: typeof(ApplicationLogFilter).GetProperty("ApplicationId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ApplicationLogFilter).GetField("<ApplicationId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+            applicationId.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var createdAt = runtimeEntityType.AddProperty(
                 "CreatedAt",
@@ -45,13 +45,6 @@ namespace Songbird.Web.CompiledModels
             createdAt.AddAnnotation("Relational:DefaultValueSql", "getdate()");
             createdAt.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
-            var customerId = runtimeEntityType.AddProperty(
-                "CustomerId",
-                typeof(Guid),
-                propertyInfo: typeof(Project).GetProperty("CustomerId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Project).GetField("<CustomerId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-            customerId.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
-
             var deletedAt = runtimeEntityType.AddProperty(
                 "DeletedAt",
                 typeof(DateTime?),
@@ -60,13 +53,20 @@ namespace Songbird.Web.CompiledModels
                 nullable: true);
             deletedAt.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
-            var iconId = runtimeEntityType.AddProperty(
-                "IconId",
-                typeof(Guid?),
-                propertyInfo: typeof(Project).GetProperty("IconId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Project).GetField("<IconId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                nullable: true);
-            iconId.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+            var environment = runtimeEntityType.AddProperty(
+                "Environment",
+                typeof(ApplicationLogEnvironment),
+                propertyInfo: typeof(ApplicationLogFilter).GetProperty("Environment", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ApplicationLogFilter).GetField("<Environment>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                providerPropertyType: typeof(string));
+            environment.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+
+            var filterValue = runtimeEntityType.AddProperty(
+                "FilterValue",
+                typeof(string),
+                propertyInfo: typeof(ApplicationLogFilter).GetProperty("FilterValue", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ApplicationLogFilter).GetField("<FilterValue>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+            filterValue.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var isDeleted = runtimeEntityType.AddProperty(
                 "IsDeleted",
@@ -77,25 +77,11 @@ namespace Songbird.Web.CompiledModels
             isDeleted.AddAnnotation("Relational:DefaultValueSql", "0");
             isDeleted.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
-            var montlyHours = runtimeEntityType.AddProperty(
-                "MontlyHours",
-                typeof(decimal),
-                propertyInfo: typeof(Project).GetProperty("MontlyHours", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Project).GetField("<MontlyHours>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-            montlyHours.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
-
-            var name = runtimeEntityType.AddProperty(
-                "Name",
-                typeof(string),
-                propertyInfo: typeof(Project).GetProperty("Name", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Project).GetField("<Name>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-            name.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
-
             var timestamp = runtimeEntityType.AddProperty(
                 "Timestamp",
                 typeof(byte[]),
-                propertyInfo: typeof(Project).GetProperty("Timestamp", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Project).GetField("<Timestamp>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                propertyInfo: typeof(ApplicationLogFilter).GetProperty("Timestamp", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ApplicationLogFilter).GetField("<Timestamp>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true,
                 concurrencyToken: true,
                 valueGenerated: ValueGenerated.OnAddOrUpdate,
@@ -117,51 +103,32 @@ namespace Songbird.Web.CompiledModels
             runtimeEntityType.SetPrimaryKey(key);
 
             var index = runtimeEntityType.AddIndex(
-                new[] { customerId });
-
-            var index0 = runtimeEntityType.AddIndex(
-                new[] { iconId });
+                new[] { applicationId });
 
             return runtimeEntityType;
         }
 
         public static RuntimeForeignKey CreateForeignKey1(RuntimeEntityType declaringEntityType, RuntimeEntityType principalEntityType)
         {
-            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("CustomerId") },
+            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("ApplicationId") },
                 principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id") }),
                 principalEntityType,
                 deleteBehavior: DeleteBehavior.Cascade,
                 required: true);
 
-            var customer = declaringEntityType.AddNavigation("Customer",
+            var application = declaringEntityType.AddNavigation("Application",
                 runtimeForeignKey,
                 onDependent: true,
-                typeof(Customer),
-                propertyInfo: typeof(Project).GetProperty("Customer", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Project).GetField("<Customer>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                typeof(Application),
+                propertyInfo: typeof(ApplicationLogFilter).GetProperty("Application", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ApplicationLogFilter).GetField("<Application>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
-            var projects = principalEntityType.AddNavigation("Projects",
+            var logFilters = principalEntityType.AddNavigation("LogFilters",
                 runtimeForeignKey,
                 onDependent: false,
-                typeof(ICollection<Project>),
-                propertyInfo: typeof(Customer).GetProperty("Projects", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Customer).GetField("<Projects>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-
-            return runtimeForeignKey;
-        }
-
-        public static RuntimeForeignKey CreateForeignKey2(RuntimeEntityType declaringEntityType, RuntimeEntityType principalEntityType)
-        {
-            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("IconId") },
-                principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id") }),
-                principalEntityType);
-
-            var icon = declaringEntityType.AddNavigation("Icon",
-                runtimeForeignKey,
-                onDependent: true,
-                typeof(BinaryFile),
-                propertyInfo: typeof(Project).GetProperty("Icon", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Project).GetField("<Icon>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                typeof(ICollection<ApplicationLogFilter>),
+                propertyInfo: typeof(Application).GetProperty("LogFilters", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Application).GetField("<LogFilters>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             return runtimeForeignKey;
         }
@@ -171,7 +138,7 @@ namespace Songbird.Web.CompiledModels
             runtimeEntityType.AddAnnotation("Relational:FunctionName", null);
             runtimeEntityType.AddAnnotation("Relational:Schema", null);
             runtimeEntityType.AddAnnotation("Relational:SqlQuery", null);
-            runtimeEntityType.AddAnnotation("Relational:TableName", "Projects");
+            runtimeEntityType.AddAnnotation("Relational:TableName", "ApplicationLogFilters");
             runtimeEntityType.AddAnnotation("Relational:ViewName", null);
             runtimeEntityType.AddAnnotation("Relational:ViewSchema", null);
 

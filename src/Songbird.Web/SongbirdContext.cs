@@ -11,6 +11,8 @@ namespace Songbird.Web {
             : base(options) {
         }
 
+        public virtual DbSet<Application> Applications { get; set; }
+        public virtual DbSet<ApplicationLogFilter> ApplicationLogFilters { get; set; }
         public virtual DbSet<BinaryFile> BinaryFiles { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<FikaMatch> FikaMatches { get; set; }
@@ -23,6 +25,8 @@ namespace Songbird.Web {
         public virtual DbSet<UserPhoto> UserPhotos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            modelBuilder.AddApplication();
+            modelBuilder.AddApplicationLogFilter();
             modelBuilder.AddBinaryFile();
             modelBuilder.AddCustomer();
             modelBuilder.AddFikaMatch();
