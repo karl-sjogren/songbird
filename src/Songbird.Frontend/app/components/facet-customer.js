@@ -3,6 +3,9 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
 export default class FacetCustomerComponent extends Component {
+  // TODO Make these computed instead so that they are
+  // automaticly restored. Currently these are always false
+  // on page load because I got fed up with this.
   @tracked productionSelected = false;
   @tracked stagingSelected = false;
   @tracked developmentSelected = false;
