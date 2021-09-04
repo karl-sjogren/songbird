@@ -113,7 +113,7 @@ jobs:
       arguments: 'restore'
       workingDirectory: '$(Build.SourcesDirectory)/src/Songbird.Web'
   - task: DotNetCoreCLI@2
-    displayName: 'Publish Migration Bundle'
+    displayName: 'Build Migration Bundle'
     inputs:
       command: 'custom'
       custom: 'ef'
