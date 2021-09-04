@@ -39,10 +39,17 @@ namespace Songbird.Web.PostConfigurationOptions {
             var identity = context.Principal.Identity as ClaimsIdentity;
             var claims = identity.Claims.ToArray();
 
+            var email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
             var externalId = claims.FirstOrDefault(c => c.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier")?.Value;
             if(externalId == null) {
-                var email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-                _logger.LogWarning($"User {email} was logged in through Microsoft Identity but no externalId was provided. Request will be aborted.");
+                _logger.LogWarning("User {email} was logged in through Microsoft Identity but no externalId was provided. Request will be aborted.", email);
+                var httpContext = _httpContextAccessor.HttpContext;
+                httpContext.Abort();
+                return;
+            }
+
+            if(email?.EndsWith("@xlent.se", true, null) != true) {
+                _logger.LogWarning("User {email} was logged in through Microsoft Identit but the email wasn't a valid XLENT email. Request will be aborted.", email);
                 var httpContext = _httpContextAccessor.HttpContext;
                 httpContext.Abort();
                 return;
@@ -61,6 +68,7 @@ namespace Songbird.Web.PostConfigurationOptions {
             var configuration = serviceScope.ServiceProvider.GetRequiredService<IConfiguration>();
             var dateTimeProvider = serviceScope.ServiceProvider.GetRequiredService<IDateTimeProvider>();
             var tokenAcquisition = serviceScope.ServiceProvider.GetRequiredService<ITokenAcquisition>();
+            var logger = serviceScope.ServiceProvider.GetRequiredService<ILogger<PostConfigureMicrosoftIdentityOptions>>();
 
             var scopes = configuration.GetValue<string>("GraphApi:Scopes")?.Split(' ', StringSplitOptions.TrimEntries);
             var token = await tokenAcquisition.GetAccessTokenForUserAsync(scopes, user: claimsPrincipal);
@@ -71,12 +79,18 @@ namespace Songbird.Web.PostConfigurationOptions {
                         return Task.CompletedTask;
                     }));
 
-            var graphPhoto = await graphService.Me.Photo.Request().GetAsync(CancellationToken.None);
+            ProfilePhoto profilePhoto;
+            try {
+                profilePhoto = await graphService.Me.Photo.Request().GetAsync(CancellationToken.None);
+            } catch(ServiceException ex) when(ex.StatusCode == System.Net.HttpStatusCode.NotFound) {
+                logger.LogInformation("User {userId} has no photo in Microsoft Graph. Photo will not be updated.", userId);
+                return;
+            }
 
-            graphPhoto.AdditionalData.TryGetValue("@odata.mediaContentType", out var contentTypeObject);
+            profilePhoto.AdditionalData.TryGetValue("@odata.mediaContentType", out var contentTypeObject);
             var contentType = (string)contentTypeObject ?? "image/jpeg";
 
-            graphPhoto.AdditionalData.TryGetValue("@odata.mediaEtag", out var etagObject);
+            profilePhoto.AdditionalData.TryGetValue("@odata.mediaEtag", out var etagObject);
             var etag = (string)etagObject ?? string.Empty;
 
             var photo = await songbirdContext.UserPhotos.FirstOrDefaultAsync(x => x.UserId == userId);
