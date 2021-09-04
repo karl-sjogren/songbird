@@ -98,7 +98,7 @@ jobs:
       command: 'publish'
       projects: '$(Build.SourcesDirectory)/src/Songbird.Web/Songbird.Web.csproj'
       configuration: 'Release'
-      arguments: '--runtime win10-x86'
+      arguments: '--runtime win10-x86 --self-contained'
       zipAfterPublish: true
   - task: PublishBuildArtifacts@1
     displayName: 'Publish artifacts'
