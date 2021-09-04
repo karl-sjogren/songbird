@@ -100,6 +100,20 @@ jobs:
       configuration: 'Release'
       arguments: '--runtime win10-x86 --self-contained'
       zipAfterPublish: true
+  - task: DotNetCoreCLI@2
+    displayName: Restore dotnet tools
+    inputs:
+      command: 'custom'
+      custom: 'tool'
+      arguments: 'restore'
+      workingDirectory: '$(Build.SourcesDirectory)/src/Songbird.Web'
+  - task: DotNetCoreCLI@2
+    displayName: 'Publish .NET Core App'
+    inputs:
+      command: 'custom'
+      custom: 'ef'
+      arguments: 'migrations bundle --self-contained --runtime win10-x86 --verbose'
+      workingDirectory: '$(Build.SourcesDirectory)/src/Songbird.Web'
   - task: PublishBuildArtifacts@1
     displayName: 'Publish artifacts'
     inputs:

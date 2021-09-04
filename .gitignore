@@ -363,3 +363,6 @@ FodyWeavers.xsd
 
 # appsettings.Local.json is a local file needed for development but since it contains sensitive information it shouldn't be committed
 appsettings.Local.json
+
+# Migrations bundle
+Bundle.exe
