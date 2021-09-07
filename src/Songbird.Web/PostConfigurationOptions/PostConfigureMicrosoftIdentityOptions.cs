@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Security.Claims;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -88,10 +89,12 @@ namespace Songbird.Web.PostConfigurationOptions {
             }
 
             profilePhoto.AdditionalData.TryGetValue("@odata.mediaContentType", out var contentTypeObject);
-            var contentType = (string)contentTypeObject ?? "image/jpeg";
+            var contentTypeElement = (JsonElement)contentTypeObject;
+            var contentType = contentTypeElement.GetString() ?? "image/jpeg";
 
             profilePhoto.AdditionalData.TryGetValue("@odata.mediaEtag", out var etagObject);
-            var etag = (string)etagObject ?? string.Empty;
+            var etagElement = (JsonElement)etagObject;
+            var etag = etagElement.GetString() ?? string.Empty;
 
             var photo = await songbirdContext.UserPhotos.FirstOrDefaultAsync(x => x.UserId == userId);
             if(string.IsNullOrEmpty(etag) && photo != null) {
@@ -119,7 +122,7 @@ namespace Songbird.Web.PostConfigurationOptions {
             photo.ETag = etag;
             photo.UpdatedAt = dateTimeProvider.Now;
 
-            await songbirdContext.SaveChangesAsync();
+            await songbirdContext.SaveChangesAsync(CancellationToken.None);
         }
     }
 }
