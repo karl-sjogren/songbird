@@ -119,8 +119,8 @@ jobs:
       custom: 'ef'
       arguments: 'migrations bundle --verbose'
       workingDirectory: '$(Build.SourcesDirectory)/src/Songbird.Web'
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish bundle artifacts'
-    inputs:
-      pathtoPublish: '$(Build.SourcesDirectory)/src/Songbird.Web/bundle.exe'
-      artifactName: migration-artifacts
+#  - task: PublishBuildArtifacts@1
+#    displayName: 'Publish bundle artifacts'
+#    inputs:
+#      pathtoPublish: '$(Build.SourcesDirectory)/src/Songbird.Web/bundle.exe'
+#      artifactName: migration-artifacts
