@@ -39,6 +39,7 @@ namespace Songbird.Web {
             services.AddCompression();
             services.AddElasticsearch();
             services.AddEntityFramework(Configuration);
+            services.AddRobotsTxt();
             services.AddSinglePageApplication();
 
             // Misc
@@ -88,10 +89,7 @@ namespace Songbird.Web {
 
             app.UseResponseCompression();
 
-            app.UseRobotsTxt(builder =>
-                builder
-                    .DenyAll()
-            );
+            app.UseRobotsTxt();
 
             var cultureInfo = new CultureInfo("sv-SE");
             app.UseRequestLocalization(new RequestLocalizationOptions {
