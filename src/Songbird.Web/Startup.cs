@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
+using RobotsTxt;
 using Serilog;
 using Songbird.Web.Contracts;
 using Songbird.Web.Extensions;
