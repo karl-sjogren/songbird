@@ -9,7 +9,7 @@ The following things needs to be installed on the development machine.
 * Node JS >= 12 (https://nodejs.org/)
     * Ember CLI (https://www.npmjs.com/package/ember-cli)
 * Yarn > 1.22 (https://yarnpkg.com/)
-* .NET 5.0 (https://dot.net)
+* .NET 6.0-preview7 (https://dot.net)
 * GIT (https://git-scm.com/)
 
 ## Running the project
