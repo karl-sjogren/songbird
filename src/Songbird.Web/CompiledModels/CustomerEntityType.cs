@@ -9,7 +9,7 @@ using Songbird.Web.Models;
 
 namespace Songbird.Web.CompiledModels
 {
-    partial class CustomerEntityType
+    internal partial class CustomerEntityType
     {
         public static RuntimeEntityType Create(RuntimeModel model, RuntimeEntityType baseEntityType = null)
         {

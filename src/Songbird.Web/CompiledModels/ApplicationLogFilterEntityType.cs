@@ -11,7 +11,7 @@ using Songbird.Web.Models;
 
 namespace Songbird.Web.CompiledModels
 {
-    partial class ApplicationLogFilterEntityType
+    internal partial class ApplicationLogFilterEntityType
     {
         public static RuntimeEntityType Create(RuntimeModel model, RuntimeEntityType baseEntityType = null)
         {

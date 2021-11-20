@@ -9,7 +9,7 @@ using Songbird.Web.Models;
 
 namespace Songbird.Web.CompiledModels
 {
-    partial class FikaScheduleEntityType
+    internal partial class FikaScheduleEntityType
     {
         public static RuntimeEntityType Create(RuntimeModel model, RuntimeEntityType baseEntityType = null)
         {

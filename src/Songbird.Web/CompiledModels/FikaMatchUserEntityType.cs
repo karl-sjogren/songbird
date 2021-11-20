@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Songbird.Web.CompiledModels
 {
-    partial class FikaMatchUserEntityType
+    internal partial class FikaMatchUserEntityType
     {
         public static RuntimeEntityType Create(RuntimeModel model, RuntimeEntityType baseEntityType = null)
         {

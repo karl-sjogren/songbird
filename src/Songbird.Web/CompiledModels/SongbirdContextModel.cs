@@ -8,23 +8,18 @@ using Microsoft.EntityFrameworkCore.Metadata;
 namespace Songbird.Web.CompiledModels
 {
     [DbContext(typeof(SongbirdContext))]
-    partial class SongbirdContextModel : RuntimeModel
+    public partial class SongbirdContextModel : RuntimeModel
     {
-        private static SongbirdContextModel _instance;
-        public static IModel Instance
+        static SongbirdContextModel()
         {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new SongbirdContextModel();
-                    _instance.Initialize();
-                    _instance.Customize();
-                }
-
-                return _instance;
-            }
+            var model = new SongbirdContextModel();
+            model.Initialize();
+            model.Customize();
+            _instance = model;
         }
+
+        private static SongbirdContextModel _instance;
+        public static IModel Instance => _instance;
 
         partial void Initialize();
 

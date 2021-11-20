@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Songbird.Web.CompiledModels
 {
-    partial class SongbirdContextModel
+    public partial class SongbirdContextModel
     {
         partial void Initialize()
         {
@@ -57,7 +57,7 @@ namespace Songbird.Web.CompiledModels
             UserEntityType.CreateAnnotations(user);
             UserPhotoEntityType.CreateAnnotations(userPhoto);
 
-            AddAnnotation("ProductVersion", "6.0.0-preview.7.21378.4");
+            AddAnnotation("ProductVersion", "6.0.0");
             AddAnnotation("Relational:MaxIdentifierLength", 128);
             AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
         }
