@@ -12,7 +12,7 @@ trigger:
 jobs:
 - job: Build
   pool:
-    vmImage: 'macOS-10.14'
+    vmImage: 'ubuntu-latest'
   steps:
   - task: DeleteFiles@1
     displayName: 'Remove previous build files'
