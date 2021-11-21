@@ -16,11 +16,11 @@ namespace Songbird.Web.Extensions {
             var initialScopes = configuration.GetValue<string>("GraphApi:Scopes")?.Split(' ');
 
             services.AddAuthentication(x => {
-                x.DefaultScheme = "DynamicScheme";
+                x.DefaultScheme = OpenIdConnectDefaults.AuthenticationScheme;
                 x.DefaultSignInScheme = OpenIdConnectDefaults.AuthenticationScheme;
                 x.DefaultSignOutScheme = OpenIdConnectDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-            }).AddPolicyScheme("DynamicScheme", "Authorization Bearer or Saml2", options => {
+            }).AddPolicyScheme("DynamicScheme", "API-Key or OpenIdConnect", options => {
                 options.ForwardDefaultSelector = context => {
                     var apiKeyHeader = context.Request.Headers["X-API-Key"].FirstOrDefault();
                     var apiKeyQuery = context.Request.Query["apikey"].FirstOrDefault();

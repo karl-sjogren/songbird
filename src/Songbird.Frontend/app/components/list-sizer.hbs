@@ -1,8 +1,8 @@
 <div class="list-sizer">
   <label for="page-size" class="sr-only">Antal resultat</label>
-  <XSelect id="page-size" @value={{@model}} {{on "change" this.sizeChanged}} as |xs|>
+  <select id="page-size" value={{@model}} {{on "change" this.sizeChanged}}>
     {{#each this.availableSizes as |size|}}
-      <xs.option @value={{size.value}}>{{size.label}}</xs.option>
+      <option value={{size.value}} selected={{if (eq @model size.value) true false}}>{{size.label}}</option>
     {{/each}}
-  </XSelect>
+  </select>
 </div>
