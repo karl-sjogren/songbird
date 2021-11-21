@@ -37,7 +37,7 @@ The project is now available at https://localhost:5001/.
 
 ## Entity Framework Migrations
 
-```
+```sh
 dotnet ef migrations add AddUser // Add a new migration named AddUser
 dotnet ef migrations remove // Remove the latest migration
 dotnet ef database update // Apply all migrations
