@@ -6,6 +6,8 @@
     <RuntimeIdentifiers>win10-x86</RuntimeIdentifiers>
     <PublishReadyToRun>true</PublishReadyToRun>
     <PublishReadyToRunComposite>true</PublishReadyToRunComposite>
+    <PublishTrimmed>false</PublishTrimmed>
+	<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
   </PropertyGroup>
 
   <PropertyGroup>
