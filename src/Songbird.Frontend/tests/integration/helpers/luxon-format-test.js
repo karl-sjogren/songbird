@@ -11,6 +11,6 @@ module('Integration | Helper | luxon-format', function(hooks) {
 
     await render(hbs`{{luxon-format this.inputValue "W"}}`);
 
-    assert.equal(this.element.textContent.trim(), '8');
+    assert.strictEqual(this.element.textContent.trim(), '8');
   });
 });

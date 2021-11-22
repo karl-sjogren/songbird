@@ -3,13 +3,13 @@ import { action } from '@ember/object';
 
 export default class ListSizerComponent extends Component {
   @action
-  sizeChanged(e) {
-    let selectedValue = parseInt(e.target.value, 10);
-    if(isNaN(selectedValue)) {
-      selectedValue = this.availableSizes[0].value;
+  sizeChanged(value) {
+    let parsedValue = parseInt(value, 10);
+    if(isNaN(parsedValue)) {
+      parsedValue = this.availableSizes[0].value;
     }
 
-    this.args.changePageSize(selectedValue);
+    this.args.changePageSize(parsedValue);
   }
 
   get availableSizes() {

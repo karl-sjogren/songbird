@@ -1,0 +1,6 @@
+<select
+  ...attributes
+  {{on "change" this.onChange}}
+>
+  {{yield (hash option=(component "simple-option" currentValue=@value))}}
+</select>

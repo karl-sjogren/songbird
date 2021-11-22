@@ -1,8 +1,8 @@
 <div class="list-sizer">
   <label for="page-size" class="sr-only">Antal resultat</label>
-  <select id="page-size" value={{@model}} {{on "change" this.sizeChanged}}>
+  <SimpleSelect id="page-size" @onChange={{this.sizeChanged}} @value={{@model}} as |s|>
     {{#each this.availableSizes as |size|}}
-      <option value={{size.value}} selected={{if (eq @model size.value) true false}}>{{size.label}}</option>
+      <s.option @label={{size.label}} @value={{size.value}} />
     {{/each}}
-  </select>
+  </SimpleSelect>
 </div>
