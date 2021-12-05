@@ -108,6 +108,7 @@ namespace Songbird.Web.Services {
                     foreach(var user in grouping) {
                         match.Users.Add(user);
                     }
+
                     return match;
                 })
                 .ToList();

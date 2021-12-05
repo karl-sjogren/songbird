@@ -3,11 +3,11 @@ import { inject } from '@ember/service';
 import { hash } from 'rsvp';
 
 export default class LogSearchRoute extends Route {
-  @inject logSearchService;
+  @inject applicationService;
 
   model() {
     return hash({
-      applicationFacets: this.logSearchService.getApplicationFacets()
+      applicationFacets: this.applicationService.getLogFilters()
     });
   }
 

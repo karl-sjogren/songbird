@@ -104,7 +104,7 @@ export default class FacetCustomerComponent extends Component {
   @action
   filter(customerFilter, forceAdd = false) {
     const filter = this.applicationFilter;
-    console.log(forceAdd);
+
     if(filter.length > 0) {
       const currentFilter = this.currentCustomerFilter;
 

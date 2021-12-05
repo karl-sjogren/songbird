@@ -2,7 +2,7 @@ using System;
 using Microsoft.AspNetCore.Authentication;
 using Songbird.Web.Authentication;
 
-namespace Sonbgird.Web.Extensions {
+namespace Songbird.Web.Extensions {
     public static class AuthenticationBuilderExtensions {
         public static AuthenticationBuilder AddApiKeys(this AuthenticationBuilder authenticationBuilder, Action<ApiKeyAuthenticationOptions> options = null) {
             if(options == null)

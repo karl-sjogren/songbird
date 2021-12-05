@@ -4,7 +4,7 @@ using Songbird.Web.Queries;
 using Songbird.Web.TypeConverters;
 using Xunit;
 
-namespace Songbird.Web.Tests {
+namespace Songbird.Web.Tests.TypeConverters {
     public class DateWithRangeTypeConverterTests {
         private readonly DateWithRangeTypeConverter _converter;
 

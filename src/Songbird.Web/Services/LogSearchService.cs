@@ -24,7 +24,7 @@ namespace Songbird.Web.Services {
             _logger = logger;
         }
 
-        public virtual async Task<PagedResult<Log4StashEntry>> GetResultsAsync(LogSearchQuery query, LogSearchFilter filter, LogSearchSettings settings, CancellationToken cancellationToken) {
+        public async Task<PagedResult<Log4StashEntry>> GetResultsAsync(LogSearchQuery query, LogSearchFilter filter, LogSearchSettings settings, CancellationToken cancellationToken) {
             var searchDescriptor = Log4StashQueryTranslator.Translate(query, filter, settings);
 
             searchDescriptor = searchDescriptor
@@ -80,7 +80,7 @@ namespace Songbird.Web.Services {
             return new PagedResult<Log4StashEntry>(items, settings.PageIndex, settings.PageSize, (Int32)totalHits);
         }
 
-        public virtual async Task<ICollection<Facet>> GetFacetsAsync(LogSearchQuery query, LogSearchFilter filter, LogSearchSettings settings, CancellationToken cancellationToken) {
+        public async Task<ICollection<Facet>> GetFacetsAsync(LogSearchQuery query, LogSearchFilter filter, LogSearchSettings settings, CancellationToken cancellationToken) {
             var searchDescriptor = Log4StashQueryTranslator.Translate(query, filter, settings);
 
             searchDescriptor = searchDescriptor

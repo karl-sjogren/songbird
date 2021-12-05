@@ -36,7 +36,19 @@ module.exports = function(defaults) {
     ]
   });
 
-  //fontelloToLess('./app/styles/fontello-icon-definitions.less');
+  app.import('node_modules/metrics-graphics/dist/metricsgraphics.css');
+  app.import('node_modules/metrics-graphics/dist/metricsgraphics.js', {
+    using: [
+      { transformation: 'amd', as: 'metrics-graphics' }
+    ]
+  });
+
+  app.import('node_modules/d3/build/d3.js', {
+    using: [
+      { transformation: 'amd', as: 'd3' }
+    ]
+  });
+
   const fontello = fontelloPlugin('./public/fonts/fontello/', { outputFilePath: './app/styles/fontello-icon-definitions.less' });
 
   return merge([fontello, app.toTree()]);

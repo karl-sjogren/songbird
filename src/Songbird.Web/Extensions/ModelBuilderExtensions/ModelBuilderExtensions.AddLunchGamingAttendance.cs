@@ -1,7 +1,7 @@
 using Songbird.Web.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Songbird.Web.Extensions {
+namespace Songbird.Web.Extensions.ModelBuilderExtensions {
     public static partial class ModelBuilderExtensions {
         public static void AddLunchGamingAttendance(this ModelBuilder modelBuilder) {
             _ = modelBuilder.Entity<LunchGamingAttendance>(entity => {

@@ -52,7 +52,7 @@ namespace Songbird.Web.TypeConverters {
             if(DateTime.TryParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out var date)) {
                 return new DateWithRange {
                     MinDate = date,
-                    MaxDate = date
+                    MaxDate = date.AddHours(23).AddMinutes(59).AddSeconds(59)
                 };
             }
 
@@ -78,7 +78,7 @@ namespace Songbird.Web.TypeConverters {
             }
 
             if(DateTime.TryParseExact(parts[1], "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out date)) {
-                dateWithRange.MaxDate = date;
+                dateWithRange.MaxDate = date.AddHours(23).AddMinutes(59).AddSeconds(59);
             } else {
                 return null;
             }

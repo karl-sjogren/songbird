@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Songbird.Web.Extensions;
+using Songbird.Web.Extensions.ModelBuilderExtensions;
 using Songbird.Web.Models;
 
 namespace Songbird.Web {

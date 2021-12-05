@@ -7,6 +7,7 @@
 @import 'loader.less';
 @import 'start-page.less';
 @import 'fika-buddies.less';
+@import 'log-graph.less';
 @import 'log-search.less';
 
 body {
@@ -117,6 +118,27 @@ button {
   &[disabled] {
     #mixins.disabled-button();
   }
+}
+
+.dark-mode {
+  color: #8c8c8c;
+
+  main {
+    background: @main-background-color-dark;
+  }
+
+  header {
+    background: @main-background-color-dark;
+  }
+
+  .rough-borders {
+    --rough-fill: #2e2e2e;
+  }
+}
+
+body.dark-mode {
+  background-color: @body-background-color-dark;
+  background-image: none !important;
 }
 
 // https://gist.github.com/ffoodd/000b59f431e3e64e4ce1a24d5bb36034

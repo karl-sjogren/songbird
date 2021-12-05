@@ -58,6 +58,17 @@
   }
 }
 
+.dark-mode {
+  ul {
+    background-color: #2e2e2e;
+
+    &.highlighted {
+      background-color: #2e2e2e;
+      --rough-fill: lighten(#2e2e2e, 20);
+    }
+  }
+}
+
 @media (min-width: @screen-desktop-min) {
   .fika-buddies {
     > div {

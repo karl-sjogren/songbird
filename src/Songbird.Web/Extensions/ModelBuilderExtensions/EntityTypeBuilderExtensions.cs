@@ -3,7 +3,7 @@ using Songbird.Web.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Songbird.Web.Extensions {
+namespace Songbird.Web.Extensions.ModelBuilderExtensions {
     public static class EntityTypeBuilderExtensions {
         public static EntityTypeBuilder<T> AddModelBaseProperties<T>([NotNull] this EntityTypeBuilder<T> builder) where T : ModelBase {
             builder.HasKey(e => e.Id);

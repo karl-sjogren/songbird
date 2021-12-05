@@ -5,7 +5,7 @@ using Shouldly;
 using Songbird.Web.Extensions;
 using Xunit;
 
-namespace Saga.Core.Tests.Extensions {
+namespace Songbird.Web.Tests.Extensions {
     public class DateTimeExtensionsTests {
         [Theory]
         [InlineData("en-US", "2009-12-27", 52)]
@@ -41,7 +41,7 @@ namespace Saga.Core.Tests.Extensions {
         [InlineData("sv-SE", "2015-01-01", 1)]
         [InlineData("sv-SE", "2015-01-04", 1)]
         [InlineData("sv-SE", "2015-01-05", 2)]
-        public void TestWeekNumbers(string culture, DateTime date, Int32 weekNumber) {
+        public void TestWeekNumbers(string culture, DateTime date, int weekNumber) {
             Thread.CurrentThread.CurrentCulture = new CultureInfo(culture);
 
             date.GetWeekNumber().ShouldBe(weekNumber);
@@ -75,7 +75,7 @@ namespace Saga.Core.Tests.Extensions {
 
         [InlineData("sv-SE", 2014, 58, "2015-02-02")]
         [InlineData("en-US", 2014, 58, "2015-02-01")]
-        public void TestGetDateFromWeek(string culture, Int32 year, Int32 week, DateTime expectedStart) {
+        public void TestGetDateFromWeek(string culture, int year, int week, DateTime expectedStart) {
             Thread.CurrentThread.CurrentCulture = new CultureInfo(culture);
 
             DateTimeExtensions.GetStartOfWeek(year, week).ShouldBe(expectedStart);

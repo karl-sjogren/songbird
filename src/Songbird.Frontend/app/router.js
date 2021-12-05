@@ -9,4 +9,5 @@ export default class Router extends EmberRouter {
 Router.map(function() {
   this.route('fika-buddies');
   this.route('log-search');
+  this.route('log-graphs');
 });

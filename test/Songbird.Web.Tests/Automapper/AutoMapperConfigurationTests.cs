@@ -1,7 +1,7 @@
 using AutoMapper;
 using Xunit;
 
-namespace Songbird.Web.Tests {
+namespace Songbird.Web.Tests.Automapper {
     public class AutoMapperConfigurationTests {
         [Fact]
         public void AssertConfigurationIsValid() {

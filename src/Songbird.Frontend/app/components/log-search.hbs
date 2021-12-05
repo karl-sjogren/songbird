@@ -6,7 +6,7 @@
 <div class="query-container">
   <div class="form-group with-button">
     <label for="text-input">Sökfråga</label>
-    <Input type="text" id="text-input" autocomplete="off" {{on "keydown" this.onQueryKeyDown}} @value={{this.query.query}} />
+    <Input @type="text" id="text-input" autocomplete="off" {{on "keyup" this.onQueryKeyDown}} @value={{this.query.query}} />
     <button type="button" class="primary" disabled={{this.loading}} {{on "click" this.fetchFromStart}}>Sök</button>
   </div>
 </div>
@@ -49,6 +49,7 @@
     <thead>
       <tr>
         <th>
+          {{!-- template-lint-disable no-potential-path-strings --}}
           <SortableHeaderButton
             @field="@timestamp"
             @sortField={{this.settings.sortField}}
