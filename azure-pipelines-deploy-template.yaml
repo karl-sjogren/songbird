@@ -8,4 +8,4 @@ steps:
   - task: CmdLine@2
     displayName: Deploy branch ${{ environment.branch }} to environment ${{ environment.name }}
     inputs:
-      script: 'echo "Deploy branch ${{ environment.branch }} to environment ${{ environment.name }}'
+      script: 'echo "Deploy branch ${{ environment.branch }} to environment ${{ environment.name }}"'

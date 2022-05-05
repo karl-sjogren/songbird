@@ -19,18 +19,18 @@ stages:
       displayName: Build thing one
       steps:
         - task: CmdLine@2
-          displayName: Deploy branch ${{ environment.branch }} to environment ${{ environment.name }}
+          displayName: Thing one
           inputs:
-            script: 'echo "Deploy branch ${{ environment.branch }} to environment ${{ environment.name }}'
+            script: 'echo "Thing one"'
     - job:
       pool:
         vmImage: windows-latest
       displayName: Build thing two
       steps:
         - task: CmdLine@2
-          displayName: Deploy branch ${{ environment.branch }} to environment ${{ environment.name }}
+          displayName: Thing two
           inputs:
-            script: 'echo "Deploy branch ${{ environment.branch }} to environment ${{ environment.name }}'
+            script: 'echo "Thing two"'
 
   - stage: Deploy
     jobs:
