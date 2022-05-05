@@ -5,7 +5,7 @@ parameters:
 
 stages:
   - ${{ each environment in parameters.environments }}:
-    - stage: Deploy
+    - stage: Deploy ${{ environment.branch }}
       jobs:
       - job:
         pool:
