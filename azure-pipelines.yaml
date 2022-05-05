@@ -39,7 +39,7 @@ stages:
           vmImage: windows-latest
         steps:
 
-        - template: deploy.yml
+        - template: azure-pipelines-deploy-template.yml
           parameters:
             environments:
               develop:
