@@ -11,7 +11,8 @@ trigger:
     - '*'
 
 stages:
-  - stage: Build
+  - stage: build
+    displayName: Build projects
     jobs:
     - job:
       pool:

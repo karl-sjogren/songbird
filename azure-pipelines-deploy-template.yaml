@@ -6,6 +6,9 @@ parameters:
 stages:
   - ${{ each environment in parameters.environments }}:
     - stage: Deploy_${{ environment.branch }}
+      dependsOn: build
+      displayName: Deploy branch ${{ environment.branch }} to environment ${{ environment.name }}
+      condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/${{ environment.branch }}'))
       jobs:
       - job:
         pool:
