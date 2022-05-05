@@ -3751,16 +3751,16 @@ broccoli-kitchen-sink-helpers@^0.3.1:
     glob "^5.0.10"
     mkdirp "^0.5.1"
 
-broccoli-less-single@^1.1.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/broccoli-less-single/-/broccoli-less-single-1.2.0.tgz#fa1eed08998f1ce6212cd3868b6b0c9f3b5d1d94"
-  integrity sha512-i9PXpzMcYZH77uRJCatMQgZpb2tzOtbWGfTANwAFPk6rIr7SuxTkXigrciYoROubm2HTlCXtbMbC1fZD0OV2Bg==
+broccoli-less-single@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/broccoli-less-single/-/broccoli-less-single-2.0.1.tgz#d6314f96613ca1dc670f8f1c3166352de6a74f05"
+  integrity sha512-KHHYkWQxYultkwm09LYCfPc0K4Dr8J/QFHandweXhn9tmmZ6OqHiUT92UwL5zq+MkHcd87T+Vl30/7hi3NezNg==
   dependencies:
     broccoli-caching-writer "^3.0.3"
     include-path-searcher "^0.1.0"
     less "^3.12.2"
-    lodash.merge "^4.6.2"
-    mkdirp "^0.5.5"
+    lodash "^4.17.15"
+    mkdirp "^1.0.4"
 
 broccoli-merge-files@^0.8.0:
   version "0.8.0"
@@ -6351,12 +6351,12 @@ ember-cli-is-package-missing@^1.0.0:
   resolved "https://registry.yarnpkg.com/ember-cli-is-package-missing/-/ember-cli-is-package-missing-1.0.0.tgz#6e6184cafb92635dd93ca6c946b104292d4e3390"
   integrity sha1-bmGEyvuSY13ZPKbJRrEEKS1OM5A=
 
-ember-cli-less@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/ember-cli-less/-/ember-cli-less-3.0.1.tgz#e5b6cb5cc8339c1b570b95fcf1be90d3e4be36f5"
-  integrity sha512-4IfQX+bhbEmeOfo3Y2rjwGc364tuaIdXzIwhaqBxA8Z6szirEEkkN90eAAu81hb/Hdit07HHzGHBdo7i7NgzZA==
+ember-cli-less@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/ember-cli-less/-/ember-cli-less-3.0.2.tgz#847b9f337cc35085c2e5984c535de85adb9e066e"
+  integrity sha512-kX+QqxKqVaMH78kCDere9FSCorpipDmw8qvWlx7BK3nOAATUK90/72D0YECTNILaLbZcFIoiBZwX0FsGqpDSvw==
   dependencies:
-    broccoli-less-single "^1.1.0"
+    broccoli-less-single "^2.0.1"
     broccoli-merge-trees "^1.0.0"
     ember-cli-htmlbars "^4.2.3"
     ember-cli-version-checker "^5.0.2"
@@ -12777,7 +12777,14 @@ qs@6.7.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ==
 
-qs@^6.4.0, qs@^6.9.6:
+qs@^6.10.1:
+  version "6.10.2"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.10.2.tgz#c1431bea37fc5b24c5bdbafa20f16bdf2a4b9ffe"
+  integrity sha512-mSIdjzqznWgfd4pMii7sHtaYF8rx8861hBO80SraY5GT0XQibWZWJSid0avzHGkDIZLImux2S5mXO0Hfct2QCw==
+  dependencies:
+    side-channel "^1.0.4"
+
+qs@^6.4.0:
   version "6.9.6"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.6.tgz#26ed3c8243a431b2924aca84cc90471f35d5a0ee"
   integrity sha512-TIRk4aqYLNoJUbd+g2lEdz5kLWIuTMRagAXxl78Q0RiVjAOugHmeKNGdd3cwo/ktpf9aL9epCfFqWDEKysUlLQ==
