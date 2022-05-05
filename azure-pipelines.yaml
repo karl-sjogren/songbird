@@ -32,17 +32,10 @@ stages:
           inputs:
             script: 'echo "Thing two"'
 
-  - stage: Deploy
-    jobs:
-      - job: deploy
-        pool:
-          vmImage: windows-latest
-        steps:
-
-        - template: azure-pipelines-deploy-template.yaml
-          parameters:
-            environments:
-              develop:
-                name: dev
-                branch: develop
-
+  - template: azure-pipelines-deploy-template.yaml
+    parameters:
+      environments:
+        - name: dev
+          branch: develop
+        - name: prod
+          branch: main

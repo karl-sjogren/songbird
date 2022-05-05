@@ -3,9 +3,16 @@ parameters:
     type: object
     default: []
 
-steps:
-- ${{ each environment in parameters.environments }}:
-  - task: CmdLine@2
-    displayName: Deploy branch ${{ environment.branch }} to environment ${{ environment.name }}
-    inputs:
-      script: 'echo "Deploy branch ${{ environment.branch }} to environment ${{ environment.name }}"'
+stages:
+  - ${{ each environment in parameters.environments }}:
+    - stage: Deploy
+      jobs:
+      - job:
+        pool:
+          vmImage: windows-latest
+        displayName: Build thing one
+        steps:
+          - task: CmdLine@2
+            displayName: Deploy branch ${{ environment.branch }} to environment ${{ environment.name }}
+            inputs:
+              script: 'echo "Deploy branch ${{ environment.branch }} to environment ${{ environment.name }}"'
