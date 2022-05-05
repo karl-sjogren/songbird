@@ -5,48 +5,48 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Songbird.Web.HostedServices {
-    public abstract class TimedHostedService : IHostedService, IDisposable {
-        private readonly TimeSpan _interval;
-        private readonly TimeSpan _waitBeforeStart;
-        private readonly ILogger<TimedHostedService> _logger;
-        private Timer _timer;
+namespace Songbird.Web.HostedServices;
 
-        protected TimedHostedService(TimeSpan interval, TimeSpan waitBeforeStart, ILogger<TimedHostedService> logger) {
-            _interval = interval;
-            _waitBeforeStart = waitBeforeStart;
-            _logger = logger;
-        }
+public abstract class TimedHostedService : IHostedService, IDisposable {
+    private readonly TimeSpan _interval;
+    private readonly TimeSpan _waitBeforeStart;
+    private readonly ILogger<TimedHostedService> _logger;
+    private Timer _timer;
 
-        public Task StartAsync(CancellationToken stoppingToken) {
-            _logger.LogInformation($"Starting a TimedService ({GetType().Name}) which will run in {_waitBeforeStart} and then every {_interval}.");
+    protected TimedHostedService(TimeSpan interval, TimeSpan waitBeforeStart, ILogger<TimedHostedService> logger) {
+        _interval = interval;
+        _waitBeforeStart = waitBeforeStart;
+        _logger = logger;
+    }
 
-            _timer = new Timer(TimerCallback, stoppingToken, _waitBeforeStart, _interval);
-            return Task.CompletedTask;
-        }
+    public Task StartAsync(CancellationToken stoppingToken) {
+        _logger.LogInformation($"Starting a TimedService ({GetType().Name}) which will run in {_waitBeforeStart} and then every {_interval}.");
 
-        private async void TimerCallback(object state) {
-            var cancellationToken = (CancellationToken)state;
+        _timer = new Timer(TimerCallback, stoppingToken, _waitBeforeStart, _interval);
+        return Task.CompletedTask;
+    }
 
-            _logger.LogInformation($"Starting execution of TimedService ({GetType().Name}).");
+    private async void TimerCallback(object state) {
+        var cancellationToken = (CancellationToken)state;
 
-            var stopwatch = Stopwatch.StartNew();
-            await ExecuteAsync(cancellationToken);
-            stopwatch.Stop();
+        _logger.LogInformation($"Starting execution of TimedService ({GetType().Name}).");
 
-            _logger.LogInformation($"Executed TimedService ({GetType().Name}) which took {stopwatch.Elapsed}.");
-        }
+        var stopwatch = Stopwatch.StartNew();
+        await ExecuteAsync(cancellationToken);
+        stopwatch.Stop();
 
-        protected abstract Task ExecuteAsync(CancellationToken cancellationToken);
+        _logger.LogInformation($"Executed TimedService ({GetType().Name}) which took {stopwatch.Elapsed}.");
+    }
 
-        public Task StopAsync(CancellationToken stoppingToken) {
-            _timer?.Change(Timeout.Infinite, 0);
-            return Task.CompletedTask;
-        }
+    protected abstract Task ExecuteAsync(CancellationToken cancellationToken);
 
-        public void Dispose() {
-            _timer?.Dispose();
-            GC.SuppressFinalize(this);
-        }
+    public Task StopAsync(CancellationToken stoppingToken) {
+        _timer?.Change(Timeout.Infinite, 0);
+        return Task.CompletedTask;
+    }
+
+    public void Dispose() {
+        _timer?.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

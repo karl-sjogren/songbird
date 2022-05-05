@@ -1,0 +1,11 @@
+parameters:
+  - name: environments
+    type: object
+    default: []
+
+steps:
+- ${{ each environment in parameters.environments }}:
+  - task: CmdLine@2
+    displayName: Deploy branch ${{ environment.branch }} to environment ${{ environment.name }}
+    inputs:
+      script: 'echo "Deploy branch ${{ environment.branch }} to environment ${{ environment.name }}'
