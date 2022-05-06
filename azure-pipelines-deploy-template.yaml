@@ -59,8 +59,8 @@ stages:
                     SpecifySlotOrASE: true
                     ResourceGroupName: 'songbird'
                     Slot: deploy
-              on:
-                failure:
-                  steps:
-                success:
-                  steps:
+              #on:
+                #failure:
+                  #steps:
+                #success:
+                  #steps:
