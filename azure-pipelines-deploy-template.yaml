@@ -14,6 +14,7 @@ stages:
         pool:
           vmImage: ubuntu-latest
         displayName: Deploy
+        environment: ${{ environment.name }}
         strategy:
             runOnce:
               deploy:
