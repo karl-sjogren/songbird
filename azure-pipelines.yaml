@@ -37,11 +37,11 @@ stages:
   - template: azure-pipelines-deploy-template.yaml
     parameters:
       environments:
-        - name: Development
+        - name: Songbird Development
           branch: develop
           appName: songbird-dev
           subscription: $(AZ_SUBSCRIPTION)
-        - name: Production
+        - name: Songbird Production
           branch: main
           appName: songbird-prod
           subscription: $(AZ_SUBSCRIPTION)
