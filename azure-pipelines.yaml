@@ -66,7 +66,7 @@ stages:
           testResultsFiles: '$(Build.SourcesDirectory)/src/Songbird.Frontend/junit.xml'
           testRunTitle: 'Ember Tests'
           mergeTestResults: true
-          failTaskOnFailedTests: true
+          failTaskOnFailedTests: false
       - task: CmdLine@2
         displayName: 'Build Ember App'
         inputs:
