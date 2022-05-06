@@ -10,12 +10,59 @@ stages:
       displayName: Deploy branch ${{ environment.branch }} to environment ${{ environment.name }}
       condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/${{ environment.branch }}'))
       jobs:
-      - job:
+      - deployment:
         pool:
-          vmImage: windows-latest
-        displayName: Build thing one
-        steps:
-          - task: CmdLine@2
-            displayName: Deploy branch ${{ environment.branch }} to environment ${{ environment.name }}
-            inputs:
-              script: 'echo "Deploy branch ${{ environment.branch }} to environment ${{ environment.name }}"'
+          vmImage: ubuntu-latest
+        displayName: Deploy
+        strategy:
+            runOnce:
+              deploy:
+                steps:
+                - task: AzureWebAppV1@1
+                  displayName: 'Deploy Azure App Service'
+                  inputs:
+                    azureSubscription: '${{ environment.subscription }}'
+                    appType: webAppLinux
+
+                    WebAppName: '${{ environment.appName }}'
+                    deployToSlotOrASE: true
+                    ResourceGroupName: 'songbird'
+                    SlotName: deploy
+                    packageForLinux: '$(System.DefaultWorkingDirectory)/_karl-sjogren.songbird/build-artifacts/publish.zip'
+              routeTraffic:
+                steps:
+                - task: AzureAppServiceManage@0
+                  displayName: 'Start deploytment slot'
+                  inputs:
+                    azureSubscription: '${{ environment.subscription }}'
+                    Action: 'Start Azure App Service'
+                    WebAppName: '${{ environment.appName }}'
+                    SpecifySlotOrASE: true
+                    ResourceGroupName: 'songbird'
+                    Slot: deploy
+
+                - task: AzureAppServiceManage@0
+                  displayName: 'Swap to deployment slot'
+                  inputs:
+                    azureSubscription: '${{ environment.subscription }}'
+                    Action: 'Swap Slots'
+                    WebAppName: '${{ environment.appName }}'
+                    ResourceGroupName: 'songbird'
+                    SourceSlot: deploy
+
+                - task: AzureAppServiceManage@0
+                  displayName: 'Stop deploytment slot'
+                  inputs:
+                    azureSubscription: '${{ environment.subscription }}'
+                    Action: 'Stop Azure App Service'
+                    WebAppName: '${{ environment.appName }}'
+                    SpecifySlotOrASE: true
+                    ResourceGroupName: 'songbird'
+                    Slot: deploy
+              on:
+                failure:
+                  pool: [ server | pool ]
+                  steps:
+                success:
+                  pool: [ server | pool ]
+                  steps:

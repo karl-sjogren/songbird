@@ -4,6 +4,7 @@ variables:
   DOTNET_NOLOGO: 1
   YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn
   IS_MAIN: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
+  AZ_SUBSCRIPTION: 'XLENT Norr (e78adb91-7ca9-42a5-aa40-2d5dd4326c33)'
 
 trigger:
   branches:
@@ -38,5 +39,9 @@ stages:
       environments:
         - name: dev
           branch: develop
+          appName: songbird-dev
+          subscription: $(AZ_SUBSCRIPTION)
         - name: prod
           branch: main
+          appName: songbird-prod
+          subscription: $(AZ_SUBSCRIPTION)
