@@ -32,7 +32,7 @@ stages:
                     deployToSlotOrASE: true
                     ResourceGroupName: 'songbird'
                     SlotName: deploy
-                    package: '$(System.DefaultWorkingDirectory)/_karl-sjogren.songbird/build-artifacts/publish.zip'
+                    package: '$(System.DefaultWorkingDirectory)/build-artifacts/publish.zip'
               routeTraffic:
                 steps:
                 - task: AzureAppServiceManage@0
