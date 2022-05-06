@@ -76,7 +76,7 @@ stages:
         displayName: 'Install .NET Core'
         inputs:
           packageType: 'sdk'
-          version: '6.0.100'
+          version: '6.0.202'
       - task: DotNetCoreCLI@2
         displayName: 'Restore NuGet packages'
         inputs:
