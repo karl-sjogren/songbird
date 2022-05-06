@@ -24,8 +24,7 @@ stages:
                   inputs:
                     azureSubscription: '${{ environment.subscription }}'
                     appType: webAppLinux
-
-                    WebAppName: '${{ environment.appName }}'
+                    appName: '${{ environment.appName }}'
                     deployToSlotOrASE: true
                     ResourceGroupName: 'songbird'
                     SlotName: deploy
@@ -37,7 +36,7 @@ stages:
                   inputs:
                     azureSubscription: '${{ environment.subscription }}'
                     Action: 'Start Azure App Service'
-                    WebAppName: '${{ environment.appName }}'
+                    appName: '${{ environment.appName }}'
                     SpecifySlotOrASE: true
                     ResourceGroupName: 'songbird'
                     Slot: deploy
