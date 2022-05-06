@@ -18,7 +18,9 @@ stages:
         strategy:
             runOnce:
               deploy:
+                displayName: 'Deploy to ${{ environment.name }}'
                 steps:
+                - download: none
                 - task: DownloadPipelineArtifact@2
                   inputs:
                     artifact: build-artifacts
@@ -34,6 +36,7 @@ stages:
                     SlotName: deploy
                     package: '$(System.DefaultWorkingDirectory)/build-artifacts/publish.zip'
               routeTraffic:
+                displayName: 'Deployment slot tango'
                 steps:
                 - task: AzureAppServiceManage@0
                   displayName: 'Start deploytment slot'
