@@ -61,8 +61,6 @@ stages:
                     Slot: deploy
               on:
                 failure:
-                  pool: [ server | pool ]
                   steps:
                 success:
-                  pool: [ server | pool ]
                   steps:
