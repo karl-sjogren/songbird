@@ -24,15 +24,6 @@ stages:
           displayName: Thing one
           inputs:
             script: 'echo "Thing one"'
-    - job:
-      pool:
-        vmImage: windows-latest
-      displayName: Build thing two
-      steps:
-        - task: CmdLine@2
-          displayName: Thing two
-          inputs:
-            script: 'echo "Thing two"'
 
   - template: azure-pipelines-deploy-template.yaml
     parameters:
