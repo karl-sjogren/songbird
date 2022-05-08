@@ -19,4 +19,4 @@ variables:
   - name:  SAFE_BRANCH
     value: $[replace(replace(variables['Build.SourceBranch'], 'refs/heads/', ''), '/', '-')]
   - name: System.Debug
-    value: true
+    value: false

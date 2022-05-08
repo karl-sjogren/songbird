@@ -4,11 +4,9 @@
     <IsPackable>false</IsPackable>
     <LangVersion>preview</LangVersion>
     <RuntimeIdentifiers>win10-x86;linux-x64</RuntimeIdentifiers>
-	<!--
     <PublishReadyToRun>true</PublishReadyToRun>
     <PublishReadyToRunComposite>true</PublishReadyToRunComposite>
     <PublishTrimmed>false</PublishTrimmed>
-	-->
 	<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
   </PropertyGroup>
 
