@@ -65,6 +65,18 @@ stages:
                     SpecifySlotOrASE: true
                     ResourceGroupName: 'songbird'
                     Slot: deploy
+              postRouteTraffic:
+                steps:
+                  - bash: |
+                      status=`curl --silent --head ${{ environment.smokeTestUrl }} | head -1 | cut -f 2 -d' '`
+
+                      if [ "$status" != "200" ]
+                      then
+                          echo "response status should be 200, was '$status' for url '${{ environment.smokeTestUrl }}'"
+                          exit 1
+                      fi
+                    displayName: 'Smoke test'
+
               #on:
                 #failure:
                   #steps:
