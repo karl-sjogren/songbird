@@ -1,4 +1,4 @@
-name: Songbird_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+name: Songbird_$(SAFE_BRANCH)_$(Date:yyyyMMdd)$(Rev:.r)
 
 variables:
   - template: azure-pipelines-variables.yaml
