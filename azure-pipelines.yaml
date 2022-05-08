@@ -19,7 +19,7 @@ stages:
       pool:
         vmImage: 'ubuntu-latest'
       steps:
-      - script: echo "##vso[build.updatebuildnumber]Songbird_$(replace(SourceBranchName, '/', '_'))_$(Date:yyyyMMdd)$(Rev:.r)"
+      - script: echo "##vso[build.updatebuildnumber]Songbird_$(replace($(SourceBranchName), '/', '_'))_$(Date:yyyyMMdd)$(Rev:.r)"
       - task: DeleteFiles@1
         displayName: 'Remove previous build files'
         inputs:
