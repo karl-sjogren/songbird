@@ -12,3 +12,7 @@ variables:
     value: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
   - name:  AZ_SUBSCRIPTION
     value: $[variables.AzureSubscription]
+  - name:  SDK_VERSION
+    value: '7.0.100-preview.3'
+  - name:  SDK_VERSION_PATH_SEGMENT
+    value: 'net7.0'

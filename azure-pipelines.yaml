@@ -74,7 +74,7 @@ stages:
         displayName: 'Install .NET Core'
         inputs:
           packageType: 'sdk'
-          version: '6.0.202'
+          version: $(SDK_VERSION)
       - task: DotNetCoreCLI@2
         displayName: 'Restore NuGet packages'
         inputs:
@@ -106,7 +106,7 @@ stages:
       - task: PublishBuildArtifacts@1
         displayName: 'Publish application artifacts'
         inputs:
-          pathtoPublish: '$(Build.SourcesDirectory)/src/Songbird.Web/bin/Debug/net6.0/win10-x86/publish.zip'
+          pathtoPublish: '$(Build.SourcesDirectory)/src/Songbird.Web/bin/Debug/$(SDK_VERSION_PATH_SEGMENT)/win10-x86/publish.zip'
           artifactName: build-artifacts
       - task: DotNetCoreCLI@2
         displayName: Restore dotnet tools
