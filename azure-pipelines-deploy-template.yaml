@@ -71,15 +71,13 @@ stages:
                     ResourceGroupName: 'songbird'
                     Slot: deploy
               postRouteTraffic:
-                variables:
-                  smokeTestUrl: $[ dependencies.DeployJob.outputs['DeployStep.AppServiceApplicationUrl'] ]
                 steps:
                   - bash: |
-                      status=`curl --silent --head $(smokeTestUrl) | head -1 | cut -f 2 -d' '`
+                      status=`curl --silent --head $(dependencies.DeployJob.outputs['DeployStep.AppServiceApplicationUrl']) | head -1 | cut -f 2 -d' '`
 
                       if [ "$status" != "200" ]
                       then
-                          echo "response status should be 200, was '$status' for url '$(smokeTestUrl)'"
+                          echo "response status should be 200, was '$status' for url '$(dependencies.DeployJob.outputs['DeployStep.AppServiceApplicationUrl'])'"
                           exit 1
                       fi
                     displayName: 'Smoke test'
