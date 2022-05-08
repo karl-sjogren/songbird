@@ -73,7 +73,6 @@ namespace Songbird.Web.Services {
                         scrollId = null;
                         items.RemoveRange(settings.PageSize, items.Count - settings.PageSize);
                     }
-
                 } while(!string.IsNullOrEmpty(scrollId));
             }
 

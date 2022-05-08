@@ -1,0 +1,20 @@
+variables:
+  - group: Songbird variables
+  - name: AZP_CACHING_TAR
+    value: true
+  - name:  DOTNET_CLI_TELEMETRY_OPTOUT
+    value: 1
+  - name:  DOTNET_NOLOGO
+    value: 1
+  - name:  YARN_CACHE_FOLDER
+    value: $(Pipeline.Workspace)/.yarn
+  - name:  IS_MAIN
+    value: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
+  - name:  AZ_SUBSCRIPTION
+    value: $[variables.AzureSubscription]
+  - name:  SDK_VERSION
+    value: '7.0.100-preview.3.22179.4'
+  - name:  SDK_VERSION_PATH_SEGMENT
+    value: 'net7.0'
+  - name:  SAFE_BRANCH
+    value: $[replace(replace(variables['Build.SourceBranch'], 'refs/heads/', ''), '/', '-')]

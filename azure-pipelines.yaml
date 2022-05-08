@@ -1,126 +1,146 @@
+name: Songbird_$(SAFE_BRANCH)_$(Date:yyyyMMdd)$(Rev:.r)
+
 variables:
-  AZP_CACHING_TAR: true
-  DOTNET_CLI_TELEMETRY_OPTOUT: 1
-  DOTNET_NOLOGO: 1
-  YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn
+  - template: azure-pipelines-variables.yaml
 
 trigger:
   branches:
     include:
-    - main
+    - '*'
 
-jobs:
-- job: Build
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-  - task: DeleteFiles@1
-    displayName: 'Remove previous build files'
-    inputs:
-      contents: |
-        $(Build.SourcesDirectory)/coverage/**/*
-        src/Songbird.Web/ClientApp/**/*
-        artifacts/**/*
-        **/*.trx
-        **/junit.xml
-  - task: NodeTool@0
-    displayName: 'Set Node.js version to 14.x'
-    inputs:
-      versionSpec: '14.x'
-  - task: Cache@2
-    inputs:
-      key: '"yarn" | "$(Agent.OS)" | ./src/Songbird.Frontend/yarn.lock'
-      restoreKeys: |
-          yarn | "$(Agent.OS)"
-      path: $(YARN_CACHE_FOLDER)
-    displayName: Cache Yarn packages
-  - task: CmdLine@2
-    displayName: 'Run yarn'
-    inputs:
-      script: yarn --frozen-lockfile --prefer-offline
-      workingDirectory: src/Songbird.Frontend
-  - task: CmdLine@2
-    displayName: 'Run frontend linting'
-    inputs:
-      script: |
-        yarn lint:js
-        yarn lint:hbs
-        yarn lint:css
-      workingDirectory: src/Songbird.Frontend
-      failOnStderr: false
-  - task: CmdLine@2
-    displayName: 'Test Ember App'
-    inputs:
-      script: 'node_modules/.bin/ember test || exit 0'
-      workingDirectory: src/Songbird.Frontend
-      failOnStderr: false
-  - task: PublishTestResults@2
-    displayName: 'Publish Ember test results'
-    inputs:
-      testResultsFormat: 'JUnit'
-      testResultsFiles: '$(Build.SourcesDirectory)/src/Songbird.Frontend/junit.xml'
-      testRunTitle: 'Ember Tests'
-      mergeTestResults: true
-      failTaskOnFailedTests: true
-  - task: CmdLine@2
-    displayName: 'Build Ember App'
-    inputs:
-      script: node_modules/.bin/ember build --environment=production --out ../Songbird.Web/ClientApp
-      workingDirectory: src/Songbird.Frontend
-  - task: UseDotNet@2
-    displayName: 'Install .NET Core'
-    inputs:
-      packageType: 'sdk'
-      version: '6.0.100'
-  - task: DotNetCoreCLI@2
-    displayName: 'Restore NuGet packages'
-    inputs:
-      command: 'restore'
-      projects: '$(Build.SourcesDirectory)/Songbird.sln'
-      feedsToUse: 'config'
-      nugetConfigPath: '$(Build.SourcesDirectory)/nuget.config'
-      verbosityRestore: 'Minimal'
-  - task: DotNetCoreCLI@2
-    displayName: 'Run tests'
-    inputs:
-      command: 'test'
-      projects: '**/*.Tests.csproj'
-      arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:excludebyfile="**/Migrations/*.cs"'
-      publishTestResults: true
-  - task: PublishCodeCoverageResults@1
-    displayName: 'Publish Code Coverage Report'
-    inputs:
-      codeCoverageTool: 'Cobertura'
-      summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
-  - task: DotNetCoreCLI@2
-    displayName: 'Publish .NET Core App'
-    inputs:
-      command: 'publish'
-      projects: '$(Build.SourcesDirectory)/src/Songbird.Web/Songbird.Web.csproj'
-      configuration: 'Release'
-      arguments: '--runtime win10-x86 --self-contained'
-      zipAfterPublish: true
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish application artifacts'
-    inputs:
-      pathtoPublish: '$(Build.SourcesDirectory)/src/Songbird.Web/bin/Debug/net6.0/win10-x86/publish.zip'
-      artifactName: build-artifacts
-  - task: DotNetCoreCLI@2
-    displayName: Restore dotnet tools
-    inputs:
-      command: 'custom'
-      custom: 'tool'
-      arguments: 'restore'
-      workingDirectory: '$(Build.SourcesDirectory)/src/Songbird.Web'
-  - task: DotNetCoreCLI@2
-    displayName: 'Build Migration Bundle'
-    inputs:
-      command: 'custom'
-      custom: 'ef'
-      arguments: 'migrations bundle --verbose'
-      workingDirectory: '$(Build.SourcesDirectory)/src/Songbird.Web'
-#  - task: PublishBuildArtifacts@1
-#    displayName: 'Publish bundle artifacts'
-#    inputs:
-#      pathtoPublish: '$(Build.SourcesDirectory)/src/Songbird.Web/bundle.exe'
-#      artifactName: migration-artifacts
+stages:
+  ###################################################
+  # Build
+  ###################################################
+  - stage: build
+    displayName: Build projects
+    jobs:
+    - job: Build
+      pool:
+        vmImage: 'ubuntu-latest'
+      steps:
+      - task: DeleteFiles@1
+        displayName: 'Remove previous build files'
+        inputs:
+          contents: |
+            $(Build.SourcesDirectory)/coverage/**/*
+            src/Songbird.Web/ClientApp/**/*
+            artifacts/**/*
+            **/*.trx
+            **/junit.xml
+      - task: NodeTool@0
+        displayName: 'Set Node.js version to 14.x'
+        inputs:
+          versionSpec: '14.x'
+      - task: Cache@2
+        inputs:
+          key: '"yarn" | "$(Agent.OS)" | ./src/Songbird.Frontend/yarn.lock'
+          restoreKeys: |
+              yarn | "$(Agent.OS)"
+          path: $(YARN_CACHE_FOLDER)
+        displayName: Cache Yarn packages
+      - task: CmdLine@2
+        displayName: 'Run yarn'
+        inputs:
+          script: yarn --frozen-lockfile --prefer-offline
+          workingDirectory: src/Songbird.Frontend
+      - task: CmdLine@2
+        displayName: 'Run frontend linting'
+        inputs:
+          script: |
+            yarn lint:js
+            yarn lint:hbs
+            yarn lint:css
+          workingDirectory: src/Songbird.Frontend
+          failOnStderr: false
+      - task: CmdLine@2
+        displayName: 'Test Ember App'
+        inputs:
+          script: 'node_modules/.bin/ember test || exit 0'
+          workingDirectory: src/Songbird.Frontend
+          failOnStderr: false
+      - task: PublishTestResults@2
+        displayName: 'Publish Ember test results'
+        inputs:
+          testResultsFormat: 'JUnit'
+          testResultsFiles: '$(Build.SourcesDirectory)/src/Songbird.Frontend/junit.xml'
+          testRunTitle: 'Ember Tests'
+          mergeTestResults: true
+          failTaskOnFailedTests: true
+      - task: CmdLine@2
+        displayName: 'Build Ember App'
+        inputs:
+          script: node_modules/.bin/ember build --environment=production --out ../Songbird.Web/ClientApp
+          workingDirectory: src/Songbird.Frontend
+      - task: UseDotNet@2
+        displayName: 'Install .NET Core'
+        inputs:
+          packageType: 'sdk'
+          version: $(SDK_VERSION)
+      - task: DotNetCoreCLI@2
+        displayName: 'Restore NuGet packages'
+        inputs:
+          command: 'restore'
+          projects: '$(Build.SourcesDirectory)/Songbird.sln'
+          feedsToUse: 'config'
+          nugetConfigPath: '$(Build.SourcesDirectory)/nuget.config'
+          verbosityRestore: 'Minimal'
+      - task: DotNetCoreCLI@2
+        displayName: 'Run tests'
+        inputs:
+          command: 'test'
+          projects: '**/*.Tests.csproj'
+          arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:excludebyfile="**/Migrations/*.cs"'
+          publishTestResults: true
+      - task: PublishCodeCoverageResults@1
+        displayName: 'Publish Code Coverage Report'
+        inputs:
+          codeCoverageTool: 'Cobertura'
+          summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
+      - task: DotNetCoreCLI@2
+        displayName: 'Publish .NET Core App'
+        inputs:
+          command: 'publish'
+          projects: '$(Build.SourcesDirectory)/src/Songbird.Web/Songbird.Web.csproj'
+          configuration: 'Release'
+          arguments: '--runtime win10-x86 --self-contained'
+          zipAfterPublish: true
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish application artifacts'
+        inputs:
+          pathtoPublish: '$(Build.SourcesDirectory)/src/Songbird.Web/bin/Debug/$(SDK_VERSION_PATH_SEGMENT)/win10-x86/publish.zip'
+          artifactName: build-artifacts
+      - task: DotNetCoreCLI@2
+        displayName: Restore dotnet tools
+        inputs:
+          command: 'custom'
+          custom: 'tool'
+          arguments: 'restore'
+          workingDirectory: '$(Build.SourcesDirectory)/src/Songbird.Web'
+      - task: DotNetCoreCLI@2
+        displayName: 'Build Migration Bundle'
+        inputs:
+          command: 'custom'
+          custom: 'ef'
+          arguments: 'migrations bundle --verbose --force'
+          workingDirectory: '$(Build.SourcesDirectory)/src/Songbird.Web'
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish bundle artifacts'
+        inputs:
+          pathtoPublish: '$(Build.SourcesDirectory)/src/Songbird.Web/efbundle'
+          artifactName: migration-artifacts
+
+  ###################################################
+  # Deploy
+  ###################################################
+  - template: azure-pipelines-deploy-template.yaml
+    parameters:
+      environments:
+        - name: Songbird Development
+          branch: develop
+          appName: songbird-dev
+          subscription: $(AZ_SUBSCRIPTION)
+        - name: Songbird Production
+          branch: main
+          appName: songbird-prod
+          subscription: $(AZ_SUBSCRIPTION)
