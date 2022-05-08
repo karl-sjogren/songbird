@@ -1,4 +1,4 @@
-name: Songbird_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+name: Songbird_$(replace(SourceBranchName, '/', '_'))_$(Date:yyyyMMdd)$(Rev:.r)
 
 variables:
   - template: azure-pipelines-variables.yaml
