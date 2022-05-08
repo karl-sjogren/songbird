@@ -26,6 +26,7 @@ stages:
                     path: '$(System.DefaultWorkingDirectory)/build-artifacts'
                 - task: AzureWebApp@1
                   displayName: 'Deploy Azure App Service'
+                  name: deployTask
                   inputs:
                     azureSubscription: '${{ environment.subscription }}'
                     appType: webAppLinux
@@ -68,11 +69,11 @@ stages:
               postRouteTraffic:
                 steps:
                   - bash: |
-                      status=`curl --silent --head ${{ environment.smokeTestUrl }} | head -1 | cut -f 2 -d' '`
+                      status=`curl --silent --head $(deployTask.AppServiceApplicationUrl) | head -1 | cut -f 2 -d' '`
 
                       if [ "$status" != "200" ]
                       then
-                          echo "response status should be 200, was '$status' for url '${{ environment.smokeTestUrl }}'"
+                          echo "response status should be 200, was '$status' for url '$(deployTask.AppServiceApplicationUrl)'"
                           exit 1
                       fi
                     displayName: 'Smoke test'
