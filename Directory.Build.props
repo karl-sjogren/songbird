@@ -5,7 +5,7 @@
 	<DisableImplicitNamespaceImports>true</DisableImplicitNamespaceImports>
 	<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <Deterministic>true</Deterministic>
-    <PathMap Condition="'$(Configuration)' == 'Release'">$(SolutionDir)=./</PathMap>
+    <DeterministicSourcePaths Condition="'$(TF_BUILD)' == 'True'">true</DeterministicSourcePaths>
   </PropertyGroup>
 
   <ItemGroup>
