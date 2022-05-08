@@ -38,6 +38,7 @@ stages:
                     package: '$(System.DefaultWorkingDirectory)/build-artifacts/publish.zip'
                 - bash: |
                     echo "##vso[task.setvariable variable=ApplicationUrl;isOutput=true;issecret=false;]$(AppServiceApplicationUrl)"
+                    echo "##vso[task.setvariable variable=ApplicationUrlEnv;isOutput=true;issecret=false;]$APPSERVICEAPPLICATIONURL"
                   displayName: 'Store application url'
                   name: DeployStep
               routeTraffic:
