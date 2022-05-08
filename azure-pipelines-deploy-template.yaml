@@ -27,6 +27,7 @@ stages:
                     path: '$(System.DefaultWorkingDirectory)/build-artifacts'
                 - task: AzureWebApp@1
                   displayName: 'Deploy Azure App Service'
+                  name: RealDeployStep
                   inputs:
                     azureSubscription: '${{ environment.subscription }}'
                     appType: webAppLinux
@@ -37,8 +38,10 @@ stages:
                     SlotName: deploy
                     package: '$(System.DefaultWorkingDirectory)/build-artifacts/publish.zip'
                 - bash: |
-                    echo "##vso[task.setvariable variable=ApplicationUrl;isOutput=true;issecret=false;]$(AppServiceApplicationUrl)"
-                    echo "##vso[task.setvariable variable=ApplicationUrlEnv;isOutput=true;issecret=false;]$APPSERVICEAPPLICATIONURL"
+                    env | sort
+                  displayName: 'Spew variables'
+                - bash: |
+                    echo "##vso[task.setvariable variable=ApplicationUrl;isOutput=true;issecret=false;]$(RealDeployStep.AppServiceApplicationUrl)"
                   displayName: 'Store application url'
                   name: DeployStep
               routeTraffic:
