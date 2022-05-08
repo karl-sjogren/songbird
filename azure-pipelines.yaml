@@ -4,7 +4,7 @@ variables:
   DOTNET_NOLOGO: 1
   YARN_CACHE_FOLDER: $(Pipeline.Workspace)/.yarn
   IS_MAIN: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
-  AZ_SUBSCRIPTION: '$(AzureSubscription)'
+  AZ_SUBSCRIPTION: $(AzureSubscription)
 
 trigger:
   branches:
