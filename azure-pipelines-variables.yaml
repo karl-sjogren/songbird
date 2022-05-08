@@ -1,0 +1,14 @@
+variables:
+  - group: Songbird variables
+  - name: AZP_CACHING_TAR
+  - value: true
+  - name:  DOTNET_CLI_TELEMETRY_OPTOUT
+  - value: 1
+  - name:  DOTNET_NOLOGO
+  - value: 1
+  - name:  YARN_CACHE_FOLDER
+  - value: $(Pipeline.Workspace)/.yarn
+  - name:  IS_MAIN
+  - value: $[eq(variables['Build.SourceBranch'], 'refs/heads/main')]
+  - name:  AZ_SUBSCRIPTION
+  - value: $(AzureSubscription)
