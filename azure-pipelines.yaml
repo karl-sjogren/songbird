@@ -1,3 +1,5 @@
+name: Songbird_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
 variables:
   - template: azure-pipelines-variables.yaml
 
@@ -120,12 +122,12 @@ stages:
         inputs:
           command: 'custom'
           custom: 'ef'
-          arguments: 'migrations bundle --verbose'
+          arguments: 'migrations bundle --verbose --force'
           workingDirectory: '$(Build.SourcesDirectory)/src/Songbird.Web'
       - task: PublishBuildArtifacts@1
         displayName: 'Publish bundle artifacts'
         inputs:
-          pathtoPublish: '$(Build.SourcesDirectory)/src/Songbird.Web/efbundle.exe'
+          pathtoPublish: '$(Build.SourcesDirectory)/src/Songbird.Web/efbundle'
           artifactName: migration-artifacts
 
   ###################################################
