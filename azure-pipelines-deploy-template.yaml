@@ -37,7 +37,7 @@ stages:
                     SlotName: deploy
                     package: '$(System.DefaultWorkingDirectory)/build-artifacts/publish.zip'
                 - bash: |
-                    echo "##vso[task.setvariable variable=AppServiceApplicationUrl;isOutput=true;issecret=false;]$APPSERVICEAPPLICATIONURL"
+                    echo "##vso[task.setvariable variable=ApplicationUrl;isOutput=true;issecret=false;]$(AppServiceApplicationUrl)"
                   displayName: 'Store application url'
                   name: DeployStep
               routeTraffic:
@@ -73,11 +73,11 @@ stages:
               postRouteTraffic:
                 steps:
                   - bash: |
-                      status=`curl --silent --head $(dependencies.DeployJob.outputs['DeployStep.AppServiceApplicationUrl']) | head -1 | cut -f 2 -d' '`
+                      status=`curl --silent --head $(dependencies.DeployJob.outputs['DeployStep.ApplicationUrl']) | head -1 | cut -f 2 -d' '`
 
                       if [ "$status" != "200" ]
                       then
-                          echo "response status should be 200, was '$status' for url '$(dependencies.DeployJob.outputs['DeployStep.AppServiceApplicationUrl'])'"
+                          echo "response status should be 200, was '$status' for url '$(dependencies.DeployJob.outputs['DeployStep.ApplicationUrl'])'"
                           exit 1
                       fi
                     displayName: 'Smoke test'
