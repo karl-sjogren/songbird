@@ -37,5 +37,7 @@
     "stylelint.packageManager": "yarn",
     "omnisharp.enableRoslynAnalyzers": false,
     "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
-    "javascript.format.insertSpaceAfterKeywordsInControlFlowStatements": false
+    "javascript.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
+    "stylelint.configBasedir": "src/Songbird.Frontend/",
+    "stylelint.configFile": ".stylelintrc"
 }

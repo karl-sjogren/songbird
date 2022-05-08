@@ -1,5 +1,8 @@
 {
+  "extends": ["stylelint-config-standard"],
+  "customSyntax": "postcss-less",
   "rules": {
+    "at-rule-empty-line-before": null,
     "at-rule-name-case": "lower",
     "at-rule-name-space-after": "always",
     "at-rule-no-unknown": true,
@@ -14,6 +17,7 @@
     "color-named": "never",
     "color-no-invalid-hex": true,
     "comment-no-empty": true,
+    "custom-property-empty-line-before": null,
     "declaration-bang-space-after": "never",
     "declaration-bang-space-before": "always",
     "declaration-block-no-duplicate-properties": true,
@@ -23,6 +27,7 @@
     "declaration-block-trailing-semicolon": "always",
     "declaration-colon-space-after": "always",
     "declaration-colon-space-before": "never",
+    "declaration-empty-line-before": null,
     "declaration-no-important": true,
     "declaration-property-unit-allowed-list": {
       "font-size": ["rem"]
@@ -35,6 +40,7 @@
     "function-comma-space-before": "never",
     "function-max-empty-lines": 1,
     "function-name-case": "lower",
+    "function-no-unknown": null,
     "function-url-quotes": "always",
     "indentation": 2,
     "length-zero-no-unit": true,
@@ -55,6 +61,7 @@
     "no-empty-source": true,
     "no-empty-first-line": true,
     "no-extra-semicolons": true,
+    "no-descending-specificity": null,
     "no-invalid-double-slash-comments": true,
     "no-unknown-animations": true,
     "number-leading-zero": "always",

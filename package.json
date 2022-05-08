@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "description": "Small intranet stand-in to use at work until we get around to developing something for real.",
   "scripts": {
-    "generate-ef-models": "dotnet ef dbcontext optimize --project ./src/Songbird.Web/Songbird.Web.csproj --output-dir ./CompiledModels --namespace Songbird.Web.CompiledModels"
+    "generate-ef-models": "dotnet ef dbcontext optimize --project ./src/Songbird.Web/Songbird.Web.csproj --output-dir ./CompiledModels --namespace Songbird.Web.CompiledModels",
+    "push-release": "git checkout main && git push && git checkout develop && git push && git push --tags --no-verify"
   },
   "repository": {
     "type": "git",

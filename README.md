@@ -1,4 +1,4 @@
-# Songbird
+# Songbird [![CodeQL](https://github.com/karl-sjogren/songbird/actions/workflows/codeql-analysis.yml/badge.svg?branch=develop)](https://github.com/karl-sjogren/songbird/actions/workflows/codeql-analysis.yml)
 
 Small intranet stand-in to use at work until we get around to developing something for real.
 

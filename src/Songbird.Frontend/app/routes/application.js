@@ -12,6 +12,9 @@ export default class ApplicationRoute extends Route {
 
     this.intl.setLocale(['sv-se']);
     Settings.defaultLocale = 'sv';
+    // This is an ugly hack due to a deep dependency that assumes
+    // that the transpiler will fix this, but it doesn't.
+    window.global = window;
   }
 
   model() {
