@@ -16,5 +16,7 @@ variables:
     value: '7.0.100-preview.3.22179.4'
   - name:  SDK_VERSION_PATH_SEGMENT
     value: 'net7.0'
+  - name:  SAFE_BRANCH
+    value: $[replace(variables['Build.SourceBranchName']), '/', '_')]
   - name:  CUSTOM_BUILD_NUMBER
-    value: Songbird_$(replace($(variables['Build.SourceBranchName']), '/', '_'))_$(Date:yyyyMMdd)$(Rev:.r)
+    value: Songbird_$(SAFE_BRANCH)_$(Date:yyyyMMdd)$(Rev:.r)
