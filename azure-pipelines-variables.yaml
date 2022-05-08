@@ -17,4 +17,4 @@ variables:
   - name:  SDK_VERSION_PATH_SEGMENT
     value: 'net7.0'
   - name:  CUSTOM_BUILD_NUMBER
-    value: Songbird_$(replace($(SourceBranchName), '/', '_'))_$(Date:yyyyMMdd)$(Rev:.r)
+    value: Songbird_$(replace(variables['Build.SourceBranchName'], '/', '_'))_$(Date:yyyyMMdd)$(Rev:.r)
