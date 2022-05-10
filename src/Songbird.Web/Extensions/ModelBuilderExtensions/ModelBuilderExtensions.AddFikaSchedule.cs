@@ -1,19 +1,19 @@
 using Songbird.Web.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Songbird.Web.Extensions.ModelBuilderExtensions {
-    public static partial class ModelBuilderExtensions {
-        public static void AddFikaSchedule(this ModelBuilder modelBuilder) {
-            _ = modelBuilder.Entity<FikaSchedule>(entity => {
-                entity.AddModelBaseProperties();
+namespace Songbird.Web.Extensions.ModelBuilderExtensions;
 
-                entity.Property(e => e.StartDate)
-                    .IsRequired();
+public static partial class ModelBuilderExtensions {
+    public static void AddFikaSchedule(this ModelBuilder modelBuilder) {
+        _ = modelBuilder.Entity<FikaSchedule>(entity => {
+            entity.AddModelBaseProperties();
 
-                entity
-                    .HasMany(e => e.Matches)
-                    .WithOne();
-            });
-        }
+            entity.Property(e => e.StartDate)
+                .IsRequired();
+
+            entity
+                .HasMany(e => e.Matches)
+                .WithOne();
+        });
     }
 }

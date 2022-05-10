@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using Songbird.Web.DataObjects;
 using Songbird.Web.Queries;
 
-namespace Songbird.Web.Contracts {
-    public interface ILogSearchService {
-        Task<PagedResult<Log4StashEntry>> GetResultsAsync(LogSearchQuery query, LogSearchFilter filter, LogSearchSettings settings, CancellationToken cancellationToken);
-        Task<ICollection<Facet>> GetFacetsAsync(LogSearchQuery query, LogSearchFilter filter, LogSearchSettings settings, CancellationToken cancellationToken);
-        Task<Log4StashEntry> GetEntryAsync(string identifier, CancellationToken cancellationToken);
-    }
+namespace Songbird.Web.Contracts;
+
+public interface ILogSearchService {
+    Task<PagedResult<Log4StashEntry>> GetResultsAsync(LogSearchQuery query, LogSearchFilter filter, LogSearchSettings settings, CancellationToken cancellationToken);
+    Task<ICollection<Facet>> GetFacetsAsync(LogSearchQuery query, LogSearchFilter filter, LogSearchSettings settings, CancellationToken cancellationToken);
+    Task<Log4StashEntry> GetEntryAsync(string identifier, CancellationToken cancellationToken);
 }

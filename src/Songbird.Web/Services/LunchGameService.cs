@@ -3,25 +3,25 @@ using Microsoft.Extensions.Logging;
 using Songbird.Web.Contracts;
 using Songbird.Web.Models;
 
-namespace Songbird.Web.Services {
-    public class LunchGameService : EditableEntityServiceBase<LunchGame>, ILunchGameService {
-        private readonly SongbirdContext _songbirdContext;
-        private readonly ILogger<LunchGameService> _logger;
+namespace Songbird.Web.Services;
 
-        public LunchGameService(SongbirdContext songbirdContext, IDateTimeProvider dateTimeProvider, ILogger<LunchGameService> logger)
-            : base(songbirdContext, dateTimeProvider, logger) {
-            _songbirdContext = songbirdContext;
-            _logger = logger;
-        }
+public class LunchGameService : EditableEntityServiceBase<LunchGame>, ILunchGameService {
+    private readonly SongbirdContext _songbirdContext;
+    private readonly ILogger<LunchGameService> _logger;
 
-        protected override IQueryable<LunchGame> GetPreparedQuery() {
-            return _songbirdContext
-                .LunchGames;
-        }
+    public LunchGameService(SongbirdContext songbirdContext, IDateTimeProvider dateTimeProvider, ILogger<LunchGameService> logger)
+        : base(songbirdContext, dateTimeProvider, logger) {
+        _songbirdContext = songbirdContext;
+        _logger = logger;
+    }
 
-        protected override void MapChangesToModel(LunchGame existingItem, LunchGame model) {
-            existingItem.Name = model.Name;
-            existingItem.IconId = model.IconId;
-        }
+    protected override IQueryable<LunchGame> GetPreparedQuery() {
+        return _songbirdContext
+            .LunchGames;
+    }
+
+    protected override void MapChangesToModel(LunchGame existingItem, LunchGame model) {
+        existingItem.Name = model.Name;
+        existingItem.IconId = model.IconId;
     }
 }

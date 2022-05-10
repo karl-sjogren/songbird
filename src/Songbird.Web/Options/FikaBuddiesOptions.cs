@@ -1,8 +1,8 @@
-namespace Songbird.Web.Options {
-    public class FikaBuddiesOptions {
-        public string SlackWebhook { get; set; }
-        public string SlackMessage { get; set; }
-        public string SlackButtonText { get; set; }
-        public string SlackButtonUrl { get; set; }
-    }
+namespace Songbird.Web.Options;
+
+public class FikaBuddiesOptions {
+    public string SlackWebhook { get; set; }
+    public string SlackMessage { get; set; }
+    public string SlackButtonText { get; set; }
+    public string SlackButtonUrl { get; set; }
 }

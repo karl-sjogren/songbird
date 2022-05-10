@@ -4,26 +4,26 @@ using Microsoft.Extensions.Logging;
 using Songbird.Web.Contracts;
 using Songbird.Web.Models;
 
-namespace Songbird.Web.Services {
-    public class ApplicationService : EditableEntityServiceBase<Application>, IApplicationService {
-        private readonly SongbirdContext _songbirdContext;
-        private readonly ILogger<LunchGameService> _logger;
+namespace Songbird.Web.Services;
 
-        public ApplicationService(SongbirdContext songbirdContext, IDateTimeProvider dateTimeProvider, ILogger<LunchGameService> logger)
-            : base(songbirdContext, dateTimeProvider, logger) {
-            _songbirdContext = songbirdContext;
-            _logger = logger;
-        }
+public class ApplicationService : EditableEntityServiceBase<Application>, IApplicationService {
+    private readonly SongbirdContext _songbirdContext;
+    private readonly ILogger<LunchGameService> _logger;
 
-        protected override IQueryable<Application> GetPreparedQuery() {
-            return _songbirdContext
-                .Applications
-                .Include(x => x.LogFilters)
-                .Include(x => x.Project).ThenInclude(x => x.Customer);
-        }
+    public ApplicationService(SongbirdContext songbirdContext, IDateTimeProvider dateTimeProvider, ILogger<LunchGameService> logger)
+        : base(songbirdContext, dateTimeProvider, logger) {
+        _songbirdContext = songbirdContext;
+        _logger = logger;
+    }
 
-        protected override void MapChangesToModel(Application existingItem, Application model) {
-            existingItem.Name = model.Name;
-        }
+    protected override IQueryable<Application> GetPreparedQuery() {
+        return _songbirdContext
+            .Applications
+            .Include(x => x.LogFilters)
+            .Include(x => x.Project).ThenInclude(x => x.Customer);
+    }
+
+    protected override void MapChangesToModel(Application existingItem, Application model) {
+        existingItem.Name = model.Name;
     }
 }

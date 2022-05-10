@@ -140,11 +140,11 @@ stages:
           branch: develop
           appName: songbird-dev
           subscription: $(AZ_SUBSCRIPTION)
-          smokeTestUrl: 'https://songbird-dev.xlent-umea.com/robots.txt'
+          smokeTestUrl: 'https://songbird-dev.xlent-umea.com/health'
         - name: Songbird Production
           branch: main
           appName: songbird-prod
           subscription: $(AZ_SUBSCRIPTION)
-          smokeTestUrl: 'https://songbird.xlent-umea.com/robots.txt'
+          smokeTestUrl: 'https://songbird.xlent-umea.com/health'
 
 

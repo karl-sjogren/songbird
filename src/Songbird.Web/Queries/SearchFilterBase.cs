@@ -1,4 +1,4 @@
-namespace Songbird.Web.Queries {
-    public abstract class SearchFilterBase {
-    }
+namespace Songbird.Web.Queries;
+
+public abstract class SearchFilterBase {
 }

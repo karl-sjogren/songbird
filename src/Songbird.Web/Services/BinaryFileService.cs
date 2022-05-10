@@ -10,56 +10,56 @@ using Microsoft.Extensions.Logging;
 using Songbird.Web.Contracts;
 using Songbird.Web.Models;
 
-namespace Songbird.Web.Services {
-    public class BinaryFileService : IBinaryFileService {
-        private readonly SongbirdContext _songbirdContext;
-        private readonly IDateTimeProvider _dateTimeProvider;
-        private readonly IContentTypeProvider _contentTypeProvider;
-        private readonly ILogger<BinaryFileService> _logger;
+namespace Songbird.Web.Services;
 
-        public BinaryFileService(SongbirdContext songbirdContext, IDateTimeProvider dateTimeProvider, IContentTypeProvider contentTypeProvider, ILogger<BinaryFileService> logger) {
-            _songbirdContext = songbirdContext;
-            _dateTimeProvider = dateTimeProvider;
-            _contentTypeProvider = contentTypeProvider;
-            _logger = logger;
-        }
+public class BinaryFileService : IBinaryFileService {
+    private readonly SongbirdContext _songbirdContext;
+    private readonly IDateTimeProvider _dateTimeProvider;
+    private readonly IContentTypeProvider _contentTypeProvider;
+    private readonly ILogger<BinaryFileService> _logger;
 
-        public async Task<BinaryFile> GetByIdAsync(Guid id, CancellationToken cancellationToken) {
-            return await _songbirdContext
-                .BinaryFiles
-                .FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted, cancellationToken);
-        }
+    public BinaryFileService(SongbirdContext songbirdContext, IDateTimeProvider dateTimeProvider, IContentTypeProvider contentTypeProvider, ILogger<BinaryFileService> logger) {
+        _songbirdContext = songbirdContext;
+        _dateTimeProvider = dateTimeProvider;
+        _contentTypeProvider = contentTypeProvider;
+        _logger = logger;
+    }
 
-        public async Task<BinaryFile> StoreAsync(IFormFile formFile, CancellationToken cancellationToken) {
-            var fileName = formFile.FileName;
-            _contentTypeProvider.TryGetContentType(fileName, out var contentType);
+    public async Task<BinaryFile> GetByIdAsync(Guid id, CancellationToken cancellationToken) {
+        return await _songbirdContext
+            .BinaryFiles
+            .FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted, cancellationToken);
+    }
 
-            using var stream = formFile.OpenReadStream();
-            using var ms = new MemoryStream((Int32)stream.Length);
+    public async Task<BinaryFile> StoreAsync(IFormFile formFile, CancellationToken cancellationToken) {
+        var fileName = formFile.FileName;
+        _contentTypeProvider.TryGetContentType(fileName, out var contentType);
 
-            await stream.CopyToAsync(ms, cancellationToken);
+        using var stream = formFile.OpenReadStream();
+        using var ms = new MemoryStream((Int32)stream.Length);
 
-            var buffer = ms.ToArray();
+        await stream.CopyToAsync(ms, cancellationToken);
 
-            var file = new BinaryFile() {
-                Name = formFile.FileName,
-                ContentType = contentType,
-                Content = buffer,
-                Checksum = CalculateChecksum(buffer)
-            };
+        var buffer = ms.ToArray();
 
-            file.CreatedAt = file.UpdatedAt = _dateTimeProvider.Now;
+        var file = new BinaryFile() {
+            Name = formFile.FileName,
+            ContentType = contentType,
+            Content = buffer,
+            Checksum = CalculateChecksum(buffer)
+        };
 
-            _songbirdContext.BinaryFiles.Add(file);
-            await _songbirdContext.SaveChangesAsync(cancellationToken);
+        file.CreatedAt = file.UpdatedAt = _dateTimeProvider.Now;
 
-            return file;
-        }
+        _songbirdContext.BinaryFiles.Add(file);
+        await _songbirdContext.SaveChangesAsync(cancellationToken);
 
-        private static string CalculateChecksum(byte[] buffer) {
-            using var md5Hash = MD5.Create();
-            var hash = md5Hash.ComputeHash(buffer);
-            return Convert.ToBase64String(hash);
-        }
+        return file;
+    }
+
+    private static string CalculateChecksum(byte[] buffer) {
+        using var md5Hash = MD5.Create();
+        var hash = md5Hash.ComputeHash(buffer);
+        return Convert.ToBase64String(hash);
     }
 }

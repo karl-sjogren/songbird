@@ -6,30 +6,30 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Songbird.Web.Contracts;
 
-namespace Songbird.Web.Controllers {
-    [ApiController]
-    [Route("api/me")]
-    public class MeController : Controller {
-        private readonly IUserService _service;
-        private readonly ILogger<MeController> _logger;
+namespace Songbird.Web.Controllers;
 
-        public MeController(IUserService service, ILogger<MeController> logger) {
-            _service = service;
-            _logger = logger;
-        }
+[ApiController]
+[Route("api/me")]
+public class MeController : Controller {
+    private readonly IUserService _service;
+    private readonly ILogger<MeController> _logger;
 
-        [HttpGet]
-        public async Task<ActionResult<object>> GetProfileAsync(CancellationToken cancellationToken) {
-            var user = await _service.GetUserAsync((ClaimsIdentity)HttpContext.User.Identity, cancellationToken);
+    public MeController(IUserService service, ILogger<MeController> logger) {
+        _service = service;
+        _logger = logger;
+    }
 
-            if(user == null)
-                throw new Exception("What the..");
+    [HttpGet]
+    public async Task<ActionResult<object>> GetProfileAsync(CancellationToken cancellationToken) {
+        var user = await _service.GetUserAsync((ClaimsIdentity)HttpContext.User.Identity, cancellationToken);
 
-            return new {
-                userId = user.Id,
-                email = user.Email,
-                name = user.Name
-            };
-        }
+        if(user == null)
+            throw new Exception("What the..");
+
+        return new {
+            userId = user.Id,
+            email = user.Email,
+            name = user.Name
+        };
     }
 }

@@ -6,50 +6,50 @@ using Microsoft.Extensions.Logging;
 using Songbird.Web.Contracts;
 using Songbird.Web.Models;
 
-namespace Songbird.Web.Controllers {
-    [ApiController]
-    [Route("api/lunch-gaming")]
-    public class LunchGamingDateController : EditableEntityControllerBase<LunchGamingDate> {
-        private readonly ILunchGamingDateService _service;
-        private readonly ILogger<LunchGamingDateController> _logger;
+namespace Songbird.Web.Controllers;
 
-        public LunchGamingDateController(ILunchGamingDateService service, ILogger<LunchGamingDateController> logger)
-            : base(service, logger) {
-            _service = service;
-            _logger = logger;
+[ApiController]
+[Route("api/lunch-gaming")]
+public class LunchGamingDateController : EditableEntityControllerBase<LunchGamingDate> {
+    private readonly ILunchGamingDateService _service;
+    private readonly ILogger<LunchGamingDateController> _logger;
+
+    public LunchGamingDateController(ILunchGamingDateService service, ILogger<LunchGamingDateController> logger)
+        : base(service, logger) {
+        _service = service;
+        _logger = logger;
+    }
+
+    [HttpGet("upcoming")]
+    public async Task<ActionResult<LunchGamingDate>> GetUpcomingAsync(CancellationToken cancellationToken) {
+        var item = await _service.GetUpcomingAsync(cancellationToken);
+
+        if(item == null) {
+            return NotFound();
         }
 
-        [HttpGet("upcoming")]
-        public async Task<ActionResult<LunchGamingDate>> GetUpcomingAsync(CancellationToken cancellationToken) {
-            var item = await _service.GetUpcomingAsync(cancellationToken);
+        return item;
+    }
 
-            if(item == null) {
-                return NotFound();
-            }
+    [HttpPost("{id:guid}/attendees/{userId:guid}")]
+    public async Task<ActionResult<LunchGamingDate>> AddAttendeeAsync(Guid id, Guid userId, CancellationToken cancellationToken) {
+        var item = await _service.AddAttendeeAsync(id, userId, cancellationToken);
 
-            return item;
+        if(item == null) {
+            return NotFound();
         }
 
-        [HttpPost("{id:guid}/attendees/{userId:guid}")]
-        public async Task<ActionResult<LunchGamingDate>> AddAttendeeAsync(Guid id, Guid userId, CancellationToken cancellationToken) {
-            var item = await _service.AddAttendeeAsync(id, userId, cancellationToken);
+        return item;
+    }
 
-            if(item == null) {
-                return NotFound();
-            }
+    [HttpDelete("{id:guid}/attendees/{userId:guid}")]
+    public async Task<ActionResult<LunchGamingDate>> RemoveAttendeeAsync(Guid id, Guid userId, CancellationToken cancellationToken) {
+        var item = await _service.RemoveAttendeeAsync(id, userId, cancellationToken);
 
-            return item;
+        if(item == null) {
+            return NotFound();
         }
 
-        [HttpDelete("{id:guid}/attendees/{userId:guid}")]
-        public async Task<ActionResult<LunchGamingDate>> RemoveAttendeeAsync(Guid id, Guid userId, CancellationToken cancellationToken) {
-            var item = await _service.RemoveAttendeeAsync(id, userId, cancellationToken);
-
-            if(item == null) {
-                return NotFound();
-            }
-
-            return item;
-        }
+        return item;
     }
 }

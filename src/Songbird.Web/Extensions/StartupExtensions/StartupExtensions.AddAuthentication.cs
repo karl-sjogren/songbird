@@ -9,40 +9,40 @@ using Songbird.Web.Authentication;
 using Songbird.Web.Extensions;
 using Songbird.Web.PostConfigurationOptions;
 
-namespace Songbird.Web.Extensions {
-    public static partial class StartupExtensions {
-        public static void AddAuthentication(this IServiceCollection services, IConfiguration configuration) {
-            var initialScopes = configuration.GetValue<string>("GraphApi:Scopes")?.Split(' ');
+namespace Songbird.Web.Extensions;
 
-            services.AddAuthentication(x => {
-                x.DefaultScheme = OpenIdConnectDefaults.AuthenticationScheme;
-                x.DefaultSignInScheme = OpenIdConnectDefaults.AuthenticationScheme;
-                x.DefaultSignOutScheme = OpenIdConnectDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-            }).AddPolicyScheme("DynamicScheme", "API-Key or OpenIdConnect", options => {
-                options.ForwardDefaultSelector = context => {
-                    var apiKeyHeader = context.Request.Headers["X-API-Key"].FirstOrDefault();
-                    var apiKeyQuery = context.Request.Query["apikey"].FirstOrDefault();
+public static partial class StartupExtensions {
+    public static void AddAuthentication(this IServiceCollection services, IConfiguration configuration) {
+        var initialScopes = configuration.GetValue<string>("GraphApi:Scopes")?.Split(' ');
 
-                    if(apiKeyHeader != null || apiKeyQuery != null)
-                        return ApiKeyAuthenticationOptions.AuthenticationScheme;
+        services.AddAuthentication(x => {
+            x.DefaultScheme = OpenIdConnectDefaults.AuthenticationScheme;
+            x.DefaultSignInScheme = OpenIdConnectDefaults.AuthenticationScheme;
+            x.DefaultSignOutScheme = OpenIdConnectDefaults.AuthenticationScheme;
+            x.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+        }).AddPolicyScheme("DynamicScheme", "API-Key or OpenIdConnect", options => {
+            options.ForwardDefaultSelector = context => {
+                var apiKeyHeader = context.Request.Headers["X-API-Key"].FirstOrDefault();
+                var apiKeyQuery = context.Request.Query["apikey"].FirstOrDefault();
 
-                    return OpenIdConnectDefaults.AuthenticationScheme;
-                };
-            })
-                .AddApiKeys()
-                .AddMicrosoftIdentityWebApp(configuration.GetSection("AzureAd"))
-                .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
-                .AddMicrosoftGraph(configuration.GetSection("GraphApi"))
-                .AddDistributedTokenCaches();
+                if(apiKeyHeader != null || apiKeyQuery != null)
+                    return ApiKeyAuthenticationOptions.AuthenticationScheme;
 
-            services.AddDistributedSqlServerCache(options => {
-                options.ConnectionString = configuration["ConnectionStrings:Songbird"];
-                options.SchemaName = "dbo";
-                options.TableName = "DistributedCache";
-            });
+                return OpenIdConnectDefaults.AuthenticationScheme;
+            };
+        })
+            .AddApiKeys()
+            .AddMicrosoftIdentityWebApp(configuration.GetSection("AzureAd"))
+            .EnableTokenAcquisitionToCallDownstreamApi(initialScopes)
+            .AddMicrosoftGraph(configuration.GetSection("GraphApi"))
+            .AddDistributedTokenCaches();
 
-            services.TryAddEnumerable(ServiceDescriptor.Singleton<IPostConfigureOptions<MicrosoftIdentityOptions>, PostConfigureMicrosoftIdentityOptions>());
-        }
+        services.AddDistributedSqlServerCache(options => {
+            options.ConnectionString = configuration["ConnectionStrings:Songbird"];
+            options.SchemaName = "dbo";
+            options.TableName = "DistributedCache";
+        });
+
+        services.TryAddEnumerable(ServiceDescriptor.Singleton<IPostConfigureOptions<MicrosoftIdentityOptions>, PostConfigureMicrosoftIdentityOptions>());
     }
 }

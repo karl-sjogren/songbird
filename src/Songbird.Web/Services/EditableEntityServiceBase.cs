@@ -8,79 +8,79 @@ using Songbird.Web.Contracts;
 using Songbird.Web.DataObjects;
 using Songbird.Web.Models;
 
-namespace Songbird.Web.Services {
-    public abstract class EditableEntityServiceBase<T> : IEditableEntityServiceBase<T> where T : ModelBase {
-        private readonly SongbirdContext _songbirdContext;
-        private readonly IDateTimeProvider _dateTimeProvider;
-        private readonly ILogger _logger;
+namespace Songbird.Web.Services;
 
-        protected EditableEntityServiceBase(SongbirdContext songbirdContext, IDateTimeProvider dateTimeProvider, ILogger logger) {
-            _songbirdContext = songbirdContext;
-            _dateTimeProvider = dateTimeProvider;
-            _logger = logger;
+public abstract class EditableEntityServiceBase<T> : IEditableEntityServiceBase<T> where T : ModelBase {
+    private readonly SongbirdContext _songbirdContext;
+    private readonly IDateTimeProvider _dateTimeProvider;
+    private readonly ILogger _logger;
+
+    protected EditableEntityServiceBase(SongbirdContext songbirdContext, IDateTimeProvider dateTimeProvider, ILogger logger) {
+        _songbirdContext = songbirdContext;
+        _dateTimeProvider = dateTimeProvider;
+        _logger = logger;
+    }
+
+    protected abstract IQueryable<T> GetPreparedQuery();
+    protected abstract void MapChangesToModel(T existingItem, T model);
+
+    public async Task<T> GetByIdAsync(Guid id, CancellationToken cancellationToken) {
+        return await GetPreparedQuery()
+            .FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted, cancellationToken);
+    }
+
+    public async Task<PagedResult<T>> GetPagedAsync(Int32 pageIndex, Int32 pageSize, CancellationToken cancellationToken) {
+        var items = await GetPreparedQuery()
+            .AsNoTracking()
+            .Skip(pageIndex * pageSize)
+            .Take(pageSize)
+            .ToListAsync(cancellationToken);
+
+        var totalCount = await GetPreparedQuery()
+            .CountAsync(cancellationToken);
+
+        return new PagedResult<T>(items, pageIndex, pageSize, totalCount);
+    }
+
+    public async Task<T> CreateAsync(T model, CancellationToken cancellationToken) {
+        if(model.Id != Guid.Empty) {
+            return null;
         }
 
-        protected abstract IQueryable<T> GetPreparedQuery();
-        protected abstract void MapChangesToModel(T existingItem, T model);
+        model.CreatedAt = model.UpdatedAt = _dateTimeProvider.Now;
 
-        public async Task<T> GetByIdAsync(Guid id, CancellationToken cancellationToken) {
-            return await GetPreparedQuery()
-                .FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted, cancellationToken);
+        _songbirdContext.Add(model);
+        await _songbirdContext.SaveChangesAsync(cancellationToken);
+
+        return model;
+    }
+
+    public async Task<T> UpdateAsync(T model, CancellationToken cancellationToken) {
+        var existingItem = await GetByIdAsync(model.Id, cancellationToken);
+        if(existingItem == null) {
+            return null;
         }
 
-        public async Task<PagedResult<T>> GetPagedAsync(Int32 pageIndex, Int32 pageSize, CancellationToken cancellationToken) {
-            var items = await GetPreparedQuery()
-                .AsNoTracking()
-                .Skip(pageIndex * pageSize)
-                .Take(pageSize)
-                .ToListAsync(cancellationToken);
+        MapChangesToModel(existingItem, model);
 
-            var totalCount = await GetPreparedQuery()
-                .CountAsync(cancellationToken);
-
-            return new PagedResult<T>(items, pageIndex, pageSize, totalCount);
+        if(_songbirdContext.Entry(existingItem).State == EntityState.Modified) {
+            existingItem.UpdatedAt = _dateTimeProvider.Now;
         }
 
-        public async Task<T> CreateAsync(T model, CancellationToken cancellationToken) {
-            if(model.Id != Guid.Empty) {
-                return null;
-            }
+        await _songbirdContext.SaveChangesAsync(cancellationToken);
 
-            model.CreatedAt = model.UpdatedAt = _dateTimeProvider.Now;
+        return existingItem;
+    }
 
-            _songbirdContext.Add(model);
-            await _songbirdContext.SaveChangesAsync(cancellationToken);
-
-            return model;
+    public async Task DeleteAsync(Guid id, CancellationToken cancellationToken) {
+        var existingItem = await GetByIdAsync(id, cancellationToken);
+        if(existingItem == null) {
+            return;
         }
 
-        public async Task<T> UpdateAsync(T model, CancellationToken cancellationToken) {
-            var existingItem = await GetByIdAsync(model.Id, cancellationToken);
-            if(existingItem == null) {
-                return null;
-            }
+        existingItem.IsDeleted = true;
+        existingItem.DeletedAt = _dateTimeProvider.Now;
 
-            MapChangesToModel(existingItem, model);
-
-            if(_songbirdContext.Entry(existingItem).State == EntityState.Modified) {
-                existingItem.UpdatedAt = _dateTimeProvider.Now;
-            }
-
-            await _songbirdContext.SaveChangesAsync(cancellationToken);
-
-            return existingItem;
-        }
-
-        public async Task DeleteAsync(Guid id, CancellationToken cancellationToken) {
-            var existingItem = await GetByIdAsync(id, cancellationToken);
-            if(existingItem == null) {
-                return;
-            }
-
-            existingItem.IsDeleted = true;
-            existingItem.DeletedAt = _dateTimeProvider.Now;
-
-            await _songbirdContext.SaveChangesAsync(cancellationToken);
-        }
+        await _songbirdContext.SaveChangesAsync(cancellationToken);
     }
 }

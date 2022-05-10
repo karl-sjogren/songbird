@@ -1,16 +1,16 @@
 using Songbird.Web.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Songbird.Web.Extensions.ModelBuilderExtensions {
-    public static partial class ModelBuilderExtensions {
-        public static void AddFikaMatch(this ModelBuilder modelBuilder) {
-            _ = modelBuilder.Entity<FikaMatch>(entity => {
-                entity.AddModelBaseProperties();
+namespace Songbird.Web.Extensions.ModelBuilderExtensions;
 
-                entity
-                    .HasMany(e => e.Users)
-                    .WithMany(e => e.FikaMatches);
-            });
-        }
+public static partial class ModelBuilderExtensions {
+    public static void AddFikaMatch(this ModelBuilder modelBuilder) {
+        _ = modelBuilder.Entity<FikaMatch>(entity => {
+            entity.AddModelBaseProperties();
+
+            entity
+                .HasMany(e => e.Users)
+                .WithMany(e => e.FikaMatches);
+        });
     }
 }
