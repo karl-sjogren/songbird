@@ -4,27 +4,27 @@ using Microsoft.EntityFrameworkCore;
 namespace Songbird.Web.Extensions.ModelBuilderExtensions;
 
 public static partial class ModelBuilderExtensions {
-    public static void AddApplication(this ModelBuilder modelBuilder) {
-        _ = modelBuilder.Entity<Application>(entity => {
+    public static void AddPlannedProjectTime(this ModelBuilder modelBuilder) {
+        _ = modelBuilder.Entity<PlannedProjectTime>(entity => {
             entity.AddModelBaseProperties();
 
-            entity.Property(e => e.Name)
-                .HasMaxLength(100)
+            entity.Property(e => e.Time)
+                .HasColumnType("decimal(5, 2)")
                 .IsRequired();
 
             entity.Property(e => e.Timestamp)
                 .IsRowVersion();
 
             entity
-                .HasOne(e => e.Project)
-                .WithMany(e => e.Applications)
-                .HasForeignKey(e => e.ProjectId)
+                .HasOne(e => e.Schedule)
+                .WithMany()
+                .HasForeignKey(e => e.ScheduleId)
                 .HasPrincipalKey(e => e.Id);
 
             entity
-                .HasMany(e => e.LogFilters)
-                .WithOne(e => e.Application)
-                .HasForeignKey(e => e.ApplicationId)
+                .HasOne(e => e.Project)
+                .WithMany()
+                .HasForeignKey(e => e.ProjectId)
                 .HasPrincipalKey(e => e.Id);
         });
     }

@@ -21,8 +21,11 @@ public class SongbirdContext : DbContext {
     public virtual DbSet<LunchGame> LunchGames { get; set; }
     public virtual DbSet<LunchGamingAttendance> LunchGamingAttendance { get; set; }
     public virtual DbSet<LunchGamingDate> LunchGamingDates { get; set; }
+    public virtual DbSet<PlanningBoard> PlanningBoards { get; set; }
+    public virtual DbSet<PlannedProjectTime> PlannedProjectTime { get; set; }
     public virtual DbSet<Project> Projects { get; set; }
     public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<UserSchedule> UserScheduless { get; set; }
     public virtual DbSet<UserPhoto> UserPhotos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {

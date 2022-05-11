@@ -9,6 +9,7 @@ public static partial class ModelBuilderExtensions {
             entity.AddModelBaseProperties();
 
             entity.Property(e => e.Name)
+                .HasMaxLength(100)
                 .IsRequired();
 
             entity.Property(e => e.MontlyHours)

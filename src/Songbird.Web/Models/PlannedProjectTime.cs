@@ -7,6 +7,7 @@ public class PlannedProjectTime : ModelBase {
     public UserSchedule Schedule { get; set; }
 
     public double Time { get; set; }
+    public byte[] Timestamp { get; set; }
 
     public Guid ProjectId { get; set; }
     public Project Project { get; set; }

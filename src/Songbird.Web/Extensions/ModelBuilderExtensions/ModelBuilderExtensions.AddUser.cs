@@ -9,15 +9,22 @@ public static partial class ModelBuilderExtensions {
             entity.AddModelBaseProperties();
 
             entity.Property(e => e.ExternalId)
+                .HasMaxLength(100)
                 .IsRequired();
 
             entity.Property(e => e.Name)
+                .HasMaxLength(100)
                 .IsRequired();
 
             entity.Property(e => e.Email)
+                .HasMaxLength(100)
                 .IsRequired();
 
             entity.Property(e => e.IsEligibleForFikaScheduling)
+                .HasDefaultValue(false)
+                .IsRequired();
+
+            entity.Property(e => e.IsEligibleForWeeklyPlaning)
                 .HasDefaultValue(false)
                 .IsRequired();
 

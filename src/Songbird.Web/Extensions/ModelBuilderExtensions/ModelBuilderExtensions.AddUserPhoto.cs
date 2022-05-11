@@ -9,9 +9,11 @@ public static partial class ModelBuilderExtensions {
             entity.AddModelBaseProperties();
 
             entity.Property(e => e.ETag)
+                .HasMaxLength(50)
                 .IsRequired();
 
             entity.Property(e => e.ContentType)
+                .HasMaxLength(50)
                 .IsRequired();
 
             entity.Property(e => e.Content)
