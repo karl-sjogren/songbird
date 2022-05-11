@@ -22,9 +22,12 @@ namespace Songbird.Web.CompiledModels
             var lunchGame = LunchGameEntityType.Create(this);
             var lunchGamingAttendance = LunchGamingAttendanceEntityType.Create(this);
             var lunchGamingDate = LunchGamingDateEntityType.Create(this);
+            var plannedProjectTime = PlannedProjectTimeEntityType.Create(this);
+            var planningBoard = PlanningBoardEntityType.Create(this);
             var project = ProjectEntityType.Create(this);
             var user = UserEntityType.Create(this);
             var userPhoto = UserPhotoEntityType.Create(this);
+            var userSchedule = UserScheduleEntityType.Create(this);
 
             FikaMatchUserEntityType.CreateForeignKey1(fikaMatchUser, fikaMatch);
             FikaMatchUserEntityType.CreateForeignKey2(fikaMatchUser, user);
@@ -37,8 +40,12 @@ namespace Songbird.Web.CompiledModels
             LunchGamingAttendanceEntityType.CreateForeignKey2(lunchGamingAttendance, lunchGamingDate);
             LunchGamingAttendanceEntityType.CreateForeignKey3(lunchGamingAttendance, user);
             LunchGamingDateEntityType.CreateForeignKey1(lunchGamingDate, lunchGame);
+            PlannedProjectTimeEntityType.CreateForeignKey1(plannedProjectTime, project);
+            PlannedProjectTimeEntityType.CreateForeignKey2(plannedProjectTime, userSchedule);
             ProjectEntityType.CreateForeignKey1(project, customer);
             ProjectEntityType.CreateForeignKey2(project, binaryFile);
+            UserScheduleEntityType.CreateForeignKey1(userSchedule, planningBoard);
+            UserScheduleEntityType.CreateForeignKey2(userSchedule, user);
 
             FikaMatchEntityType.CreateSkipNavigation1(fikaMatch, user, fikaMatchUser);
             UserEntityType.CreateSkipNavigation1(user, fikaMatch, fikaMatchUser);
@@ -53,11 +60,14 @@ namespace Songbird.Web.CompiledModels
             LunchGameEntityType.CreateAnnotations(lunchGame);
             LunchGamingAttendanceEntityType.CreateAnnotations(lunchGamingAttendance);
             LunchGamingDateEntityType.CreateAnnotations(lunchGamingDate);
+            PlannedProjectTimeEntityType.CreateAnnotations(plannedProjectTime);
+            PlanningBoardEntityType.CreateAnnotations(planningBoard);
             ProjectEntityType.CreateAnnotations(project);
             UserEntityType.CreateAnnotations(user);
             UserPhotoEntityType.CreateAnnotations(userPhoto);
+            UserScheduleEntityType.CreateAnnotations(userSchedule);
 
-            AddAnnotation("ProductVersion", "6.0.0");
+            AddAnnotation("ProductVersion", "7.0.0-preview.4.22229.2");
             AddAnnotation("Relational:MaxIdentifierLength", 128);
             AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
         }

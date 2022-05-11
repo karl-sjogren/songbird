@@ -11,13 +11,13 @@ using Songbird.Web.Models;
 
 namespace Songbird.Web.CompiledModels
 {
-    internal partial class ApplicationEntityType
+    internal partial class PlannedProjectTimeEntityType
     {
         public static RuntimeEntityType Create(RuntimeModel model, RuntimeEntityType baseEntityType = null)
         {
             var runtimeEntityType = model.AddEntityType(
-                "Songbird.Web.Models.Application",
-                typeof(Application),
+                "Songbird.Web.Models.PlannedProjectTime",
+                typeof(PlannedProjectTime),
                 baseEntityType);
 
             var id = runtimeEntityType.AddProperty(
@@ -33,9 +33,7 @@ namespace Songbird.Web.CompiledModels
                 "CreatedAt",
                 typeof(DateTime),
                 propertyInfo: typeof(ModelBase).GetProperty("CreatedAt", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ModelBase).GetField("<CreatedAt>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                valueGenerated: ValueGenerated.OnAdd);
-            createdAt.AddAnnotation("Relational:DefaultValueSql", "getdate()");
+                fieldInfo: typeof(ModelBase).GetField("<CreatedAt>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             createdAt.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var deletedAt = runtimeEntityType.AddProperty(
@@ -50,45 +48,43 @@ namespace Songbird.Web.CompiledModels
                 "IsDeleted",
                 typeof(bool),
                 propertyInfo: typeof(ModelBase).GetProperty("IsDeleted", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ModelBase).GetField("<IsDeleted>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                valueGenerated: ValueGenerated.OnAdd);
-            isDeleted.AddAnnotation("Relational:DefaultValueSql", "0");
+                fieldInfo: typeof(ModelBase).GetField("<IsDeleted>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             isDeleted.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
-
-            var name = runtimeEntityType.AddProperty(
-                "Name",
-                typeof(string),
-                propertyInfo: typeof(Application).GetProperty("Name", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Application).GetField("<Name>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                maxLength: 100);
-            name.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var projectId = runtimeEntityType.AddProperty(
                 "ProjectId",
                 typeof(Guid),
-                propertyInfo: typeof(Application).GetProperty("ProjectId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Application).GetField("<ProjectId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                propertyInfo: typeof(PlannedProjectTime).GetProperty("ProjectId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(PlannedProjectTime).GetField("<ProjectId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             projectId.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+
+            var scheduleId = runtimeEntityType.AddProperty(
+                "ScheduleId",
+                typeof(Guid),
+                propertyInfo: typeof(PlannedProjectTime).GetProperty("ScheduleId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(PlannedProjectTime).GetField("<ScheduleId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+            scheduleId.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+
+            var time = runtimeEntityType.AddProperty(
+                "Time",
+                typeof(double),
+                propertyInfo: typeof(PlannedProjectTime).GetProperty("Time", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(PlannedProjectTime).GetField("<Time>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+            time.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var timestamp = runtimeEntityType.AddProperty(
                 "Timestamp",
                 typeof(byte[]),
-                propertyInfo: typeof(Application).GetProperty("Timestamp", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Application).GetField("<Timestamp>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                nullable: true,
-                concurrencyToken: true,
-                valueGenerated: ValueGenerated.OnAddOrUpdate,
-                beforeSaveBehavior: PropertySaveBehavior.Ignore,
-                afterSaveBehavior: PropertySaveBehavior.Ignore);
+                propertyInfo: typeof(PlannedProjectTime).GetProperty("Timestamp", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(PlannedProjectTime).GetField("<Timestamp>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true);
             timestamp.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var updatedAt = runtimeEntityType.AddProperty(
                 "UpdatedAt",
                 typeof(DateTime),
                 propertyInfo: typeof(ModelBase).GetProperty("UpdatedAt", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ModelBase).GetField("<UpdatedAt>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                valueGenerated: ValueGenerated.OnAdd);
-            updatedAt.AddAnnotation("Relational:DefaultValueSql", "getdate()");
+                fieldInfo: typeof(ModelBase).GetField("<UpdatedAt>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             updatedAt.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var key = runtimeEntityType.AddKey(
@@ -97,6 +93,9 @@ namespace Songbird.Web.CompiledModels
 
             var index = runtimeEntityType.AddIndex(
                 new[] { projectId });
+
+            var index0 = runtimeEntityType.AddIndex(
+                new[] { scheduleId });
 
             return runtimeEntityType;
         }
@@ -113,15 +112,33 @@ namespace Songbird.Web.CompiledModels
                 runtimeForeignKey,
                 onDependent: true,
                 typeof(Project),
-                propertyInfo: typeof(Application).GetProperty("Project", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Application).GetField("<Project>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                propertyInfo: typeof(PlannedProjectTime).GetProperty("Project", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(PlannedProjectTime).GetField("<Project>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
-            var applications = principalEntityType.AddNavigation("Applications",
+            return runtimeForeignKey;
+        }
+
+        public static RuntimeForeignKey CreateForeignKey2(RuntimeEntityType declaringEntityType, RuntimeEntityType principalEntityType)
+        {
+            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("ScheduleId") },
+                principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id") }),
+                principalEntityType,
+                deleteBehavior: DeleteBehavior.Cascade,
+                required: true);
+
+            var schedule = declaringEntityType.AddNavigation("Schedule",
+                runtimeForeignKey,
+                onDependent: true,
+                typeof(UserSchedule),
+                propertyInfo: typeof(PlannedProjectTime).GetProperty("Schedule", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(PlannedProjectTime).GetField("<Schedule>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
+            var projects = principalEntityType.AddNavigation("Projects",
                 runtimeForeignKey,
                 onDependent: false,
-                typeof(ICollection<Application>),
-                propertyInfo: typeof(Project).GetProperty("Applications", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Project).GetField("<Applications>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                typeof(IList<PlannedProjectTime>),
+                propertyInfo: typeof(UserSchedule).GetProperty("Projects", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(UserSchedule).GetField("<Projects>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             return runtimeForeignKey;
         }
@@ -131,7 +148,7 @@ namespace Songbird.Web.CompiledModels
             runtimeEntityType.AddAnnotation("Relational:FunctionName", null);
             runtimeEntityType.AddAnnotation("Relational:Schema", null);
             runtimeEntityType.AddAnnotation("Relational:SqlQuery", null);
-            runtimeEntityType.AddAnnotation("Relational:TableName", "Applications");
+            runtimeEntityType.AddAnnotation("Relational:TableName", "PlannedProjectTime");
             runtimeEntityType.AddAnnotation("Relational:ViewName", null);
             runtimeEntityType.AddAnnotation("Relational:ViewSchema", null);
 

@@ -38,7 +38,8 @@ namespace Songbird.Web.CompiledModels
                 "ContentType",
                 typeof(string),
                 propertyInfo: typeof(UserPhoto).GetProperty("ContentType", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(UserPhoto).GetField("<ContentType>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                fieldInfo: typeof(UserPhoto).GetField("<ContentType>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                maxLength: 50);
             contentType.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var createdAt = runtimeEntityType.AddProperty(
@@ -62,7 +63,8 @@ namespace Songbird.Web.CompiledModels
                 "ETag",
                 typeof(string),
                 propertyInfo: typeof(UserPhoto).GetProperty("ETag", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(UserPhoto).GetField("<ETag>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                fieldInfo: typeof(UserPhoto).GetField("<ETag>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                maxLength: 100);
             eTag.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var isDeleted = runtimeEntityType.AddProperty(

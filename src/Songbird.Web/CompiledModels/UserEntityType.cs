@@ -49,14 +49,16 @@ namespace Songbird.Web.CompiledModels
                 "Email",
                 typeof(string),
                 propertyInfo: typeof(User).GetProperty("Email", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(User).GetField("<Email>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                fieldInfo: typeof(User).GetField("<Email>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                maxLength: 100);
             email.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var externalId = runtimeEntityType.AddProperty(
                 "ExternalId",
                 typeof(string),
                 propertyInfo: typeof(User).GetProperty("ExternalId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(User).GetField("<ExternalId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                fieldInfo: typeof(User).GetField("<ExternalId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                maxLength: 100);
             externalId.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var isDeleted = runtimeEntityType.AddProperty(
@@ -77,6 +79,15 @@ namespace Songbird.Web.CompiledModels
             isEligibleForFikaScheduling.AddAnnotation("Relational:DefaultValue", false);
             isEligibleForFikaScheduling.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
+            var isEligibleForWeeklyPlaning = runtimeEntityType.AddProperty(
+                "IsEligibleForWeeklyPlaning",
+                typeof(bool),
+                propertyInfo: typeof(User).GetProperty("IsEligibleForWeeklyPlaning", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(User).GetField("<IsEligibleForWeeklyPlaning>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                valueGenerated: ValueGenerated.OnAdd);
+            isEligibleForWeeklyPlaning.AddAnnotation("Relational:DefaultValue", false);
+            isEligibleForWeeklyPlaning.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+
             var lastLogin = runtimeEntityType.AddProperty(
                 "LastLogin",
                 typeof(DateTime?),
@@ -89,7 +100,8 @@ namespace Songbird.Web.CompiledModels
                 "Name",
                 typeof(string),
                 propertyInfo: typeof(User).GetProperty("Name", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(User).GetField("<Name>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                fieldInfo: typeof(User).GetField("<Name>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                maxLength: 100);
             name.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var updatedAt = runtimeEntityType.AddProperty(

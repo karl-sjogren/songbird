@@ -65,7 +65,8 @@ namespace Songbird.Web.CompiledModels
                 "FilterValue",
                 typeof(string),
                 propertyInfo: typeof(ApplicationLogFilter).GetProperty("FilterValue", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ApplicationLogFilter).GetField("<FilterValue>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                fieldInfo: typeof(ApplicationLogFilter).GetField("<FilterValue>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                maxLength: 100);
             filterValue.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var isDeleted = runtimeEntityType.AddProperty(

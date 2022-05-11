@@ -9,7 +9,6 @@ public static partial class ModelBuilderExtensions {
             entity.AddModelBaseProperties();
 
             entity.Property(e => e.Time)
-                .HasColumnType("decimal(5, 2)")
                 .IsRequired();
 
             entity.Property(e => e.Timestamp)
