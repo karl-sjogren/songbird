@@ -142,7 +142,9 @@ stages:
       - task: PublishBuildArtifacts@1
         displayName: 'Publish bundle artifacts'
         inputs:
-          pathtoPublish: '$(Build.SourcesDirectory)/src/Songbird.Web/efbundle'
+          pathtoPublish: |
+            '$(Build.SourcesDirectory)/src/Songbird.Web/efbundle'
+            '$(Build.SourcesDirectory)/src/Songbird.Web/appsettings.json'
           artifactName: migration-artifacts
 
   ###################################################
