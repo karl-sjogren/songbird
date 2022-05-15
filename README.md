@@ -6,11 +6,11 @@ Small intranet stand-in to use at work until we get around to developing somethi
 
 The following things needs to be installed on the development machine.
 
-* Node JS >= 12 (https://nodejs.org/)
-  * Ember CLI (https://www.npmjs.com/package/ember-cli)
-* Yarn > 1.22 (https://yarnpkg.com/)
-* .NET 7.0 (https://dot.net)
-* GIT (https://git-scm.com/)
+* Node JS >= 12 (<https://nodejs.org/>)
+  * Ember CLI (<https://www.npmjs.com/package/ember-cli>)
+* Yarn > 1.22 (<https://yarnpkg.com/>)
+* .NET 7.0 (<https://dot.net>)
+* GIT (<https://git-scm.com/>)
 
 ## Running the project
 
@@ -33,7 +33,7 @@ cd src/Songbird.Web/
 dotnet watch run
 ```
 
-The project is now available at https://localhost:5001/.
+The project is now available at <https://localhost:5001/>.
 
 ## Entity Framework Migrations
 

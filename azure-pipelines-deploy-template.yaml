@@ -22,16 +22,10 @@ stages:
                 - download: none
 
                 - task: DownloadPipelineArtifact@2
-                  displayName: Download artifacts
+                  displayName: Download build artifacts
                   inputs:
                     artifact: build-artifacts
                     path: '$(System.DefaultWorkingDirectory)/build-artifacts'
-
-                - task: DownloadPipelineArtifact@2
-                  displayName: Download artifacts
-                  inputs:
-                    artifact: migration-artifacts
-                    path: '$(System.DefaultWorkingDirectory)/migration-artifacts'
 
                 - task: AzureWebApp@1
                   displayName: 'Deploy Azure App Service'
@@ -47,6 +41,12 @@ stages:
 
               routeTraffic:
                 steps:
+                - task: DownloadPipelineArtifact@2
+                  displayName: Download migration artifacts
+                  inputs:
+                    artifact: migration-artifacts
+                    path: '$(System.DefaultWorkingDirectory)/migration-artifacts'
+
                 - task: AzureAppServiceManage@0
                   displayName: 'Start deployment slot'
                   inputs:
