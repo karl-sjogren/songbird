@@ -131,20 +131,26 @@ stages:
           arguments: 'restore'
           workingDirectory: '$(Build.SourcesDirectory)/src/Songbird.Web'
 
+      - task: CmdLine@2
+        displayName: 'Prepare Build Migration Bundle'
+        inputs:
+          script: |
+            mkdir migrations-bundle
+            cp appsettings.json migrations-bundle/
+          workingDirectory: '$(Build.SourcesDirectory)/src/Songbird.Web'
+
       - task: DotNetCoreCLI@2
         displayName: 'Build Migration Bundle'
         inputs:
           command: 'custom'
           custom: 'ef'
-          arguments: 'migrations bundle --verbose --force --self-contained -r linux-x64'
+          arguments: 'migrations bundle --verbose --force --self-contained -r linux-x64 -o migrations-bundle/efbundle'
           workingDirectory: '$(Build.SourcesDirectory)/src/Songbird.Web'
 
       - task: PublishBuildArtifacts@1
         displayName: 'Publish bundle artifacts'
         inputs:
-          pathtoPublish: |
-            '$(Build.SourcesDirectory)/src/Songbird.Web/efbundle'
-            '$(Build.SourcesDirectory)/src/Songbird.Web/appsettings.json'
+          pathtoPublish: '$(Build.SourcesDirectory)/src/Songbird.Web/migrations-bundle/'
           artifactName: migration-artifacts
 
   ###################################################
