@@ -136,7 +136,7 @@ stages:
         inputs:
           command: 'custom'
           custom: 'ef'
-          arguments: 'migrations bundle --verbose --force'
+          arguments: 'migrations bundle --verbose --force --self-contained -r linux-x64'
           workingDirectory: '$(Build.SourcesDirectory)/src/Songbird.Web'
 
       - task: PublishBuildArtifacts@1
