@@ -60,7 +60,7 @@ stages:
                 - task: CmdLine@2
                   displayName: 'Apply migrations'
                   inputs:
-                    script:
+                    script: |
                       chmod +x ./efbundle
                       ./efbundle --connection "${{ environment.connectionString }}"
                     workingDirectory: '$(System.DefaultWorkingDirectory)/migration-artifacts'
