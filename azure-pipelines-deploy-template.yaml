@@ -27,6 +27,12 @@ stages:
                     artifact: build-artifacts
                     path: '$(System.DefaultWorkingDirectory)/build-artifacts'
 
+                - task: DownloadPipelineArtifact@2
+                  displayName: Download artifacts
+                  inputs:
+                    artifact: migration-artifacts
+                    path: '$(System.DefaultWorkingDirectory)/migration-artifacts'
+
                 - task: AzureWebApp@1
                   displayName: 'Deploy Azure App Service'
                   inputs:
@@ -38,6 +44,7 @@ stages:
                     ResourceGroupName: 'songbird'
                     SlotName: deploy
                     package: '$(System.DefaultWorkingDirectory)/build-artifacts/publish.zip'
+
               routeTraffic:
                 steps:
                 - task: AzureAppServiceManage@0
@@ -49,6 +56,12 @@ stages:
                     SpecifySlotOrASE: true
                     ResourceGroupName: 'songbird'
                     Slot: deploy
+
+                - task: CmdLine@2
+                  displayName: 'Apply migrations'
+                  inputs:
+                    script: ./efbundle --connection ${{ environment.connectionString }}
+                    workingDirectory: '$(System.DefaultWorkingDirectory)/migration-artifacts'
 
                 - task: AzureAppServiceManage@0
                   displayName: 'Swap to deployment slot'
@@ -68,6 +81,7 @@ stages:
                     SpecifySlotOrASE: true
                     ResourceGroupName: 'songbird'
                     Slot: deploy
+
               postRouteTraffic:
                 steps:
                   - bash: |

@@ -28,10 +28,12 @@ stages:
             artifacts/**/*
             **/*.trx
             **/junit.xml
+
       - task: NodeTool@0
-        displayName: 'Set Node.js version to 14.x'
+        displayName: 'Set Node.js version to 16.x'
         inputs:
-          versionSpec: '14.x'
+          versionSpec: '16.x'
+
       - task: Cache@2
         inputs:
           key: '"yarn" | "$(Agent.OS)" | ./src/Songbird.Frontend/yarn.lock'
@@ -44,6 +46,7 @@ stages:
         inputs:
           script: yarn --frozen-lockfile --prefer-offline
           workingDirectory: src/Songbird.Frontend
+
       - task: CmdLine@2
         displayName: 'Run frontend linting'
         inputs:
@@ -53,12 +56,14 @@ stages:
             yarn lint:css
           workingDirectory: src/Songbird.Frontend
           failOnStderr: false
+
       - task: CmdLine@2
         displayName: 'Test Ember App'
         inputs:
           script: 'node_modules/.bin/ember test || exit 0'
           workingDirectory: src/Songbird.Frontend
           failOnStderr: false
+
       - task: PublishTestResults@2
         displayName: 'Publish Ember test results'
         inputs:
@@ -67,16 +72,19 @@ stages:
           testRunTitle: 'Ember Tests'
           mergeTestResults: true
           failTaskOnFailedTests: true
+
       - task: CmdLine@2
         displayName: 'Build Ember App'
         inputs:
           script: node_modules/.bin/ember build --environment=production --out ../Songbird.Web/ClientApp
           workingDirectory: src/Songbird.Frontend
+
       - task: UseDotNet@2
         displayName: 'Install .NET Core'
         inputs:
           packageType: 'sdk'
           version: $(SDK_VERSION)
+
       - task: DotNetCoreCLI@2
         displayName: 'Restore NuGet packages'
         inputs:
@@ -85,6 +93,7 @@ stages:
           feedsToUse: 'config'
           nugetConfigPath: '$(Build.SourcesDirectory)/nuget.config'
           verbosityRestore: 'Minimal'
+
       - task: DotNetCoreCLI@2
         displayName: 'Run tests'
         inputs:
@@ -92,11 +101,13 @@ stages:
           projects: '**/*.Tests.csproj'
           arguments: '--configuration Release /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:excludebyfile="**/Migrations/*.cs"'
           publishTestResults: true
+
       - task: PublishCodeCoverageResults@1
         displayName: 'Publish Code Coverage Report'
         inputs:
           codeCoverageTool: 'Cobertura'
           summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
+
       - task: DotNetCoreCLI@2
         displayName: 'Publish .NET Core App'
         inputs:
@@ -105,11 +116,13 @@ stages:
           configuration: 'Release'
           arguments: '--runtime win10-x86 --self-contained'
           zipAfterPublish: true
+
       - task: PublishBuildArtifacts@1
         displayName: 'Publish application artifacts'
         inputs:
           pathtoPublish: '$(Build.SourcesDirectory)/src/Songbird.Web/bin/Debug/$(SDK_VERSION_PATH_SEGMENT)/win10-x86/publish.zip'
           artifactName: build-artifacts
+
       - task: DotNetCoreCLI@2
         displayName: Restore dotnet tools
         inputs:
@@ -117,6 +130,7 @@ stages:
           custom: 'tool'
           arguments: 'restore'
           workingDirectory: '$(Build.SourcesDirectory)/src/Songbird.Web'
+
       - task: DotNetCoreCLI@2
         displayName: 'Build Migration Bundle'
         inputs:
@@ -124,6 +138,7 @@ stages:
           custom: 'ef'
           arguments: 'migrations bundle --verbose --force'
           workingDirectory: '$(Build.SourcesDirectory)/src/Songbird.Web'
+
       - task: PublishBuildArtifacts@1
         displayName: 'Publish bundle artifacts'
         inputs:
@@ -140,11 +155,14 @@ stages:
           branch: develop
           appName: songbird-dev
           subscription: $(AZ_SUBSCRIPTION)
+          connectionString: $(CONNECTION_STRING_DEVELOPMENT)
           smokeTestUrl: 'https://songbird-dev.xlent-umea.com/health'
+
         - name: Songbird Production
           branch: main
           appName: songbird-prod
           subscription: $(AZ_SUBSCRIPTION)
+          connectionString: $(CONNECTION_STRING_PRODUCTION)
           smokeTestUrl: 'https://songbird.xlent-umea.com/health'
 
 
