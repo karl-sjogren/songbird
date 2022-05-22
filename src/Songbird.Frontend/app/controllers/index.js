@@ -7,7 +7,7 @@ export default class IndexController extends Controller {
 
     const myMatch = buddies.matches.find(match => match.users.some(user => user.id === currentUserId));
     if(!myMatch) {
-      return 'Inga fika-kompisar denna vecka';
+      return [];
     }
 
     return myMatch.users.filter(x => x.id !== currentUserId);

@@ -17,6 +17,8 @@
         <li>
           <img src="/api/profile-image/{{buddy.id}}/{{buddy.name}}" alt={{buddy.name}} title={{buddy.name}} />
         </li>
+      {{else}}
+        <li>Du har inga fika-kompisar denna vecka.</li>
       {{/each}}
     </ul>
   </aside>

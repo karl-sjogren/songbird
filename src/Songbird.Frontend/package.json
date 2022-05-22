@@ -33,7 +33,7 @@
     "@ember/test-helpers": "^2.7.0",
     "@glimmer/component": "^1.1.2",
     "@glimmer/tracking": "^1.1.2",
-    "babel-eslint": "^10.1.0",
+    "@babel/eslint-parser": "^7.17.0",
     "broccoli-asset-rev": "^3.0.0",
     "broccoli-merge-trees": "^4.2.0",
     "clndr": "^1.5.1",

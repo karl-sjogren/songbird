@@ -9,7 +9,7 @@ export default class IndexRoute extends Route {
   model() {
     return hash({
       me: this.meService.me,
-      fikaBuddies: this.fikaScheduleService.getCurrentBuddies()
+      fikaBuddies: this.fikaScheduleService.getCurrentBuddies().catch(() => ({ matches: [] }))
     });
   }
 

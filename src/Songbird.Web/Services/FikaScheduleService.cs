@@ -41,7 +41,7 @@ public class FikaScheduleService : IFikaScheduleService {
             .FirstOrDefaultAsync(x => x.StartDate == startDate, cancellationToken);
 
         if(schedule != null) {
-            _logger.LogWarning($"Can't generate a new fika schedule for date {startDate:yyyy-MM-dd} since it already exists.");
+            _logger.LogWarning("Can't generate a new fika schedule for date {startDate} since it already exists.", startDate.ToString("yyyy-MM-dd"));
             return null;
         }
 
@@ -56,7 +56,7 @@ public class FikaScheduleService : IFikaScheduleService {
             .ToListAsync(cancellationToken);
 
         if(users.None()) {
-            _logger.LogWarning($"Can't generate a new fika schedule for date {startDate:yyyy-MM-dd} because there are no users available.");
+            _logger.LogWarning("Can't generate a new fika schedule for date {startDate} because there are no eligible users available.", startDate.ToString("yyyy-MM-dd"));
             return null;
         }
 
@@ -127,9 +127,7 @@ public class FikaScheduleService : IFikaScheduleService {
         var listLength = list.Count;
         for(var current = 0; current < (listLength - 1); current++) {
             var randomINdex = current + _randomNumberGenerator.Next(listLength - current);
-            var item = list[randomINdex];
-            list[randomINdex] = list[current];
-            list[current] = item;
+            (list[current], list[randomINdex]) = (list[randomINdex], list[current]);
         }
     }
 

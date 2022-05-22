@@ -73,6 +73,7 @@ public class Startup {
         services.AddScoped<ILogSearchService, LogSearchService>();
         services.AddScoped<ILunchGameService, LunchGameService>();
         services.AddScoped<ILunchGamingDateService, LunchGamingDateService>();
+        services.AddScoped<IPlanningBoardService, PlanningBoardService>();
         services.AddScoped<IUserService, UserService>();
 
         // Hosted services
