@@ -22,7 +22,24 @@ public static class Program {
         .AddEnvironmentVariables()
         .Build();
 
+    public static string GetAssemblyVersion() {
+        return typeof(Program).Assembly.GetName().Version.ToString(3);
+    }
+
     public static Int32 Main(string[] args) {
+        // Art by Joan Stark, https://www.asciiart.eu/animals/birds-land
+        Console.ForegroundColor = ConsoleColor.DarkBlue;
+        Console.WriteLine("                 _  _");
+        Console.WriteLine(@"                ( \/ )");
+        Console.WriteLine(@"         .---.   \  /   .-""-. ");
+        Console.WriteLine(@"        /   6_6   \/   / 4 4 \");
+        Console.WriteLine(@"        \_  (__\       \_ v _/                 Songbird " + GetAssemblyVersion());
+        Console.WriteLine(@"        //   \\        //   \\");
+        Console.WriteLine("       ((     ))      ((     ))");
+        Console.WriteLine(@"jgs=====""""===""""========""""===""""=======");
+        Console.WriteLine("          |||            |||");
+        Console.WriteLine("           |              |");
+
         var loggerConfiguration = new LoggerConfiguration()
             .ReadFrom.Configuration(Configuration)
             .Enrich.FromLogContext()

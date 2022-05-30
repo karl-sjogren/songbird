@@ -36,8 +36,8 @@ public class FikaScheduleService : IFikaScheduleService {
         var schedule = await _songbirdContext
             .FikaSchedules
             .AsNoTracking()
-            .Include(x => x.Matches).ThenInclude(x => x.Users)
             .AsSplitQuery()
+            .Include(x => x.Matches).ThenInclude(x => x.Users)
             .FirstOrDefaultAsync(x => x.StartDate == startDate, cancellationToken);
 
         if(schedule != null) {
@@ -64,8 +64,8 @@ public class FikaScheduleService : IFikaScheduleService {
         var lastWeekSchedule = await _songbirdContext
             .FikaSchedules
             .AsNoTracking()
-            .Include(x => x.Matches).ThenInclude(x => x.Users)
             .AsSplitQuery()
+            .Include(x => x.Matches).ThenInclude(x => x.Users)
             .FirstOrDefaultAsync(x => x.StartDate == lastWeekDate, cancellationToken);
 
         do {
@@ -137,8 +137,8 @@ public class FikaScheduleService : IFikaScheduleService {
         return await _songbirdContext
             .FikaSchedules
             .AsNoTracking()
-            .Include(x => x.Matches).ThenInclude(x => x.Users)
             .AsSplitQuery()
+            .Include(x => x.Matches).ThenInclude(x => x.Users)
             .FirstOrDefaultAsync(x => x.StartDate == startDate, cancellationToken);
     }
 
@@ -146,8 +146,8 @@ public class FikaScheduleService : IFikaScheduleService {
         return await _songbirdContext
             .FikaSchedules
             .AsNoTracking()
-            .Include(x => x.Matches).ThenInclude(x => x.Users)
             .AsSplitQuery()
+            .Include(x => x.Matches).ThenInclude(x => x.Users)
             .OrderByDescending(x => x.StartDate)
             .Take(numberOfSchedules)
             .ToListAsync(cancellationToken);
@@ -163,8 +163,8 @@ public class FikaScheduleService : IFikaScheduleService {
         var schedule = await _songbirdContext
             .FikaSchedules
             .AsNoTracking()
-            .Include(x => x.Matches).ThenInclude(x => x.Users)
             .AsSplitQuery()
+            .Include(x => x.Matches).ThenInclude(x => x.Users)
             .FirstOrDefaultAsync(x => x.StartDate == startDate, cancellationToken);
 
         var slackMessage = new SlackMessageWithLinkButton {

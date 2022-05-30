@@ -8,6 +8,14 @@ trigger:
     include:
     - '*'
 
+resources:
+  containers:
+  - container: mssql
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    ports:
+      - 1433:1433
+    options: -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=9C^0t*cQJnj7crQ5' -e 'MSSQL_PID=Developer'
+
 stages:
   ###################################################
   # Build
