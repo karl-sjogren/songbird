@@ -26,6 +26,8 @@ stages:
     - job: Build
       pool:
         vmImage: 'ubuntu-latest'
+      services:
+        mssql: mssql
       steps:
       - task: DeleteFiles@1
         displayName: 'Remove previous build files'
