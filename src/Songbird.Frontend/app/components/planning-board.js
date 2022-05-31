@@ -15,10 +15,14 @@ export default class PlanningBoardComponent extends Component {
     const headerLogo = document.getElementById('header-logo');
 
     if(value > 0.3) {
-      headerLogo.style.clipPath = '';
+      if(!!headerLogo) {
+        headerLogo.style.clipPath = '';
+      }
       this.plannyFile = 'planny-the-cat';
     } else {
-      headerLogo.style.clipPath = 'inset(0 45% 0 0)';
+      if(!!headerLogo) {
+        headerLogo.style.clipPath = 'inset(0 45% 0 0)';
+      }
       this.plannyFile = 'planny-the-cat-feather';
     }
   }

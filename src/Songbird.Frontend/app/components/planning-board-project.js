@@ -11,7 +11,7 @@ export default class PlanningBoardProjectComponent extends Component {
 
   get disableSelect() {
     const model = this.args.model;
-    if(!!model.id) {
+    if(!!model?.id) {
       return true;
     }
 
