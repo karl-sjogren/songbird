@@ -12,7 +12,7 @@ const fontelloToLess = function fontelloToLess(outputPath) {
     output += `    content: '\\${glyph.code.toString(16)}';` + lineBreak;
     output += `  }` + lineBreak;
   }
-  output += '}' + lineBreak;
+  output += '}' + lineBreak + lineBreak;
 
   fs.writeFileSync(outputPath, output);
 };
