@@ -9,8 +9,11 @@ module.exports = {
     ecmaFeatures: {
       legacyDecorators: true,
     },
+    babelOptions: {
+      configFile: './babel.config.js',
+    },
   },
-  plugins: ['ember'],
+  plugins: ['ember', '@babel'],
   extends: [
     'eslint:recommended',
     'plugin:ember/recommended'
@@ -19,6 +22,7 @@ module.exports = {
     browser: true,
   },
   rules: {
+    '@babel/new-cap': 'error',
     'no-console': 'off',
     'no-extra-boolean-cast': 'off',
     'no-trailing-spaces': 'error',
@@ -41,7 +45,6 @@ module.exports = {
     'semi': 'error',
     'indent': ['error', 2, { 'SwitchCase': 1 }],
     'quotes': ['error', 'single', { 'allowTemplateLiterals': true }],
-    'ember/no-new-mixins': 'off',
     'no-restricted-globals': [
       'error',
       {
@@ -58,6 +61,7 @@ module.exports = {
         './.prettierrc.js',
         './.template-lintrc.js',
         './ember-cli-build.js',
+        './babel.config.js',
         './testem.js',
         './blueprints/*/index.js',
         './config/**/*.js',

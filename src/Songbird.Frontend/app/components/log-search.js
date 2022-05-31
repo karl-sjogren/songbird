@@ -15,7 +15,7 @@ export default class LogSearchComponent extends Component {
   @inject('logSearchService') service;
 
   @tracked loading = false;
-  @tracked results = []
+  @tracked results = [];
   @tracked facets = [];
   @tracked totalCount = 0;
   @tracked showAllColumns = false;

@@ -22,7 +22,8 @@ module.exports = function(defaults) {
     },
     'ember-cli-babel': {
       includePolyfill: false,
-      includeExternalHelpers: true
+      includeExternalHelpers: true,
+      useBabelConfig: true
     },
     fingerprint: {
       enabled: isProduction && !disableFingerprinting,
