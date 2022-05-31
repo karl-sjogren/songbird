@@ -38,7 +38,7 @@ public class PlanningBoardService : IPlanningBoardService {
 
         board = new PlanningBoard {
             StartDate = startDate,
-            WeekNumber = startDate.GetWeekNumber(),
+            WeekNumber = (short)startDate.GetWeekNumber(),
             Year = (short)startDate.Year
         };
 
