@@ -2,7 +2,7 @@
   <label for="page-size" class="sr-only">Antal resultat</label>
   <SimpleSelect id="page-size" @onChange={{this.sizeChanged}} @value={{@model}} as |s|>
     {{#each this.availableSizes as |size|}}
-      <s.option @label={{size.label}} @value={{size.value}} />
+      <s.option @value={{size.value}}>{{size.label}}</s.option>
     {{/each}}
   </SimpleSelect>
 </div>

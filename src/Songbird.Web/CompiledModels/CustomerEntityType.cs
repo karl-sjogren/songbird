@@ -69,6 +69,14 @@ namespace Songbird.Web.CompiledModels
                 maxLength: 100);
             name.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
+            var shortName = runtimeEntityType.AddProperty(
+                "ShortName",
+                typeof(string),
+                propertyInfo: typeof(Customer).GetProperty("ShortName", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Customer).GetField("<ShortName>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true);
+            shortName.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+
             var timestamp = runtimeEntityType.AddProperty(
                 "Timestamp",
                 typeof(byte[]),

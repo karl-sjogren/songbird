@@ -99,7 +99,18 @@ public class PlanningBoardService : IPlanningBoardService {
             .AsNoTracking()
             .AsSplitQuery()
             .Include(x => x.UserSchedules).ThenInclude(x => x.Projects).ThenInclude(x => x.Project).ThenInclude(x => x.Customer)
+            .Include(x => x.UserSchedules).ThenInclude(x => x.User)
             .FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted, cancellationToken);
+    }
+
+    public async Task<PlanningBoard> GetByDateAsync(DateTime startDate, CancellationToken cancellationToken) {
+        return await _songbirdContext
+            .PlanningBoards
+            .AsNoTracking()
+            .AsSplitQuery()
+            .Include(x => x.UserSchedules).ThenInclude(x => x.Projects).ThenInclude(x => x.Project).ThenInclude(x => x.Customer)
+            .Include(x => x.UserSchedules).ThenInclude(x => x.User)
+            .FirstOrDefaultAsync(x => x.StartDate == startDate && !x.IsDeleted, cancellationToken);
     }
 
     public async Task<PlanningBoard> GetCurrentPlanningBoardAsync(CancellationToken cancellationToken) {
@@ -110,10 +121,11 @@ public class PlanningBoardService : IPlanningBoardService {
             .AsNoTracking()
             .AsSplitQuery()
             .Include(x => x.UserSchedules).ThenInclude(x => x.Projects).ThenInclude(x => x.Project).ThenInclude(x => x.Customer)
+            .Include(x => x.UserSchedules).ThenInclude(x => x.User)
             .FirstOrDefaultAsync(x => x.StartDate == startDate && !x.IsDeleted, cancellationToken);
     }
 
-    public async Task SetUserProjectTimeAsync(Guid planningBoardId, Guid userId, Guid projectId, double hours, CancellationToken cancellationToken) {
+    public async Task<PlannedProjectTime> SetUserProjectTimeAsync(Guid planningBoardId, Guid userId, Guid projectId, double hours, CancellationToken cancellationToken) {
         var planningBoard = await _songbirdContext
             .PlanningBoards
             .AsSplitQuery()
@@ -122,7 +134,7 @@ public class PlanningBoardService : IPlanningBoardService {
 
         if(planningBoard == null) {
             _logger.LogInformation("Can't set user project time for user {userId} on planning board {planningBoardId} because the planning board doesn't exist.", userId, planningBoardId);
-            return;
+            return null;
         }
 
         var userIsEligible = await _songbirdContext
@@ -132,7 +144,7 @@ public class PlanningBoardService : IPlanningBoardService {
 
         if(!userIsEligible) {
             _logger.LogInformation("Can't set user project time for user {userId} on planning board {planningBoardId} because the user is not eligible for weekly planing.", userId, planningBoardId);
-            return;
+            return null;
         }
 
         var userSchedule = planningBoard.UserSchedules.FirstOrDefault(x => x.UserId == userId);
@@ -162,6 +174,8 @@ public class PlanningBoardService : IPlanningBoardService {
         }
 
         await _songbirdContext.SaveChangesAsync(cancellationToken);
+
+        return project;
     }
 
     public async Task ClearUserProjectTimeAsync(Guid planningBoardId, Guid userId, Guid projectId, CancellationToken cancellationToken) {
@@ -191,5 +205,15 @@ public class PlanningBoardService : IPlanningBoardService {
         planningBoard.UpdatedAt = userSchedule.UpdatedAt = _dateTimeProvider.Now;
 
         await _songbirdContext.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task<ICollection<Project>> GetEligibleProjectsAsync(CancellationToken cancellationToken) {
+        return await _songbirdContext
+            .Projects
+            .AsNoTracking()
+            .AsSplitQuery()
+            .Include(x => x.Customer)
+            .Where(x => !x.IsDeleted)
+            .ToListAsync(cancellationToken);
     }
 }

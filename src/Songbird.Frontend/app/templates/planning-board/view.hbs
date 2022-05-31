@@ -1,0 +1,11 @@
+{{page-title "Planeringsboard"}}
+
+<h1>Planeringsboard</h1>
+
+{{#unless this.model}}
+  <button type="button" {{on "click" this.createBoard}}>Skapa board</button>
+{{/unless}}
+
+{{#if this.model}}
+  <PlanningBoard @model={{this.model}} @projects={{this.projects}} />
+{{/if}}

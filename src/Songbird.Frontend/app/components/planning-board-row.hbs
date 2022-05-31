@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="image-container rough-borders">
+    <img src="/api/profile-image/{{@model.user.id}}/{{@model.user.name}}" alt="" role="presentation" />
+    <span class="name">{{@model.user.name}}</span>
+  </div>
+  <div class="project-list">
+    {{#each @model.projects as |project|}}
+      <PlanningBoardProject @model={{project}} @schedule={{@model}} @projects={{@projects}} @setProjectTime={{@setProjectTime}} />
+    {{/each}}
+    <button type="button" {{on "click" (fn @addProject @model)}}>Lägg till projekt</button>
+  </div>
+  <div>
+  </div>
+  <div>
+  </div>
+  <div>
+  </div>
+  <div>
+  </div>
+  <div>
+  </div>
+</div>
