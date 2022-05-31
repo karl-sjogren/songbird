@@ -12,6 +12,8 @@ module.exports = function(defaults) {
     'ember-fetch': {
       preferNative: true
     },
+    // For now this is duplicated in babel.config.js due to
+    // missing support from ember-auto-import
     babel: {
       sourceMaps: isProduction ? undefined : 'inline',
       plugins: [
@@ -23,7 +25,7 @@ module.exports = function(defaults) {
     'ember-cli-babel': {
       includePolyfill: false,
       includeExternalHelpers: true,
-      useBabelConfig: true
+      useBabelConfig: false
     },
     fingerprint: {
       enabled: isProduction && !disableFingerprinting,

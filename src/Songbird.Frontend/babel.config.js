@@ -1,7 +1,8 @@
 const { buildEmberPlugins } = require('ember-cli-babel');
-
 const isProduction = process.env.EMBER_ENV === 'production';
 
+// For now this is duplicated in ember-cli-build.js due to
+// missing support from ember-auto-import
 module.exports = function(api) {
   api.cache(true);
 
