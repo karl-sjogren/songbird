@@ -46,7 +46,7 @@ public class PlanningBoardController : Controller {
     public async Task<ActionResult<PlanningBoardDTO>> GenerateFikaScheduleForDateAsync(DateTime startDate, CancellationToken cancellationToken) {
         var board = await _service.GeneratePlanningBoardDateAsync(startDate, cancellationToken);
         if(board == null)
-            return NotFound();
+            return BadRequest();
 
         return _mapper.Map<PlanningBoard, PlanningBoardDTO>(board);
     }

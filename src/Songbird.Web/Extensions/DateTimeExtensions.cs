@@ -18,10 +18,10 @@ public static class DateTimeExtensions {
         }
     }
 
-    public static Int32 GetWeekNumber(this DateTime date) {
+    public static Int16 GetWeekNumber(this DateTime date) {
         // There might be cases to not use Iso8601 in the future
         var calendar = Iso8601Calendar.Instance;
-        return calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+        return (short)calendar.GetWeekOfYear(date, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
     }
 
     public static DateTime StartOfWeek(this DateTime date) {

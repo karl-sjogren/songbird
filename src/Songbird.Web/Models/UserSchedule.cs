@@ -11,5 +11,6 @@ public class UserSchedule : ModelBase {
     public PlanningBoard PlanningBoard { get; set; }
 
     public IList<PlannedProjectTime> Projects { get; set; } = new List<PlannedProjectTime>();
-    //public IList<ScheduledOfficeRole> Roles { get; set; } = new List<ScheduledOfficeRole>();
+    public IList<ScheduledOfficeRole> Roles { get; set; } = new List<ScheduledOfficeRole>();
+    public IList<ScheduledStatus> Statuses { get; set; } = new List<ScheduledStatus>();
 }

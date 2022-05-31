@@ -30,11 +30,22 @@
   {{/each}}
 </section>
 
-{{!-- template-lint-disable no-inline-styles --}}
-<img src="/images/{{this.plannyFile}}.svg" alt="" role="presentation" style="
-    position: fixed;
-    max-width: 80px;
-    bottom: 2rem;
-    right: 2rem;
-    opacity: 0.6;
-">
+{{#if this.showEvilPlanny}}
+  {{!-- template-lint-disable no-inline-styles --}}
+  <img src="/images/planny-the-cat-feather.svg" alt="" role="presentation" style="
+      position: fixed;
+      max-width: 80px;
+      bottom: 2rem;
+      right: 2rem;
+      opacity: 0.6;
+  ">
+{{else}}
+  {{!-- template-lint-disable no-inline-styles --}}
+  <img src="/images/planny-the-cat.svg" alt="" role="presentation" style="
+      position: fixed;
+      max-width: 80px;
+      bottom: 2rem;
+      right: 2rem;
+      opacity: 0.6;
+  ">
+{{/if}}

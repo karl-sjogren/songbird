@@ -289,126 +289,6 @@ namespace Songbird.Web.Migrations
                     b.ToTable("FikaSchedules");
                 });
 
-            modelBuilder.Entity("Songbird.Web.Models.LunchGame", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("IconId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValueSql("0");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IconId");
-
-                    b.ToTable("LunchGames");
-                });
-
-            modelBuilder.Entity("Songbird.Web.Models.LunchGamingAttendance", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<Guid>("DateId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("DateId1")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValueSql("0");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DateId");
-
-                    b.HasIndex("DateId1");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("LunchGamingAttendance");
-                });
-
-            modelBuilder.Entity("Songbird.Web.Models.LunchGamingDate", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("date");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("GameId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValueSql("0");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("getdate()");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GameId");
-
-                    b.ToTable("LunchGamingDates");
-                });
-
             modelBuilder.Entity("Songbird.Web.Models.PlannedProjectTime", b =>
                 {
                     b.Property<Guid>("Id")
@@ -416,13 +296,17 @@ namespace Songbird.Web.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("0");
 
                     b.Property<Guid>("ProjectId")
                         .HasColumnType("uniqueidentifier");
@@ -434,10 +318,14 @@ namespace Songbird.Web.Migrations
                         .HasColumnType("float");
 
                     b.Property<byte[]>("Timestamp")
-                        .HasColumnType("varbinary(max)");
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("rowversion");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.HasKey("Id");
 
@@ -455,19 +343,25 @@ namespace Songbird.Web.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("0");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<short>("WeekNumber")
                         .HasColumnType("smallint");
@@ -534,6 +428,84 @@ namespace Songbird.Web.Migrations
                     b.HasIndex("IconId");
 
                     b.ToTable("Projects");
+                });
+
+            modelBuilder.Entity("Songbird.Web.Models.ScheduledOfficeRole", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("0");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<Guid>("ScheduleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScheduleId");
+
+                    b.ToTable("ScheduledOfficeRoles");
+                });
+
+            modelBuilder.Entity("Songbird.Web.Models.ScheduledStatus", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("0");
+
+                    b.Property<Guid>("ScheduleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ScheduleId");
+
+                    b.ToTable("ScheduledStatuses");
                 });
 
             modelBuilder.Entity("Songbird.Web.Models.User", b =>
@@ -648,19 +620,25 @@ namespace Songbird.Web.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<DateTime?>("DeletedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("0");
 
                     b.Property<Guid>("PlanningBoardId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -671,7 +649,7 @@ namespace Songbird.Web.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserScheduless");
+                    b.ToTable("UserSchedules");
                 });
 
             modelBuilder.Entity("FikaMatchUser", b =>
@@ -727,49 +705,6 @@ namespace Songbird.Web.Migrations
                         .HasForeignKey("FikaScheduleId");
                 });
 
-            modelBuilder.Entity("Songbird.Web.Models.LunchGame", b =>
-                {
-                    b.HasOne("Songbird.Web.Models.BinaryFile", "Icon")
-                        .WithMany()
-                        .HasForeignKey("IconId");
-
-                    b.Navigation("Icon");
-                });
-
-            modelBuilder.Entity("Songbird.Web.Models.LunchGamingAttendance", b =>
-                {
-                    b.HasOne("Songbird.Web.Models.LunchGamingDate", null)
-                        .WithMany("Attendees")
-                        .HasForeignKey("DateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Songbird.Web.Models.LunchGamingDate", "Date")
-                        .WithMany()
-                        .HasForeignKey("DateId1");
-
-                    b.HasOne("Songbird.Web.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Date");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Songbird.Web.Models.LunchGamingDate", b =>
-                {
-                    b.HasOne("Songbird.Web.Models.LunchGame", "Game")
-                        .WithMany()
-                        .HasForeignKey("GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Game");
-                });
-
             modelBuilder.Entity("Songbird.Web.Models.PlannedProjectTime", b =>
                 {
                     b.HasOne("Songbird.Web.Models.Project", "Project")
@@ -806,6 +741,28 @@ namespace Songbird.Web.Migrations
                     b.Navigation("Icon");
                 });
 
+            modelBuilder.Entity("Songbird.Web.Models.ScheduledOfficeRole", b =>
+                {
+                    b.HasOne("Songbird.Web.Models.UserSchedule", "Schedule")
+                        .WithMany("Roles")
+                        .HasForeignKey("ScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Schedule");
+                });
+
+            modelBuilder.Entity("Songbird.Web.Models.ScheduledStatus", b =>
+                {
+                    b.HasOne("Songbird.Web.Models.UserSchedule", "Schedule")
+                        .WithMany("Statuses")
+                        .HasForeignKey("ScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Schedule");
+                });
+
             modelBuilder.Entity("Songbird.Web.Models.UserSchedule", b =>
                 {
                     b.HasOne("Songbird.Web.Models.PlanningBoard", "PlanningBoard")
@@ -840,11 +797,6 @@ namespace Songbird.Web.Migrations
                     b.Navigation("Matches");
                 });
 
-            modelBuilder.Entity("Songbird.Web.Models.LunchGamingDate", b =>
-                {
-                    b.Navigation("Attendees");
-                });
-
             modelBuilder.Entity("Songbird.Web.Models.PlanningBoard", b =>
                 {
                     b.Navigation("UserSchedules");
@@ -863,6 +815,10 @@ namespace Songbird.Web.Migrations
             modelBuilder.Entity("Songbird.Web.Models.UserSchedule", b =>
                 {
                     b.Navigation("Projects");
+
+                    b.Navigation("Roles");
+
+                    b.Navigation("Statuses");
                 });
 #pragma warning restore 612, 618
         }

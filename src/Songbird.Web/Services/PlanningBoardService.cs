@@ -37,7 +37,9 @@ public class PlanningBoardService : IPlanningBoardService {
         }
 
         board = new PlanningBoard {
-            StartDate = startDate
+            StartDate = startDate,
+            WeekNumber = startDate.GetWeekNumber(),
+            Year = (short)startDate.Year
         };
 
         board.CreatedAt = board.UpdatedAt = _dateTimeProvider.Now;

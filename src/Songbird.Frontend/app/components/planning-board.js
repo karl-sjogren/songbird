@@ -6,7 +6,7 @@ import { inject } from '@ember/service';
 export default class PlanningBoardComponent extends Component {
   @inject planningService;
 
-  @tracked plannyFile;
+  @tracked showEvilPlanny;
 
   constructor() {
     super(...arguments);
@@ -18,12 +18,12 @@ export default class PlanningBoardComponent extends Component {
       if(!!headerLogo) {
         headerLogo.style.clipPath = '';
       }
-      this.plannyFile = 'planny-the-cat';
+      this.showEvilPlanny = false;
     } else {
       if(!!headerLogo) {
         headerLogo.style.clipPath = 'inset(0 45% 0 0)';
       }
-      this.plannyFile = 'planny-the-cat-feather';
+      this.showEvilPlanny = true;
     }
   }
 
