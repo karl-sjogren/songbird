@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { inject } from '@ember/service';
+import PlannedProjectTime from 'songbird/models/planned-project-time';
 
 export default class PlanningBoardComponent extends Component {
   @inject planningService;
@@ -39,7 +40,7 @@ export default class PlanningBoardComponent extends Component {
 
   @action
   async addProject(userSchedule) {
-    userSchedule.projects.pushObject({ scheduleId: userSchedule.id, time: 0, projectId: '' });
+    userSchedule.projects.pushObject(new PlannedProjectTime({ scheduleId: userSchedule.id, time: 0, projectId: '' }));
   }
 
   @action

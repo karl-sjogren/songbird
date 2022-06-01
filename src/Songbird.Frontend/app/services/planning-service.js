@@ -1,10 +1,13 @@
 import ServiceBase from 'songbird/services/service-base';
 import { reject } from 'rsvp';
+import PlanningBoard from 'songbird/models/planning-board';
+import PlannedProjectTime from 'songbird/models/planned-project-time';
 
 export default class FikaScheduleService extends ServiceBase {
   getCurrentPlanningBoard() {
     return this.fetch('/api/planning-board')
-      .then(response => response.json());
+      .then(response => response.json())
+      .then(pojo => new PlanningBoard(pojo));
   }
 
   getById(id) {
@@ -13,7 +16,8 @@ export default class FikaScheduleService extends ServiceBase {
     }
 
     return this.fetch(`/api/planning-board/${id}`)
-      .then(response => response.json());
+      .then(response => response.json())
+      .then(pojo => new PlanningBoard(pojo));
   }
 
   getByDate(date) {
@@ -22,7 +26,8 @@ export default class FikaScheduleService extends ServiceBase {
     }
 
     return this.fetch(`/api/planning-board/${date}`)
-      .then(response => response.json());
+      .then(response => response.json())
+      .then(pojo => new PlanningBoard(pojo));
   }
 
   getEligibleProjects() {
@@ -38,7 +43,8 @@ export default class FikaScheduleService extends ServiceBase {
     return this.fetch(`/api/planning-board/${date}`, {
       method: 'POST'
     })
-      .then(response => response.json());
+      .then(response => response.json())
+      .then(pojo => new PlanningBoard(pojo));
   }
 
   setUserProjectTimeAsync(id, userId, projectId, hours) {
@@ -65,7 +71,8 @@ export default class FikaScheduleService extends ServiceBase {
     return this.fetch(`/api/planning-board/${id}/${userId}/${projectId}/${hours}`, {
       method: 'PUT'
     })
-      .then(response => response.json());
+      .then(response => response.json())
+      .then(pojo => new PlannedProjectTime(pojo));
   }
 
   clearUserProjectTimeAsync(id, userId, projectId) {

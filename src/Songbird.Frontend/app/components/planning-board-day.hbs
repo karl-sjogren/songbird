@@ -1,0 +1,40 @@
+<div>
+  {{#if @model.splitDay}}
+    <div>
+      <span>Förmiddag</span>
+
+      <label for={{this.projectInputId}} class="sr-only">Status förmiddag</label>
+      <SimpleSelect id={{this.projectInputId}} @value={{@model.morningStatus}} @onChange={{fn (mut @model.morningStatus)}} as |s|>
+        <s.option @value="AtTheOffice">På kontoret</s.option>
+        <s.option @value="WorkingFromHome">Arbetar hemifrån</s.option>
+        <s.option @value="AwayFromWork">Tjänsteresa</s.option>
+        <s.option @value="OffDuty">Ledig</s.option>
+      </SimpleSelect>
+    </div>
+
+    <div>
+      <span>Eftermiddag</span>
+
+      <label for={{this.projectInputId2}} class="sr-only">Status eftermiddag</label>
+      <SimpleSelect id={{this.projectInputId2}} @value={{@model.morningStatus}} @onChange={{fn (mut @model.morningStatus)}} as |s|>
+        <s.option @value="AtTheOffice">På kontoret</s.option>
+        <s.option @value="WorkingFromHome">Arbetar hemifrån</s.option>
+        <s.option @value="AwayFromWork">Tjänsteresa</s.option>
+        <s.option @value="OffDuty">Ledig</s.option>
+      </SimpleSelect>
+    </div>
+  {{else}}
+    <label for={{this.projectInputId}} class="sr-only">Status</label>
+    <SimpleSelect id={{this.projectInputId}} @value={{@model.morningStatus}} @onChange={{fn (mut @model.morningStatus)}} as |s|>
+      <s.option @value="AtTheOffice">På kontoret</s.option>
+      <s.option @value="WorkingFromHome">Arbetar hemifrån</s.option>
+      <s.option @value="AwayFromWork">Tjänsteresa</s.option>
+      <s.option @value="OffDuty">Ledig</s.option>
+    </SimpleSelect>
+  {{/if}}
+
+  <label>
+    <Input @type="checkbox" />
+    <span>Delad dag</span>
+  </label>
+</div>

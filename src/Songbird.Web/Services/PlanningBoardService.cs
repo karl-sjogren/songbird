@@ -177,7 +177,12 @@ public class PlanningBoardService : IPlanningBoardService {
 
         await _songbirdContext.SaveChangesAsync(cancellationToken);
 
-        return project;
+        return await _songbirdContext
+            .PlannedProjectTime
+            .AsNoTracking()
+            .AsSplitQuery()
+            .Include(x => x.Project).ThenInclude(x => x.Customer)
+            .FirstOrDefaultAsync(x => x.Id == project.Id, cancellationToken);
     }
 
     public async Task ClearUserProjectTimeAsync(Guid planningBoardId, Guid userId, Guid projectId, CancellationToken cancellationToken) {

@@ -1,11 +1,15 @@
 <div class="project rough-borders" style={{rough-seed-style this}}>
-  <label for={{this.projectInputId}} class="sr-only">Kundprojekt</label>
-  <SimpleSelect id={{this.projectInputId}} @value={{@model.projectId}} disabled={{this.disableSelect}} @onChange={{this.projectChanged}} as |s|>
-    <s.option @value="">Välj kund</s.option>
-    {{#each @projects as |project|}}
-      <s.option @value={{project.id}}>{{project.customer.shortName}} {{project.name}}</s.option>
-    {{/each}}
-  </SimpleSelect>
+  {{#if @model.projectId}}
+    <span class="project-name">{{@model.project.customer.shortName}} {{@model.project.name}}</span>
+  {{else}}
+    <label for={{this.projectInputId}} class="sr-only">Kundprojekt</label>
+    <SimpleSelect id={{this.projectInputId}} @value={{@model.projectId}} @onChange={{this.projectChanged}} as |s|>
+      <s.option @value="">Välj kund</s.option>
+      {{#each @projects as |project|}}
+        <s.option @value={{project.id}}>{{project.customer.shortName}} {{project.name}}</s.option>
+      {{/each}}
+    </SimpleSelect>
+  {{/if}}
 
   <label for={{this.timeInputId}} class="sr-only">Dagar planerade för projektet</label>
   <Input @type="text" @value={{@model.time}} id={{this.timeInputId}} {{on "blur" this.timeChanged}} />
