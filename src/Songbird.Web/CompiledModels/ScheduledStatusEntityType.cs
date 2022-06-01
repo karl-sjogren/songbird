@@ -30,6 +30,15 @@ namespace Songbird.Web.CompiledModels
                 afterSaveBehavior: PropertySaveBehavior.Throw);
             id.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
+            var afternoonStatus = runtimeEntityType.AddProperty(
+                "AfternoonStatus",
+                typeof(OfficeStatus),
+                propertyInfo: typeof(ScheduledStatus).GetProperty("AfternoonStatus", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ScheduledStatus).GetField("<AfternoonStatus>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                maxLength: 50,
+                valueConverter: new StringToEnumValueConverter<OfficeStatus>());
+            afternoonStatus.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+
             var createdAt = runtimeEntityType.AddProperty(
                 "CreatedAt",
                 typeof(DateTime),
@@ -38,6 +47,15 @@ namespace Songbird.Web.CompiledModels
                 valueGenerated: ValueGenerated.OnAdd);
             createdAt.AddAnnotation("Relational:DefaultValueSql", "getdate()");
             createdAt.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+
+            var dayOfWeek = runtimeEntityType.AddProperty(
+                "DayOfWeek",
+                typeof(DayOfWeek),
+                propertyInfo: typeof(ScheduledStatus).GetProperty("DayOfWeek", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ScheduledStatus).GetField("<DayOfWeek>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                maxLength: 50,
+                valueConverter: new StringToEnumValueConverter<DayOfWeek>());
+            dayOfWeek.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var deletedAt = runtimeEntityType.AddProperty(
                 "DeletedAt",
@@ -56,21 +74,21 @@ namespace Songbird.Web.CompiledModels
             isDeleted.AddAnnotation("Relational:DefaultValueSql", "0");
             isDeleted.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
+            var morningStatus = runtimeEntityType.AddProperty(
+                "MorningStatus",
+                typeof(OfficeStatus),
+                propertyInfo: typeof(ScheduledStatus).GetProperty("MorningStatus", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(ScheduledStatus).GetField("<MorningStatus>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                maxLength: 50,
+                valueConverter: new StringToEnumValueConverter<OfficeStatus>());
+            morningStatus.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
+
             var scheduleId = runtimeEntityType.AddProperty(
                 "ScheduleId",
                 typeof(Guid),
                 propertyInfo: typeof(ScheduledStatus).GetProperty("ScheduleId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(ScheduledStatus).GetField("<ScheduleId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
             scheduleId.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
-
-            var status = runtimeEntityType.AddProperty(
-                "Status",
-                typeof(OfficeStatus),
-                propertyInfo: typeof(ScheduledStatus).GetProperty("Status", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(ScheduledStatus).GetField("<Status>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                maxLength: 50,
-                valueConverter: new StringToEnumValueConverter<OfficeStatus>());
-            status.AddAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.None);
 
             var updatedAt = runtimeEntityType.AddProperty(
                 "UpdatedAt",

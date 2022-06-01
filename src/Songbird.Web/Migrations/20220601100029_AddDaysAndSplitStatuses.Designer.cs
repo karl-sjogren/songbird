@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Songbird.Web;
 
@@ -11,9 +12,11 @@ using Songbird.Web;
 namespace Songbird.Web.Migrations
 {
     [DbContext(typeof(SongbirdContext))]
-    partial class SongbirdContextModelSnapshot : ModelSnapshot
+    [Migration("20220601100029_AddDaysAndSplitStatuses")]
+    partial class AddDaysAndSplitStatuses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
