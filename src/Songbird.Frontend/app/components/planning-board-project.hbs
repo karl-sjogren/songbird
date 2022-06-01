@@ -1,4 +1,4 @@
-<div class="project rough-borders">
+<div class="project rough-borders" style={{rough-seed-style this}}>
   <label for={{this.projectInputId}} class="sr-only">Kundprojekt</label>
   <SimpleSelect id={{this.projectInputId}} @value={{@model.projectId}} disabled={{this.disableSelect}} @onChange={{this.projectChanged}} as |s|>
     <s.option @value="">Välj kund</s.option>

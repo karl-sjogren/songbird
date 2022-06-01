@@ -4,6 +4,7 @@
     <PackageVersion Include="AspNetCore.HealthChecks.UI.Client" Version="6.0.4" />
     <PackageVersion Include="AutoMapper.Collection" Version="8.0.0" />
     <PackageVersion Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageVersion Include="FastEnum" Version="1.7.0" />
     <PackageVersion Include="LetterAvatars.AspNetCore" Version="2.0.0" />
     <PackageVersion Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="7.0.0-preview.4.22251.1" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.2.0" />
