@@ -6,6 +6,5 @@ public class ScheduledOfficeRole : ModelBase {
     public Guid ScheduleId { get; set; }
     public UserSchedule Schedule { get; set; }
 
-    public Guid RoleId { get; set; }
     public OfficeRole Role { get; set; }
 }

@@ -19,7 +19,7 @@ public static partial class ModelBuilderExtensions {
 
             entity
                 .HasMany(e => e.UserSchedules)
-                .WithOne()
+                .WithOne(e => e.PlanningBoard)
                 .HasForeignKey(e => e.PlanningBoardId)
                 .HasPrincipalKey(e => e.Id);
         });

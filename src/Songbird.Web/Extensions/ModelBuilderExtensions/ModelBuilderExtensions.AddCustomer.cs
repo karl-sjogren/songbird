@@ -17,7 +17,7 @@ public static partial class ModelBuilderExtensions {
 
             entity
                 .HasMany(e => e.Projects)
-                .WithOne()
+                .WithOne(e => e.Customer)
                 .HasForeignKey(e => e.CustomerId)
                 .HasPrincipalKey(e => e.Id);
         });

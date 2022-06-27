@@ -1,4 +1,5 @@
-<ul class="rough-borders {{if this.highlight "highlighted"}}">
+{{!-- template-lint-disable no-inline-styles --}}
+<ul class="rough-borders {{if this.highlight "highlighted"}}" style={{rough-seed-style this}}>
   {{#each @model.users as |user|}}
     <li>
       <img src="/api/profile-image/{{user.id}}/{{user.name}}" alt="" role="presentation" />

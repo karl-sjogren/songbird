@@ -7,7 +7,7 @@ export default class FikaScheduleService extends ServiceBase {
   }
 
   getLatestSchedules(numberOfSchedules = 5) {
-    return this.fetch('/api/fika-schedule/latest/' + numberOfSchedules)
+    return this.fetch(`/api/fika-schedule/latest/${numberOfSchedules}`)
       .then(response => response.json());
   }
 }

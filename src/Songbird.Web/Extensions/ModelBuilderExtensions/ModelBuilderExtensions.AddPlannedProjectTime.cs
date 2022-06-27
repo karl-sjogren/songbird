@@ -14,17 +14,25 @@ public static partial class ModelBuilderExtensions {
             entity.Property(e => e.Timestamp)
                 .IsRowVersion();
 
+            entity.Property(e => e.ScheduleId)
+                .IsRequired();
+
+            entity.Property(e => e.ProjectId)
+                .IsRequired();
+
             entity
                 .HasOne(e => e.Schedule)
                 .WithMany()
                 .HasForeignKey(e => e.ScheduleId)
-                .HasPrincipalKey(e => e.Id);
+                .HasPrincipalKey(e => e.Id)
+                .IsRequired();
 
             entity
                 .HasOne(e => e.Project)
                 .WithMany()
                 .HasForeignKey(e => e.ProjectId)
-                .HasPrincipalKey(e => e.Id);
+                .HasPrincipalKey(e => e.Id)
+                .IsRequired();
         });
     }
 }

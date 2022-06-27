@@ -8,9 +8,9 @@ namespace Songbird.Web.Services;
 
 public class ApplicationService : EditableEntityServiceBase<Application>, IApplicationService {
     private readonly SongbirdContext _songbirdContext;
-    private readonly ILogger<LunchGameService> _logger;
+    private readonly ILogger<ApplicationService> _logger;
 
-    public ApplicationService(SongbirdContext songbirdContext, IDateTimeProvider dateTimeProvider, ILogger<LunchGameService> logger)
+    public ApplicationService(SongbirdContext songbirdContext, IDateTimeProvider dateTimeProvider, ILogger<ApplicationService> logger)
         : base(songbirdContext, dateTimeProvider, logger) {
         _songbirdContext = songbirdContext;
         _logger = logger;

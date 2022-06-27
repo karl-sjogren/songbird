@@ -1,1 +1,1 @@
-<option value={{@value}} selected={{if (eq @currentValue @value) true false}}>{{@label}}</option>
+<option value={{@value}} data-value-type={{typeof @value}} selected={{if (eq @currentValue @value) true false}}>{{yield}}</option>

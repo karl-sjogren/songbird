@@ -8,31 +8,32 @@ public static partial class ModelBuilderExtensions {
         _ = modelBuilder.Entity<UserSchedule>(entity => {
             entity.AddModelBaseProperties();
 
+            entity.Property(e => e.PlanningBoardId)
+                .IsRequired();
+
             entity
                 .HasOne(e => e.User)
-                .WithMany()
+                .WithMany(e => e.Schedules)
                 .HasForeignKey(e => e.UserId)
                 .HasPrincipalKey(e => e.Id);
 
             entity
                 .HasOne(e => e.PlanningBoard)
-                .WithMany()
+                .WithMany(e => e.UserSchedules)
                 .HasForeignKey(e => e.PlanningBoardId)
                 .HasPrincipalKey(e => e.Id);
 
             entity
                 .HasMany(e => e.Projects)
-                .WithOne()
+                .WithOne(e => e.Schedule)
                 .HasForeignKey(e => e.ScheduleId)
                 .HasPrincipalKey(e => e.Id);
 
-            /*
             entity
                 .HasMany(e => e.Roles)
-                .WithOne()
+                .WithOne(e => e.Schedule)
                 .HasForeignKey(e => e.ScheduleId)
                 .HasPrincipalKey(e => e.Id);
-                */
         });
     }
 }

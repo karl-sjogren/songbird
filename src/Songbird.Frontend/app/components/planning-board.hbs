@@ -1,0 +1,51 @@
+<section
+  class="planning-board"
+  {{did-insert this.enableFullWidth}}
+  {{will-destroy this.disableFullWidth}}>
+  <div class="header">
+    <div>
+      Konsulter
+    </div>
+    <div>
+      Vecka 22
+    </div>
+    <div>
+      Måndag
+    </div>
+    <div>
+      Tisdag
+    </div>
+    <div>
+      Onsdag
+    </div>
+    <div>
+      Torsdag
+    </div>
+    <div>
+      Fredag
+    </div>
+  </div>
+  {{#each @model.userSchedules as |schedule|}}
+    <PlanningBoardRow @model={{schedule}} @projects={{@projects}} @addProject={{this.addProject}} @setProjectTime={{this.setProjectTime}} />
+  {{/each}}
+</section>
+
+{{#if this.showEvilPlanny}}
+  {{!-- template-lint-disable no-inline-styles --}}
+  <img src="/images/planny-the-cat-feather.svg" alt="" role="presentation" style="
+      position: fixed;
+      max-width: 80px;
+      bottom: 2rem;
+      right: 2rem;
+      opacity: 0.6;
+  ">
+{{else}}
+  {{!-- template-lint-disable no-inline-styles --}}
+  <img src="/images/planny-the-cat.svg" alt="" role="presentation" style="
+      position: fixed;
+      max-width: 80px;
+      bottom: 2rem;
+      right: 2rem;
+      opacity: 0.6;
+  ">
+{{/if}}

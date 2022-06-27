@@ -18,14 +18,13 @@ public class SongbirdContext : DbContext {
     public virtual DbSet<Customer> Customers { get; set; }
     public virtual DbSet<FikaMatch> FikaMatches { get; set; }
     public virtual DbSet<FikaSchedule> FikaSchedules { get; set; }
-    public virtual DbSet<LunchGame> LunchGames { get; set; }
-    public virtual DbSet<LunchGamingAttendance> LunchGamingAttendance { get; set; }
-    public virtual DbSet<LunchGamingDate> LunchGamingDates { get; set; }
-    public virtual DbSet<PlanningBoard> PlanningBoards { get; set; }
     public virtual DbSet<PlannedProjectTime> PlannedProjectTime { get; set; }
+    public virtual DbSet<PlanningBoard> PlanningBoards { get; set; }
     public virtual DbSet<Project> Projects { get; set; }
+    public virtual DbSet<ScheduledOfficeRole> ScheduledOfficeRoles { get; set; }
+    public virtual DbSet<ScheduledStatus> ScheduledStatuses { get; set; }
     public virtual DbSet<User> Users { get; set; }
-    public virtual DbSet<UserSchedule> UserScheduless { get; set; }
+    public virtual DbSet<UserSchedule> UserSchedules { get; set; }
     public virtual DbSet<UserPhoto> UserPhotos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
@@ -35,11 +34,13 @@ public class SongbirdContext : DbContext {
         modelBuilder.AddCustomer();
         modelBuilder.AddFikaMatch();
         modelBuilder.AddFikaSchedule();
-        modelBuilder.AddLunchGame();
-        modelBuilder.AddLunchGamingAttendance();
-        modelBuilder.AddLunchGamingDate();
+        modelBuilder.AddPlannedProjectTime();
+        modelBuilder.AddPlanningBoard();
         modelBuilder.AddProject();
+        modelBuilder.AddScheduledOfficeRole();
+        modelBuilder.AddScheduledStatus();
         modelBuilder.AddUser();
         modelBuilder.AddUserPhoto();
+        modelBuilder.AddUserSchedule();
     }
 }

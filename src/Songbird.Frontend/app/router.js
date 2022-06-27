@@ -10,4 +10,8 @@ Router.map(function() {
   this.route('fika-buddies');
   this.route('log-search');
   this.route('log-graphs');
+
+  this.route('planning-board', function() {
+    this.route('view', { path: '/:date' });
+  });
 });

@@ -19,12 +19,11 @@ namespace Songbird.Web.CompiledModels
             var customer = CustomerEntityType.Create(this);
             var fikaMatch = FikaMatchEntityType.Create(this);
             var fikaSchedule = FikaScheduleEntityType.Create(this);
-            var lunchGame = LunchGameEntityType.Create(this);
-            var lunchGamingAttendance = LunchGamingAttendanceEntityType.Create(this);
-            var lunchGamingDate = LunchGamingDateEntityType.Create(this);
             var plannedProjectTime = PlannedProjectTimeEntityType.Create(this);
             var planningBoard = PlanningBoardEntityType.Create(this);
             var project = ProjectEntityType.Create(this);
+            var scheduledOfficeRole = ScheduledOfficeRoleEntityType.Create(this);
+            var scheduledStatus = ScheduledStatusEntityType.Create(this);
             var user = UserEntityType.Create(this);
             var userPhoto = UserPhotoEntityType.Create(this);
             var userSchedule = UserScheduleEntityType.Create(this);
@@ -35,15 +34,12 @@ namespace Songbird.Web.CompiledModels
             ApplicationLogFilterEntityType.CreateForeignKey1(applicationLogFilter, application);
             CustomerEntityType.CreateForeignKey1(customer, binaryFile);
             FikaMatchEntityType.CreateForeignKey1(fikaMatch, fikaSchedule);
-            LunchGameEntityType.CreateForeignKey1(lunchGame, binaryFile);
-            LunchGamingAttendanceEntityType.CreateForeignKey1(lunchGamingAttendance, lunchGamingDate);
-            LunchGamingAttendanceEntityType.CreateForeignKey2(lunchGamingAttendance, lunchGamingDate);
-            LunchGamingAttendanceEntityType.CreateForeignKey3(lunchGamingAttendance, user);
-            LunchGamingDateEntityType.CreateForeignKey1(lunchGamingDate, lunchGame);
             PlannedProjectTimeEntityType.CreateForeignKey1(plannedProjectTime, project);
             PlannedProjectTimeEntityType.CreateForeignKey2(plannedProjectTime, userSchedule);
             ProjectEntityType.CreateForeignKey1(project, customer);
             ProjectEntityType.CreateForeignKey2(project, binaryFile);
+            ScheduledOfficeRoleEntityType.CreateForeignKey1(scheduledOfficeRole, userSchedule);
+            ScheduledStatusEntityType.CreateForeignKey1(scheduledStatus, userSchedule);
             UserScheduleEntityType.CreateForeignKey1(userSchedule, planningBoard);
             UserScheduleEntityType.CreateForeignKey2(userSchedule, user);
 
@@ -57,12 +53,11 @@ namespace Songbird.Web.CompiledModels
             CustomerEntityType.CreateAnnotations(customer);
             FikaMatchEntityType.CreateAnnotations(fikaMatch);
             FikaScheduleEntityType.CreateAnnotations(fikaSchedule);
-            LunchGameEntityType.CreateAnnotations(lunchGame);
-            LunchGamingAttendanceEntityType.CreateAnnotations(lunchGamingAttendance);
-            LunchGamingDateEntityType.CreateAnnotations(lunchGamingDate);
             PlannedProjectTimeEntityType.CreateAnnotations(plannedProjectTime);
             PlanningBoardEntityType.CreateAnnotations(planningBoard);
             ProjectEntityType.CreateAnnotations(project);
+            ScheduledOfficeRoleEntityType.CreateAnnotations(scheduledOfficeRole);
+            ScheduledStatusEntityType.CreateAnnotations(scheduledStatus);
             UserEntityType.CreateAnnotations(user);
             UserPhotoEntityType.CreateAnnotations(userPhoto);
             UserScheduleEntityType.CreateAnnotations(userSchedule);

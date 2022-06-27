@@ -71,8 +71,6 @@ public class Startup {
         services.AddScoped<IFikaScheduleService, FikaScheduleService>();
         services.AddScoped<ILogGraphService, LogGraphService>();
         services.AddScoped<ILogSearchService, LogSearchService>();
-        services.AddScoped<ILunchGameService, LunchGameService>();
-        services.AddScoped<ILunchGamingDateService, LunchGamingDateService>();
         services.AddScoped<IPlanningBoardService, PlanningBoardService>();
         services.AddScoped<IUserService, UserService>();
 

@@ -9,6 +9,7 @@ public class Customer : ModelBase {
     }
 
     public string Name { get; set; }
+    public string ShortName { get; set; }
     public byte[] Timestamp { get; set; }
 
     public Guid? IconId { get; set; }
