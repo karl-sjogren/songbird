@@ -23,7 +23,7 @@
   	<PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1" />
     <PackageVersion Include="Moq" Version="4.18.1" />
     <PackageVersion Include="NEST" Version="7.17.4" />
-    <PackageVersion Include="NEST.JsonNetSerializer" Version="7.17.3" />
+    <PackageVersion Include="NEST.JsonNetSerializer" Version="7.17.4" />
     <PackageVersion Include="RobotsTxtCore" Version="2.1.1" />
     <PackageVersion Include="Roslynator.Analyzers" Version="4.1.1" />
     <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="4.1.1" />
