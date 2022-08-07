@@ -169,11 +169,14 @@ dotnet_diagnostic.IDE0049.severity = none
 dotnet_diagnostic.IDE0130.severity = warning
 dotnet_diagnostic.CA2016.severity = warning
 
+# Karls Analyzers
+dotnet_diagnostic.KP0001.severity = warning
+
 
 [**/Migrations/*.cs]
 generated_code = true
 
-[*.{appxmanifest,axml,build,config,csproj,dbml,discomap,dtd,jsproj,lsproj,njsproj,nuspec,proj,props,proto,resw,resx,StyleCop,targets,tasks,vbproj,xml,xsd}]
+[*.{appxmanifest,axml,build,config,dbml,discomap,dtd,jsproj,lsproj,njsproj,nuspec,proj,props,proto,resw,resx,StyleCop,targets,tasks,vbproj,xml,xsd}]
 indent_style=tab
 indent_size=tab
 tab_width=4
@@ -183,7 +186,7 @@ indent_style=space
 indent_size=4
 tab_width=4
 
-[*.{js,json,resjson}]
+[*.{js,json,resjson,csproj}]
 indent_style=space
 indent_size=2
 tab_width=2
