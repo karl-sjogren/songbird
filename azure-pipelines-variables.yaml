@@ -17,7 +17,7 @@ variables:
   - name:  CONNECTION_STRING_PRODUCTION
     value: $[variables.ProductionConnectionString]
   - name:  SDK_VERSION
-    value: '7.0.100-preview.6.22352.1'
+    value: '7.0.100-rc.1.22431.12'
   - name:  SDK_VERSION_PATH_SEGMENT
     value: 'net7.0'
   - name:  SAFE_BRANCH
