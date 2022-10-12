@@ -11,7 +11,7 @@
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="4.3.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0-rc.1.22426.7" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.0-rc.1.22426.7" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0-rc.1.22426.7" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0-rc.2.22472.11" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.0-rc.1.22426.7" />
     <PackageVersion Include="Microsoft.Extensions.Caching.SqlServer" Version="7.0.0-rc.1.22427.2" />
     <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="7.0.0-rc.1.22427.2" />
