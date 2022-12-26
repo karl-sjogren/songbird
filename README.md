@@ -50,3 +50,5 @@ done by running the `generate-ef-models` node script like this.
 ```sh
 yarn generate-ef-models
 ```
+
+.
