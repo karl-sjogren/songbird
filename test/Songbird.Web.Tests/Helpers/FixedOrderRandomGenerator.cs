@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using Shouldly;
 using Songbird.Web.Contracts;
-using Xunit;
 
 namespace Songbird.Web.Tests.Helpers;
 
-public class FixedOrderRandomGenerator : IRandomNumberGenerator {
+internal class FixedOrderRandomGenerator : IRandomNumberGenerator {
     private readonly IEnumerator<double> _generator;
 
     public FixedOrderRandomGenerator(IEnumerable<double> generator) {

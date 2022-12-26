@@ -1,4 +1,3 @@
-using System;
 using Songbird.Web.Contracts;
 
 namespace Songbird.Web.Tests.Helpers;

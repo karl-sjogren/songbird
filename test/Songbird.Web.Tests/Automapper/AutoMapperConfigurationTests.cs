@@ -1,5 +1,4 @@
 using AutoMapper;
-using Xunit;
 
 namespace Songbird.Web.Tests.Automapper;
 
