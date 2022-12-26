@@ -26,11 +26,11 @@ class JUnitReporter {
   }
 
   _formatOutput() {
+    let totalTime = 0;
     const suites = builder.create('testsuites');
     const suite = suites.element('testsuite');
 
     suite.attribute('name', 'Test Suite');
-    console.log(JSON.stringify(this.results, null, 2));
 
     suite.attribute('tests', this.results.filter(it => !it.data.skipped).length);
     suite.attribute('failures', this.results.filter(it => it.data.failed).length);
@@ -46,13 +46,18 @@ class JUnitReporter {
       el.attribute('classname', data.name);
       el.attribute('time', durationFromMs(data.runDuration));
 
+      totalTime += data.runDuration;
+
       if(data.error) {
         const failure = el.element('failure');
         failure.text(data.error.message);
       }
     }
 
-    return suite.end({ pretty: true });
+    suite.attribute('time', durationFromMs(totalTime));
+    suites.attribute('time', durationFromMs(totalTime));
+
+    return suites.end({ pretty: true });
   }
 }
 
