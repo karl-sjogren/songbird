@@ -1,6 +1,7 @@
 {
   "name": "songbird",
   "version": "0.0.0",
+  "packageManager": "yarn@3.3.1",
   "private": true,
   "description": "Songbird frontend",
   "repository": "",
