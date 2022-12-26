@@ -71,6 +71,8 @@ jobs:
     - name: Run frontend tests
       run: yarn test:ember || exit 0
       working-directory: ./src/Songbird.Frontend/
+      env:
+        COVERAGE: true
 
     - name: Upload test results
       uses: actions/upload-artifact@v3.1.1

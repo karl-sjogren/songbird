@@ -3,6 +3,7 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const fontelloPlugin = require('./tasks/fontello-plugin');
 const merge = require('broccoli-merge-trees');
+const emberCliCodeCoverage = require('ember-cli-code-coverage');
 
 const isProduction = process.env.EMBER_ENV === 'production';
 const disableFingerprinting = process.argv.indexOf('--disable-fingerprinting') !== -1;
@@ -19,7 +20,8 @@ module.exports = function(defaults) {
       plugins: [
         '@babel/plugin-proposal-numeric-separator',
         '@babel/plugin-transform-literals',
-        '@babel/plugin-proposal-optional-chaining'
+        '@babel/plugin-proposal-optional-chaining',
+        ...emberCliCodeCoverage.buildBabelPlugin()
       ]
     },
     'ember-cli-babel': {

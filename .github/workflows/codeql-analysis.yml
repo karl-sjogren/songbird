@@ -12,10 +12,7 @@
 name: "CodeQL"
 
 on:
-  push:
-    branches: [ main, develop ]
   pull_request:
-    # The branches below must be a subset of the branches above
     branches: [ main, develop ]
   schedule:
     - cron: '33 4 * * 1'
@@ -32,17 +29,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'javascript', 'csharp' ] # C# Disabled since this can't build .Net6 yet.
-        # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python' ]
-        # Learn more:
-        # https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed
+        language: [ 'javascript', 'csharp' ]
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     - name: Setup .NET Core SDK
-      uses: actions/setup-dotnet@v1.8.2
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 7.0.101
 
