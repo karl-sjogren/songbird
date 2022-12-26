@@ -14447,6 +14447,7 @@ __metadata:
     testem-gitlab-reporter: 1.0.0
     testem-multi-reporter: 1.2.0
     webpack: ^5.72.0
+    xmlbuilder: ^15.1.1
     xmlhttprequest-ssl: ^2.0.0
   languageName: unknown
   linkType: soft
@@ -16424,6 +16425,13 @@ __metadata:
   version: 13.0.2
   resolution: "xmlbuilder@npm:13.0.2"
   checksum: 03b316a8f6f9ab188f4b3a04a224782b8ef1f5e517773ef719a044e7267bad1c081a57bbcbfc43247d2dad168d55de54fbc62d4ed8524cadeb433a62bd8583dd
+  languageName: node
+  linkType: hard
+
+"xmlbuilder@npm:^15.1.1":
+  version: 15.1.1
+  resolution: "xmlbuilder@npm:15.1.1"
+  checksum: 14f7302402e28d1f32823583d121594a9dca36408d40320b33f598bd589ca5163a352d076489c9c64d2dc1da19a790926a07bf4191275330d4de2b0d85bb1843
   languageName: node
   linkType: hard
 

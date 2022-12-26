@@ -1,6 +1,6 @@
 const fs = require('fs');
 const MultiReporter = require('testem-multi-reporter');
-const GitLabReporter = require('testem-gitlab-reporter');
+const JUnitReporter = require('./testem/junit-reporter');
 // eslint-disable-next-line node/no-extraneous-require
 const TAPReporter = require('testem/lib/reporters/tap_reporter');
 
@@ -11,7 +11,7 @@ let reporter = new MultiReporter({
       args: [false, null, { get: () => false }],
     },
     {
-      ReporterClass: GitLabReporter,
+      ReporterClass: JUnitReporter,
       args: [false, fs.createWriteStream('junit.xml'), { get: () => false }],
     },
   ],

@@ -1,43 +1,46 @@
 {
-    "files.exclude": {
-        "**/.git": true,
-        "**/.DS_Store": true,
-        "**/node_modules": true,
-        "**/bin": true,
-        "**/obj": true,
-        "**/dist": true,
-        "**/tmp": true
-    },
-    "[javascript]": {
-        "editor.tabSize": 2
-    },
-    "[json]": {
-        "editor.tabSize": 2
-    },
-    "[csharp]": {
-        "editor.tabSize": 4
-    },
-    "[html]": {
-        "editor.tabSize": 2
-    },
-    "[handlebars]": {
-        "editor.tabSize": 2
-    },
-    "[less]": {
-        "editor.tabSize": 2
-    },
-    "[csproj]": {
-        "editor.tabSize": 2
-    },
-    "eslint.packageManager": "yarn",
-    "eslint.workingDirectories": ["./src/Songbird.Frontend/"],
-    "css.validate": false,
-    "scss.validate": false,
-    "stylelint.enable": true,
-    "stylelint.packageManager": "yarn",
-    "omnisharp.enableRoslynAnalyzers": false,
-    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
-    "javascript.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
-    "stylelint.configBasedir": "src/Songbird.Frontend/",
-    "stylelint.configFile": ".stylelintrc"
+  "files.exclude": {
+    "**/.git": true,
+    "**/.yarn/cache": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/bin": true,
+    "**/obj": true,
+    "**/dist": true,
+    "**/tmp": true
+  },
+  "[javascript]": {
+    "editor.tabSize": 2
+  },
+  "[json]": {
+    "editor.tabSize": 2
+  },
+  "[csharp]": {
+    "editor.tabSize": 4
+  },
+  "[html]": {
+    "editor.tabSize": 2
+  },
+  "[handlebars]": {
+    "editor.tabSize": 2
+  },
+  "[less]": {
+    "editor.tabSize": 2
+  },
+  "[csproj]": {
+    "editor.tabSize": 2
+  },
+  "eslint.packageManager": "yarn",
+  "eslint.workingDirectories": [
+    "./src/Songbird.Frontend/"
+  ],
+  "css.validate": false,
+  "scss.validate": false,
+  "stylelint.enable": true,
+  "stylelint.packageManager": "yarn",
+  "omnisharp.enableRoslynAnalyzers": false,
+  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+  "javascript.format.insertSpaceAfterKeywordsInControlFlowStatements": false,
+  "stylelint.configBasedir": "src/Songbird.Frontend/",
+  "stylelint.configFile": ".stylelintrc"
 }
