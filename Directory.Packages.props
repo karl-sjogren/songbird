@@ -9,7 +9,7 @@
     <PackageVersion Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="7.0.3" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.4.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.CodeStyle" Version="4.4.0" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.1" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.3" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.3" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.1" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.1" />
